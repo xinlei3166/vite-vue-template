@@ -1,8 +1,6 @@
 <template>
   <div class="router">Router</div>
-  <div class="router" style="cursor: pointer" @click="onRedirect">
-    点击跳转到首页
-  </div>
+  <div class="router" style="cursor: pointer" @click="onRedirect">点击跳转到首页</div>
 </template>
 
 <script tslang="">

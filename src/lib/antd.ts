@@ -7,19 +7,11 @@ import {
   Select,
   Input,
   Breadcrumb,
+  Dropdown,
   Layout
 } from 'ant-design-vue'
 
-export const components = [
-  Menu,
-  Button,
-  Card,
-  Form,
-  Select,
-  Input,
-  Breadcrumb,
-  Layout
-]
+export const components = [Menu, Button, Card, Form, Select, Input, Breadcrumb, Dropdown, Layout]
 
 export function useAntd(app: App) {
   components.forEach(component => {

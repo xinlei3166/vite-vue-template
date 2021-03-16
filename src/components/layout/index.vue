@@ -1,17 +1,29 @@
 <template>
   <a-layout id="layout" :style="{ overflow: 'auto', height: '100vh' }">
-    <a-layout-sider v-model:collapsed="collapsed" :trigger="null" collapsible>
+    <a-layout-sider
+      v-model:collapsed="collapsed"
+      class="layout-sider"
+      :trigger="null"
+      collapsible
+      width="208"
+      collapsed-width="80"
+    >
       <div class="logo">
         <a href="/" class="logo-link">
           <img class="logo-img" src="~@/assets/logo.png" alt="logo" />
           <h1 v-if="!collapsed" class="logo-text">Vue3 Demo</h1>
         </a>
       </div>
-      <a-menu v-model:selectedKeys="selectedKeys" theme="dark" mode="inline">
+      <a-menu
+        v-model:selectedKeys="selectedKeys"
+        :class="['sider-menu', { 'show-name': showSubMenuName }]"
+        theme="dark"
+        mode="inline"
+      >
         <a-sub-menu key="sub1">
           <template #title>
-            <user-outlined />
-            <span>一级菜单</span>
+            <AppstoreOutlined />
+            <span>Components</span>
           </template>
           <a-menu-item key="home">Home</a-menu-item>
           <a-menu-item key="vue">Vue</a-menu-item>
@@ -21,24 +33,20 @@
       </a-menu>
     </a-layout-sider>
     <a-layout>
-      <a-layout-header style="background: #fff; padding: 0">
+      <a-layout-header class="layout-header">
         <menu-unfold-outlined
           v-if="collapsed"
           class="trigger"
           @click="() => (collapsed = !collapsed)"
         />
         <menu-fold-outlined v-else class="trigger" @click="() => (collapsed = !collapsed)" />
+        <Nav />
       </a-layout-header>
-      <a-layout-content
-        :style="{
-          margin: '24px 16px',
-          padding: '24px',
-          background: '#fff',
-          minHeight: '280px'
-        }"
-      >
+      <div class="layout-breadcrumb">
         <Breadcrumb />
-        Content
+      </div>
+      <a-layout-content class="layout-content">
+        <router-view />
       </a-layout-content>
     </a-layout>
   </a-layout>
@@ -46,24 +54,26 @@
 
 <script lang="ts">
 import { ref } from 'vue'
+import Nav from './Nav.vue'
 import Breadcrumb from './Breadcrumb.vue'
 import {
   UserOutlined,
-  VideoCameraOutlined,
-  UploadOutlined,
+  AppstoreOutlined,
   MenuUnfoldOutlined,
   MenuFoldOutlined
 } from '@ant-design/icons-vue'
 export default {
   components: {
+    Nav,
     Breadcrumb,
-    UserOutlined,
+    AppstoreOutlined,
     MenuUnfoldOutlined,
     MenuFoldOutlined
   },
   setup() {
     return {
       collapsed: ref(false),
+      showSubMenuName: ref(false),
       selectedKeys: ref(['home'])
     }
   }
@@ -78,17 +88,25 @@ export default {
   padding: 16px 16px;
   line-height: 32px;
   cursor: pointer;
+
   .logo-link {
     display: flex;
     align-items: center;
     justify-content: center;
     min-height: 32px;
   }
-  .logo-img {
+
+  .logo-img,
+  .logo-text {
     display: inline-block;
     height: 32px;
     vertical-align: middle;
   }
+
+  .logo-img {
+    transition: height 0.2s;
+  }
+
   .logo-text {
     margin: 0 0 0 12px;
     overflow: hidden;
@@ -103,18 +121,45 @@ export default {
 
 #layout {
   ::v-deep(.trigger) {
-    font-size: 18px;
-    line-height: 64px;
-    padding: 0 24px;
+    font-size: 20px;
+    margin: 0 16px;
     cursor: pointer;
     transition: color 0.3s;
   }
+
   .trigger:hover {
     color: #1890ff;
   }
 }
 
-.site-layout .site-layout-background {
+.layout-sider.ant-layout-sider-collapsed {
+  .logo {
+    padding: 16px 24px;
+  }
+}
+
+.layout-header {
   background: #fff;
+  padding: 0 16px;
+  height: 48px;
+  line-height: 48px;
+  width: 100%;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-shadow: 0 1px 4px rgb(0 21 41 / 8%);
+}
+
+.layout-breadcrumb {
+  background: #fff;
+  padding: 12px 24px;
+}
+
+.layout-content {
+  margin: 24px;
+  padding: 24px;
+  background: #fff;
+  min-height: 280px;
 }
 </style>

@@ -9,6 +9,6 @@ eslintIntegration: true,
 stylelintIntegration: true
 vueIndentScriptAndStyle: false
 embeddedLanguageFormatting: "auto"
-stylelintIntegration": false
+htmlWhitespaceSensitivity: "ignore" # 属性标签格式化符合预期
 tslintIntegration: false
 ignorePath: ".prettierignore"
