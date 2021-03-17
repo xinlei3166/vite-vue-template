@@ -9,10 +9,10 @@
       collapsed-width="80"
     >
       <div class="logo">
-        <a href="/" class="logo-link">
+        <router-link to="/" class="logo-link">
           <img class="logo-img" src="~@/assets/logo.png" alt="logo" />
           <h1 v-if="!collapsed" class="logo-text">Vue3 Demo</h1>
-        </a>
+        </router-link>
       </div>
       <a-menu
         v-model:selectedKeys="selectedKeys"
@@ -20,16 +20,19 @@
         theme="dark"
         mode="inline"
       >
-        <a-sub-menu key="sub1">
-          <template #title>
-            <AppstoreOutlined />
-            <span>Components</span>
-          </template>
-          <a-menu-item key="home">Home</a-menu-item>
-          <a-menu-item key="vue">Vue</a-menu-item>
-          <a-menu-item key="router">Router</a-menu-item>
-          <a-menu-item key="store">Store</a-menu-item>
-        </a-sub-menu>
+        <template v-for="route in routes" :key="route.name">
+          <a-sub-menu v-if="!route.meta.hidden" :key="route.name">
+            <template #title>
+              <AppstoreOutlined />
+              <span>{{ route.meta.title }}</span>
+            </template>
+            <template v-for="sub in route.children" :key="sub.name">
+              <a-menu-item v-if="!sub.meta.hidden" :key="sub.name">
+                <router-link :to="{ name: sub.name }">{{ sub.meta.title }}</router-link>
+              </a-menu-item>
+            </template>
+          </a-sub-menu>
+        </template>
       </a-menu>
     </a-layout-sider>
     <a-layout>
@@ -53,16 +56,13 @@
 </template>
 
 <script lang="ts">
-import { ref } from 'vue'
+import { defineComponent, ref } from 'vue'
 import Nav from './Nav.vue'
 import Breadcrumb from './Breadcrumb.vue'
-import {
-  UserOutlined,
-  AppstoreOutlined,
-  MenuUnfoldOutlined,
-  MenuFoldOutlined
-} from '@ant-design/icons-vue'
-export default {
+import { AppstoreOutlined, MenuUnfoldOutlined, MenuFoldOutlined } from '@ant-design/icons-vue'
+import routes from '../../router/routes'
+
+export default defineComponent({
   components: {
     Nav,
     Breadcrumb,
@@ -74,10 +74,11 @@ export default {
     return {
       collapsed: ref(false),
       showSubMenuName: ref(false),
-      selectedKeys: ref(['home'])
+      selectedKeys: ref(['home']),
+      routes
     }
   }
-}
+})
 </script>
 
 <style lang="scss" scoped>

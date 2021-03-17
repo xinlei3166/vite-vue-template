@@ -1,18 +1,12 @@
 <template>
-  <div class="home">Home</div>
+  <div class="title">Home</div>
+  <div class="title">各组件展示了Vue3的基本用法</div>
 </template>
 
-<script tslang="">
+<script lang="ts">
 import { defineComponent } from 'vue'
 
 export default defineComponent({})
 </script>
 
-<style lang="scss" scoped>
-.home {
-  font-size: 24px;
-  color: deeppink;
-  margin-left: 100px;
-  padding: 24px;
-}
-</style>
+<style lang="scss" scoped></style>

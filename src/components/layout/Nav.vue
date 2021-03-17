@@ -35,13 +35,14 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
+import { defineComponent } from 'vue'
 import { BellOutlined, UserOutlined, LoginOutlined, SettingOutlined } from '@ant-design/icons-vue'
 
-export default {
+export default defineComponent({
   name: 'Nav',
   components: { BellOutlined, UserOutlined, LoginOutlined, SettingOutlined }
-}
+})
 </script>
 
 <style lang="scss" scoped>

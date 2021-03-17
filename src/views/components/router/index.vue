@@ -1,9 +1,9 @@
 <template>
-  <div class="router">Router</div>
-  <div class="router" style="cursor: pointer" @click="onRedirect">点击跳转到首页</div>
+  <div class="title">Router</div>
+  <div class="title" style="cursor: pointer" @click="onRedirect">点击跳转到首页</div>
 </template>
 
-<script tslang="">
+<script lang="ts">
 import { defineComponent } from 'vue'
 import { useRouter } from 'vue-router'
 
@@ -20,11 +20,4 @@ export default defineComponent({
 })
 </script>
 
-<style lang="scss" scoped>
-.router {
-  font-size: 24px;
-  color: deeppink;
-  margin-left: 100px;
-  padding: 24px;
-}
-</style>
+<style lang="scss" scoped></style>

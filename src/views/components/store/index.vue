@@ -1,29 +1,33 @@
 <template>
-  <div class="store">Store</div>
-  <div class="store">当前用户：{{ userinfo.name }}</div>
+  <div class="title">Store</div>
+  <a-input
+    v-model:value="name"
+    style="margin-left: 84px; margin-right: 16px; width: 240px"
+    placeholder="请输入用户名"
+  />
+  <a-button type="primary" @click="onSubmit">提交</a-button>
+  <div class="title">当前用户：{{ userinfo.name }}</div>
 </template>
 
-<script tslang="">
-import { defineComponent, toRef, toRefs } from 'vue'
+<script lang="ts">
+import { defineComponent, ref, toRef, toRefs } from 'vue'
 import { useStore } from '@/store'
 
 export default defineComponent({
   setup() {
+    const name = ref('君惜')
     const store = useStore()
-    store.dispatch('user/setUserinfo')
+    store.dispatch('user/setUserinfo', name.value)
     const { userinfo } = toRefs(store.state.user)
     // const userinfo = toRef(store.state.user, 'userinfo')
 
-    return { userinfo }
+    function onSubmit() {
+      store.dispatch('user/setUserinfo', name.value)
+    }
+
+    return { name, onSubmit, userinfo }
   }
 })
 </script>
 
-<style lang="scss" scoped>
-.store {
-  font-size: 24px;
-  color: deeppink;
-  margin-left: 100px;
-  padding: 24px;
-}
-</style>
+<style lang="scss" scoped></style>

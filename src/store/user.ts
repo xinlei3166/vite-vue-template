@@ -16,14 +16,14 @@ const state = (): State => {
 const getters = {}
 
 const mutations = {
-  changeUserinfo(state: State) {
-    state.userinfo.name = '君惜'
+  changeUserinfo(state: State, name: string) {
+    state.userinfo.name = name
   }
 }
 
 const actions = {
-  setUserinfo(context: ActionContext<State, RootState>) {
-    context.commit('changeUserinfo')
+  setUserinfo(context: ActionContext<State, RootState>, name: string) {
+    context.commit('changeUserinfo', name)
   }
 }
 

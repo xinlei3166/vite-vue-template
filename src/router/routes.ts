@@ -6,6 +6,9 @@ const routes: RouteRecordRaw[] = [
   {
     path: '/',
     component: Layout,
+    meta: {
+      hidden: true
+    },
     children: [
       {
         path: '',
@@ -48,6 +51,38 @@ const routes: RouteRecordRaw[] = [
           title: 'store'
         },
         component: () => import('../views/components/store/index.vue')
+      },
+      {
+        path: 'provide-inject',
+        name: 'provide-inject',
+        meta: {
+          title: 'provide'
+        },
+        component: () => import('../views/components/provide/index.vue')
+      },
+      {
+        path: 'bus',
+        name: 'bus',
+        meta: {
+          title: 'bus'
+        },
+        component: () => import('../views/components/bus/index.vue')
+      },
+      {
+        path: 'table',
+        name: 'table',
+        meta: {
+          title: 'table'
+        },
+        component: () => import('../views/components/table/index.vue')
+      },
+      {
+        path: 'draggable',
+        name: 'draggable',
+        meta: {
+          title: 'draggable'
+        },
+        component: () => import('../views/components/draggable/index.vue')
       }
     ]
   }

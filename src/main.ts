@@ -2,16 +2,18 @@ import { createApp } from 'vue'
 import App from './App.vue'
 import router from './router'
 import { store, key } from './store'
-import { useAntd, pagination } from './lib/antd'
+import antd from './plugins/antd'
+import auth from './plugins/auth'
+import bus from './plugins/bus'
+import './styles/index.scss'
+import './mock'
 
 const app = createApp(App)
 
-useAntd(app)
 app.use(router)
 app.use(store, key)
-
-app.config.globalProperties.$auth = () => {
-  // store.auth.xxx = xxx
-}
+app.use(antd)
+app.use(auth)
+app.use(bus)
 
 app.mount('#app')

@@ -8,15 +8,30 @@ import {
   Input,
   Breadcrumb,
   Dropdown,
-  Layout
+  Layout,
+  Table
 } from 'ant-design-vue'
 
-export const components = [Menu, Button, Card, Form, Select, Input, Breadcrumb, Dropdown, Layout]
+export const components = [
+  Menu,
+  Button,
+  Card,
+  Form,
+  Select,
+  Input,
+  Breadcrumb,
+  Dropdown,
+  Layout,
+  Table
+]
 
-export function useAntd(app: App) {
-  components.forEach(component => {
-    app.use(component)
-  })
+export default {
+  install: (app: App) => {
+    components.forEach(component => {
+      app.use(component)
+    })
+    app.provide('pagination', pagination)
+  }
 }
 
 export const pagination = {
@@ -24,6 +39,7 @@ export const pagination = {
   current: 1,
   defaultCurrent: 1,
   pageSize: 20,
+  total: 0,
   showTotal: (total: number | string) => `共${total}条`,
   showLessItems: true,
   showQuickJumper: true,

@@ -11,25 +11,26 @@
   </a-breadcrumb>
 </template>
 
-<script>
-import { toRefs } from 'vue'
+<script lang="ts">
+import { defineComponent, computed } from 'vue'
 import { useRouter } from 'vue-router'
-import { findParentRoutes } from '@/utils'
 
-export default {
+export default defineComponent({
   setup() {
     const router = useRouter()
-    const routes = router.currentRoute.value.matched
-      .filter(route => route.name)
-      .map(route => ({
-        meta: route.meta,
-        name: route.name,
-        path: route.path
-      }))
+    const routes = computed(() => {
+      return router.currentRoute.value.matched
+        .filter(route => route.name)
+        .map(route => ({
+          meta: route.meta,
+          name: route.name,
+          path: route.path
+        }))
+    })
 
     return { routes }
   }
-}
+})
 </script>
 
 <style scoped></style>
