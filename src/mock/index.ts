@@ -1,11 +1,15 @@
 import Mock from 'mockjs'
 
+Mock.setup({
+  timeout: 300
+})
+
 // 获取 mock.Random 对象
 const Random = Mock.Random
 // mock一组数据
-const produceNewsData = function () {
+const response = function () {
   const arr = []
-  for (let i = 0; i < 100; i++) {
+  for (let i = 0; i < 20; i++) {
     const obj = {
       id: i + 1,
       name: Random.cname(), // Random.cname() 随机生成一个常见的中文姓名
@@ -19,9 +23,9 @@ const produceNewsData = function () {
   return {
     code: 0,
     data: arr,
-    total: arr.length
+    total: 100
   }
 }
 
 // 拦截ajax请求，配置mock的数据
-Mock.mock('/api/table/data', 'post', produceNewsData)
+Mock.mock('/api/table/data', 'post', response)

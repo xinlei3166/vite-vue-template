@@ -2,7 +2,7 @@
   <a-layout id="layout" :style="{ overflow: 'auto', height: '100vh' }">
     <a-layout-sider
       v-model:collapsed="collapsed"
-      class="layout-sider"
+      :class="['layout-sider', { 'show-name': showSubMenuName }]"
       :trigger="null"
       collapsible
       width="208"
@@ -14,16 +14,11 @@
           <h1 v-if="!collapsed" class="logo-text">Vue3 Demo</h1>
         </router-link>
       </div>
-      <a-menu
-        v-model:selectedKeys="selectedKeys"
-        :class="['sider-menu', { 'show-name': showSubMenuName }]"
-        theme="dark"
-        mode="inline"
-      >
+      <a-menu v-model:selectedKeys="selectedKeys" class="sider-menu" theme="dark" mode="inline">
         <template v-for="route in routes" :key="route.name">
           <a-sub-menu v-if="!route.meta.hidden" :key="route.name">
             <template #title>
-              <AppstoreOutlined />
+              <icon :type="route.meta.icon" class="icon"></icon>
               <span>{{ route.meta.title }}</span>
             </template>
             <template v-for="sub in route.children" :key="sub.name">
@@ -59,21 +54,20 @@
 import { defineComponent, ref } from 'vue'
 import Nav from './Nav.vue'
 import Breadcrumb from './Breadcrumb.vue'
-import { AppstoreOutlined, MenuUnfoldOutlined, MenuFoldOutlined } from '@ant-design/icons-vue'
+import { MenuUnfoldOutlined, MenuFoldOutlined } from '@ant-design/icons-vue'
 import routes from '../../router/routes'
 
 export default defineComponent({
   components: {
     Nav,
     Breadcrumb,
-    AppstoreOutlined,
     MenuUnfoldOutlined,
     MenuFoldOutlined
   },
   setup() {
     return {
       collapsed: ref(false),
-      showSubMenuName: ref(false),
+      showSubMenuName: ref(true), // 控制左侧菜单折叠时，是否显示文字
       selectedKeys: ref(['home']),
       routes
     }
@@ -137,6 +131,34 @@ export default defineComponent({
   .logo {
     padding: 16px 24px;
   }
+
+  .ant-menu-submenu-title .anticon {
+    font-size: 16px;
+  }
+}
+
+.layout-sider.ant-layout-sider-collapsed.show-name {
+  .ant-menu-submenu {
+    padding-bottom: 16px;
+  }
+
+  ::v-deep(.ant-menu-submenu-title) {
+    padding: 0 !important;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .ant-menu-submenu-title .anticon {
+    line-height: 1;
+    transition: none;
+  }
+
+  .ant-menu-submenu-title .anticon + span {
+    max-width: unset;
+    opacity: unset;
+    line-height: 26px;
+  }
 }
 
 .layout-header {
@@ -158,9 +180,6 @@ export default defineComponent({
 }
 
 .layout-content {
-  margin: 24px;
   padding: 24px;
-  background: #fff;
-  min-height: 280px;
 }
 </style>

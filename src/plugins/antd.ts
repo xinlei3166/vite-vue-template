@@ -1,5 +1,6 @@
 import { App } from 'vue'
 import {
+  ConfigProvider,
   Menu,
   Button,
   Card,
@@ -13,6 +14,7 @@ import {
 } from 'ant-design-vue'
 
 export const components = [
+  ConfigProvider,
   Menu,
   Button,
   Card,
@@ -30,19 +32,5 @@ export default {
     components.forEach(component => {
       app.use(component)
     })
-    app.provide('pagination', pagination)
   }
-}
-
-export const pagination = {
-  size: 'small',
-  current: 1,
-  defaultCurrent: 1,
-  pageSize: 20,
-  total: 0,
-  showTotal: (total: number | string) => `共${total}条`,
-  showLessItems: true,
-  showQuickJumper: true,
-  showSizeChanger: true,
-  pageSizeOptions: ['10', '20', '30', '40', '50']
 }

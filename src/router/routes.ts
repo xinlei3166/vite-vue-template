@@ -24,18 +24,11 @@ const routes: RouteRecordRaw[] = [
     path: '/components',
     name: 'components',
     meta: {
-      title: 'components'
+      title: '常用组件',
+      icon: 'iconshezhi'
     },
     component: Layout,
     children: [
-      {
-        path: 'vue',
-        name: 'vue',
-        meta: {
-          title: 'vue'
-        },
-        component: () => import('../components/HelloWorld.vue')
-      },
       {
         path: 'router',
         name: 'router',
@@ -86,6 +79,25 @@ const routes: RouteRecordRaw[] = [
       }
     ]
   }
+  // {
+  //   path: '/others',
+  //   name: 'others',
+  //   meta: {
+  //     title: '其他组件',
+  //     icon: 'iconshezhi'
+  //   },
+  //   component: Layout,
+  //   children: [
+  //     {
+  //       path: 'vue',
+  //       name: 'vue',
+  //       meta: {
+  //         title: 'vue'
+  //       },
+  //       component: () => import('../components/HelloWorld.vue')
+  //     }
+  //   ]
+  // }
 ]
 
 export default routes

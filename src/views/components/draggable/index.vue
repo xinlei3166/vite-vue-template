@@ -1,20 +1,22 @@
 <template>
-  <div class="title">Draggable</div>
-  <div class="draggable-wrap">
-    <draggable
-      v-model="arr"
-      v-bind="dragOptions"
-      tag="transition-group"
-      :component-data="{ tag: 'div', name: 'flip-list', type: 'transition' }"
-      item-key="id"
-      @start="onDragStart"
-      @end="onDragEnd"
-    >
-      <template #item="{ element }">
-        <div class="row vd-draggable vd-handle">{{ element.name }}</div>
-      </template>
-    </draggable>
-  </div>
+  <a-card class="card">
+    <div class="title">Draggable</div>
+    <div class="draggable-wrap">
+      <draggable
+        v-model="arr"
+        v-bind="dragOptions"
+        tag="transition-group"
+        :component-data="{ tag: 'div', name: 'flip-list', type: 'transition' }"
+        item-key="id"
+        @start="onDragStart"
+        @end="onDragEnd"
+      >
+        <template #item="{ element }">
+          <div class="row vd-draggable vd-handle">{{ element.name }}</div>
+        </template>
+      </draggable>
+    </div>
+  </a-card>
 </template>
 
 <script lang="ts">
@@ -68,7 +70,7 @@ export default defineComponent({
 
 <style lang="scss" scoped>
 .draggable-wrap {
-  margin-left: 84px;
+  margin-left: 64px;
 
   .row {
     display: block;

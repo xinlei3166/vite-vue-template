@@ -102,6 +102,7 @@ async function request(config: Config = {}): Promise<any> {
   try {
     return await _request(config)
   } catch (e) {
+    console.log(e)
     return
   }
 }
