@@ -52,7 +52,7 @@ export default defineComponent({
 }
 
 .layout-header-icon {
-  font-size: 20px;
+  font-size: 18px;
   cursor: pointer;
   margin: 0 8px;
 }

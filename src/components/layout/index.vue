@@ -127,26 +127,33 @@ export default defineComponent({
   }
 }
 
+::v-deep(.ant-menu-submenu-title) {
+  display: flex;
+  align-items: center;
+
+  .anticon {
+    font-size: 16px;
+  }
+}
+
 .layout-sider.ant-layout-sider-collapsed {
   .logo {
     padding: 16px 24px;
   }
 
   .ant-menu-submenu-title .anticon {
-    font-size: 16px;
+    font-size: 18px;
   }
 }
 
 .layout-sider.ant-layout-sider-collapsed.show-name {
   .ant-menu-submenu {
-    padding-bottom: 16px;
+    padding-bottom: 24px;
   }
 
   ::v-deep(.ant-menu-submenu-title) {
     padding: 0 !important;
-    display: flex;
     flex-direction: column;
-    align-items: center;
   }
 
   .ant-menu-submenu-title .anticon {
@@ -157,7 +164,7 @@ export default defineComponent({
   .ant-menu-submenu-title .anticon + span {
     max-width: unset;
     opacity: unset;
-    line-height: 26px;
+    line-height: 24px;
   }
 }
 
