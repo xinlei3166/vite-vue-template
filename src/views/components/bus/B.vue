@@ -4,11 +4,12 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, onMounted, onUnmounted, getCurrentInstance } from 'vue'
+import { defineComponent, ref, onMounted, onBeforeUnmount, getCurrentInstance } from 'vue'
 
 export default defineComponent({
   setup() {
-    const { ctx } = getCurrentInstance()
+    const instance = getCurrentInstance()
+    const $bus = instance.appContext.config.globalProperties.$bus
     const number = ref(0)
 
     const changeNumber = value => {
@@ -16,11 +17,11 @@ export default defineComponent({
     }
 
     onMounted(() => {
-      ctx.$bus.on('change-number', changeNumber)
+      $bus.on('change-number', changeNumber)
     })
 
-    onUnmounted(() => {
-      ctx.$bus.off('change-number', changeNumber)
+    onBeforeUnmount(() => {
+      $bus.off('change-number', changeNumber)
     })
 
     return { number }

@@ -3,9 +3,10 @@
   "version": "1.0.0",
   "scripts": {
     "dev": "vite",
+    "build:dev": "vite build",
     "build:test": "vite build --mode test",
     "build:sim": "vite build --mode sim",
-    "build": "vite build --mode prod",
+    "build": "vite build --mode online",
     "serve": "vite preview",
     "lint": "eslint --fix --ext .js,.jsx,.ts,.tsx,.vue"
   },

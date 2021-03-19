@@ -9,13 +9,13 @@ import { defineComponent, ref, getCurrentInstance } from 'vue'
 
 export default defineComponent({
   setup() {
-    const { ctx } = getCurrentInstance() as any
-
+    const instance = getCurrentInstance()
+    const $bus = instance.appContext.config.globalProperties.$bus
     const number = ref(0)
 
     function onAdd() {
       number.value++
-      ctx.$bus.emit('change-number', number.value)
+      $bus.emit('change-number', number.value)
     }
 
     return { number, onAdd }
