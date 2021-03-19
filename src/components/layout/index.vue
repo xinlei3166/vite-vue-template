@@ -1,12 +1,14 @@
 <template>
   <a-layout id="layout" :style="{ overflow: 'auto', height: '100vh' }">
+    <div class="layout-fixed-stuff" :style="{ width: collapsed ? collapsedWidth : width }"></div>
     <a-layout-sider
       v-model:collapsed="collapsed"
       :class="['layout-sider', { 'show-name': showSubMenuName }]"
+      :theme="theme"
       :trigger="null"
       collapsible
-      width="208"
-      collapsed-width="80"
+      :width="width"
+      :collapsed-width="collapsedWidth"
     >
       <div class="logo">
         <router-link to="/" class="logo-link">
@@ -14,7 +16,14 @@
           <h1 v-if="!collapsed" class="logo-text">Vue3 Demo</h1>
         </router-link>
       </div>
-      <a-menu v-model:selectedKeys="selectedKeys" class="sider-menu" theme="dark" mode="inline">
+      <a-menu
+        v-model:selectedKeys="selectedKeys"
+        :open-keys="openKeys"
+        class="sider-menu"
+        :theme="theme"
+        :mode="mode"
+        @openChange="onOpenChange"
+      >
         <template v-for="route in routes" :key="route.name">
           <a-sub-menu v-if="!route.meta.hidden" :key="route.name">
             <template #title>
@@ -48,34 +57,76 @@
       </a-layout-content>
     </a-layout>
   </a-layout>
+  <Setting />
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from 'vue'
+import { defineComponent, ref, reactive, watch, toRefs } from 'vue'
 import Nav from './Nav.vue'
 import Breadcrumb from './Breadcrumb.vue'
+import Setting from './Setting.vue'
 import { MenuUnfoldOutlined, MenuFoldOutlined } from '@ant-design/icons-vue'
 import routes from '../../router/routes'
+import { useRouter } from 'vue-router'
+import { useTheme } from '@/hooks/theme'
 
 export default defineComponent({
   components: {
     Nav,
     Breadcrumb,
+    Setting,
     MenuUnfoldOutlined,
     MenuFoldOutlined
   },
   setup() {
+    const menuState = reactive({
+      rootSubmenuKeys: routes.filter(route => route.name).map(route => route.name),
+      openKeys: [] as string[],
+      selectedKeys: [] as string[]
+    })
+
+    const router = useRouter()
+    const theme = useTheme()
+
+    watch(
+      router.currentRoute,
+      route => {
+        if (!menuState.selectedKeys.includes(route.name as string)) {
+          menuState.selectedKeys = [route.name as string]
+        }
+        menuState.openKeys = [route.matched[0]?.name as string]
+      },
+      { immediate: true }
+    )
+
+    const onOpenChange = (openKeys: string[]) => {
+      menuState.openKeys = openKeys
+    }
+
     return {
-      collapsed: ref(false),
-      showSubMenuName: ref(true), // 控制左侧菜单折叠时，是否显示文字
-      selectedKeys: ref(['home']),
-      routes
+      routes,
+      ...toRefs(theme),
+      ...toRefs(menuState),
+      onOpenChange
     }
   }
 })
 </script>
 
-<style lang="scss" scoped>
+<style lang="less" scoped>
+#layout {
+  ::v-deep(.trigger) {
+    font-size: 20px;
+    margin: 0 16px;
+    cursor: pointer;
+    transition: color 0.3s;
+  }
+
+  .trigger:hover {
+    color: #1890ff;
+  }
+}
+
 .logo {
   position: relative;
   display: flex;
@@ -114,19 +165,6 @@ export default defineComponent({
   }
 }
 
-#layout {
-  ::v-deep(.trigger) {
-    font-size: 20px;
-    margin: 0 16px;
-    cursor: pointer;
-    transition: color 0.3s;
-  }
-
-  .trigger:hover {
-    color: #1890ff;
-  }
-}
-
 ::v-deep(.ant-menu-submenu-title) {
   display: flex;
   align-items: center;
@@ -136,9 +174,27 @@ export default defineComponent({
   }
 }
 
+.layout-sider {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 10;
+  height: 100%;
+}
+
+.layout-fixed-stuff {
+  flex-shrink: 0;
+  overflow: hidden;
+  transition: width 0.2s;
+}
+
 .layout-sider.ant-layout-sider-collapsed {
   .logo {
     padding: 16px 24px;
+  }
+
+  ::v-deep(.ant-menu-submenu-title) {
+    margin-bottom: 8px;
   }
 
   .ant-menu-submenu-title .anticon {
@@ -148,7 +204,7 @@ export default defineComponent({
 
 .layout-sider.ant-layout-sider-collapsed.show-name {
   .ant-menu-submenu {
-    padding-bottom: 24px;
+    padding-bottom: 20px;
   }
 
   ::v-deep(.ant-menu-submenu-title) {
@@ -188,5 +244,20 @@ export default defineComponent({
 
 .layout-content {
   padding: 24px;
+}
+
+// about theme
+.ant-layout-sider-light {
+  box-shadow: 2px 0 8px 0 rgb(29 35 41 / 5%);
+
+  .logo-text {
+    color: #1890ff;
+  }
+}
+
+.ant-menu-inline,
+.ant-menu-vertical,
+.ant-menu-vertical-left {
+  border-right: none;
 }
 </style>

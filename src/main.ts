@@ -4,7 +4,7 @@ import router from './router'
 import { store, key } from './store'
 import plugins from './plugins'
 import directives from './directives'
-import './styles/index.scss'
+import './styles/index.less'
 import './mock'
 
 const app = createApp(App)

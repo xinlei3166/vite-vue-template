@@ -10,7 +10,9 @@ import {
   Breadcrumb,
   Dropdown,
   Layout,
-  Table
+  Table,
+  Drawer,
+  Switch
 } from 'ant-design-vue'
 
 export const components = [
@@ -24,7 +26,9 @@ export const components = [
   Breadcrumb,
   Dropdown,
   Layout,
-  Table
+  Table,
+  Drawer,
+  Switch
 ]
 
 export default {

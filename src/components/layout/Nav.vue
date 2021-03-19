@@ -45,7 +45,7 @@ export default defineComponent({
 })
 </script>
 
-<style lang="scss" scoped>
+<style lang="less" scoped>
 .layout-nav {
   display: inline-flex;
   align-items: center;

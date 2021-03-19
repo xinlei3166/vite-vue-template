@@ -71,7 +71,7 @@ export default defineComponent({
 })
 </script>
 
-<style lang="scss" scoped>
+<style lang="less" scoped>
 .btn {
   color: #1890ff;
   margin-right: 10px;

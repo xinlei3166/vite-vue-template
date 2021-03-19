@@ -68,7 +68,7 @@ export default defineComponent({
 })
 </script>
 
-<style lang="scss" scoped>
+<style lang="less" scoped>
 .draggable-wrap {
   margin-left: 64px;
 
