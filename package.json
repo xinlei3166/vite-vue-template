@@ -1,5 +1,5 @@
 {
-  "name": "vue3-demo",
+  "name": "vite-vue-template",
   "version": "1.0.0",
   "scripts": {
     "dev": "vite",
