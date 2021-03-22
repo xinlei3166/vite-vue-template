@@ -16,28 +16,30 @@
           <h1 v-if="!collapsed" class="logo-text">Vue3 Demo</h1>
         </router-link>
       </div>
-      <a-menu
-        v-model:selectedKeys="selectedKeys"
-        :open-keys="openKeys"
-        class="sider-menu"
-        :theme="theme"
-        :mode="mode"
-        @openChange="onOpenChange"
-      >
-        <template v-for="route in routes" :key="route.name">
-          <a-sub-menu v-if="!route.meta.hidden" :key="route.name">
-            <template #title>
-              <icon :type="route.meta.icon" class="icon"></icon>
-              <span>{{ route.meta.title }}</span>
-            </template>
-            <template v-for="sub in route.children" :key="sub.name">
-              <a-menu-item v-if="!sub.meta.hidden" :key="sub.name">
-                <router-link :to="{ name: sub.name }">{{ sub.meta.title }}</router-link>
-              </a-menu-item>
-            </template>
-          </a-sub-menu>
-        </template>
-      </a-menu>
+      <div class="layout-menu-wrap">
+        <a-menu
+          v-model:selectedKeys="selectedKeys"
+          :open-keys="openKeys"
+          class="sider-menu"
+          :theme="theme"
+          :mode="mode"
+          @openChange="onOpenChange"
+        >
+          <template v-for="route in routes" :key="route.name">
+            <a-sub-menu v-if="!route.meta.hidden" :key="route.name">
+              <template #title>
+                <icon :type="route.meta.icon" class="icon"></icon>
+                <span>{{ route.meta.title }}</span>
+              </template>
+              <template v-for="sub in route.children" :key="sub.name">
+                <a-menu-item v-if="!sub.meta.hidden" :key="sub.name">
+                  <router-link :to="{ name: sub.name }">{{ sub.meta.title }}</router-link>
+                </a-menu-item>
+              </template>
+            </a-sub-menu>
+          </template>
+        </a-menu>
+      </div>
     </a-layout-sider>
     <a-layout>
       <a-layout-header class="layout-header">
@@ -174,6 +176,11 @@ export default defineComponent({
   }
 }
 
+.layout-sider ::v-deep(.ant-menu-inline .ant-menu-item),
+::v-deep(.ant-menu-inline .ant-menu-submenu-title) {
+  width: 100%;
+}
+
 .layout-sider {
   position: fixed;
   top: 0;
@@ -246,6 +253,48 @@ export default defineComponent({
   padding: 24px;
 }
 
+// scroll bar
+.layout-sider ::v-deep(.ant-layout-sider-children ::-webkit-scrollbar) {
+  width: 6px;
+  height: 6px;
+}
+
+.layout-sider ::v-deep(.ant-layout-sider-children ::-webkit-scrollbar-thumb) {
+  background: hsla(0, 0%, 100%, 0.2);
+  border-radius: 3px;
+  -webkit-box-shadow: inset 0 0 5px hsl(0deg 0% 100% / 5%);
+}
+
+.ant-layout-sider-light ::v-deep(.ant-layout-sider-children ::-webkit-scrollbar-thumb) {
+  background: rgba(0, 0, 0, 0.12);
+  border-radius: 3px;
+  -webkit-box-shadow: inset 0 0 5px rgb(0 21 41 / 5%);
+}
+
+.layout-sider ::v-deep(.ant-layout-sider-children ::-webkit-scrollbar-track) {
+  //background: hsla(0, 0%, 100%, 0.15);
+  border-radius: 3px;
+  //-webkit-box-shadow: inset 0 0 5px rgb(37 37 37 / 5%);
+}
+
+.ant-layout-sider-light ::v-deep(.ant-layout-sider-children ::-webkit-scrollbar-track) {
+  //background: rgba(0, 0, 0, 0.06);
+  border-radius: 3px;
+  //-webkit-box-shadow: inset 0 0 5px rgb(0 21 41 / 5%);
+}
+
+.layout-sider ::v-deep(.ant-layout-sider-children) {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  padding-bottom: 24px;
+}
+
+.layout-menu-wrap {
+  flex: 1 1 0%;
+  overflow: hidden auto;
+}
+
 // about theme
 .ant-layout-sider-light {
   box-shadow: 2px 0 8px 0 rgb(29 35 41 / 5%);
@@ -258,6 +307,6 @@ export default defineComponent({
 .ant-menu-inline,
 .ant-menu-vertical,
 .ant-menu-vertical-left {
-  border-right: none;
+  border-right-color: transparent;
 }
 </style>
