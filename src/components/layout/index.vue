@@ -250,13 +250,17 @@ export default defineComponent({
 .layout-breadcrumb {
   background: #fff;
   padding: 12px 24px;
+  flex-shrink: 0;
 }
 
 .layout-content-wrap {
+  display: flex;
+  flex-direction: column;
   overflow: auto;
 }
 
 .layout-content {
+  flex: auto;
   padding: 20px;
 }
 
