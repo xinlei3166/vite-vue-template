@@ -6,6 +6,7 @@
       :loading="loading"
       :data-source="data"
       :pagination="pagination"
+      :scroll="{ y: 'calc(100vh - 94px - 86px - 55px - 56px)' }"
       @change="onTableChange"
     >
       <a-table-column key="id" title="ID" data-index="id" />

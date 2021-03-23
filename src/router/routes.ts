@@ -71,6 +71,14 @@ const routes: RouteRecordRaw[] = [
         component: () => import('../views/components/table/index.vue')
       },
       {
+        path: 'fixed-table',
+        name: 'fixed-table',
+        meta: {
+          title: 'fixed-table'
+        },
+        component: () => import('../views/components/table/fixed.vue')
+      },
+      {
         path: 'draggable',
         name: 'draggable',
         meta: {

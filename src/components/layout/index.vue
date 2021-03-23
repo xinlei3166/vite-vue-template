@@ -51,11 +51,13 @@
         <menu-fold-outlined v-else class="trigger" @click="() => (collapsed = !collapsed)" />
         <Nav />
       </a-layout-header>
-      <div class="layout-breadcrumb">
-        <Breadcrumb />
-      </div>
-      <a-layout-content class="layout-content">
-        <router-view />
+      <a-layout-content class="layout-content-wrap">
+        <div v-show="showBreadcrumb" class="layout-breadcrumb">
+          <Breadcrumb />
+        </div>
+        <div class="layout-content">
+          <router-view />
+        </div>
       </a-layout-content>
     </a-layout>
   </a-layout>
@@ -238,6 +240,7 @@ export default defineComponent({
   line-height: 48px;
   width: 100%;
   position: relative;
+  z-index: 2;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -249,8 +252,12 @@ export default defineComponent({
   padding: 12px 24px;
 }
 
+.layout-content-wrap {
+  overflow: auto;
+}
+
 .layout-content {
-  padding: 24px;
+  padding: 20px;
 }
 
 // scroll bar

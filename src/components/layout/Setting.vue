@@ -43,6 +43,10 @@
         <span>折叠展示菜单名称</span>
         <a-switch v-model:checked="showSubMenuName" />
       </div>
+      <div class="drawer-item">
+        <span>显示面包屑</span>
+        <a-switch v-model:checked="showBreadcrumb" />
+      </div>
     </div>
   </a-drawer>
 </template>
