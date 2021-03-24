@@ -92,7 +92,9 @@ export default defineComponent({
       if (!menuState.selectedKeys.includes(route.name as string)) {
         menuState.selectedKeys = [route.name as string]
       }
-      menuState.openKeys = [route.matched[0]?.name as string]
+      if (!theme.collapsed) {
+        menuState.openKeys = [route.matched[0]?.name as string]
+      }
     }
 
     watch(router.currentRoute, changeRoute, { immediate: true })
