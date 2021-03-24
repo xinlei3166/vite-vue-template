@@ -43,12 +43,8 @@
     </a-layout-sider>
     <a-layout>
       <a-layout-header class="layout-header">
-        <menu-unfold-outlined
-          v-if="collapsed"
-          class="trigger"
-          @click="() => (collapsed = !collapsed)"
-        />
-        <menu-fold-outlined v-else class="trigger" @click="() => (collapsed = !collapsed)" />
+        <menu-unfold-outlined v-if="collapsed" class="trigger" @click="onCollapsed" />
+        <menu-fold-outlined v-else class="trigger" @click="onCollapsed" />
         <Nav />
       </a-layout-header>
       <a-layout-content class="layout-content-wrap">
@@ -71,7 +67,7 @@ import Breadcrumb from './Breadcrumb.vue'
 import Setting from './Setting.vue'
 import { MenuUnfoldOutlined, MenuFoldOutlined } from '@ant-design/icons-vue'
 import routes from '../../router/routes'
-import { useRouter } from 'vue-router'
+import { useRouter, RouteLocationNormalized } from 'vue-router'
 import { useTheme } from '@/hooks/theme'
 
 export default defineComponent({
@@ -92,26 +88,34 @@ export default defineComponent({
     const router = useRouter()
     const theme = useTheme()
 
-    watch(
-      router.currentRoute,
-      route => {
-        if (!menuState.selectedKeys.includes(route.name as string)) {
-          menuState.selectedKeys = [route.name as string]
-        }
-        menuState.openKeys = [route.matched[0]?.name as string]
-      },
-      { immediate: true }
-    )
+    const changeRoute = (route: RouteLocationNormalized) => {
+      if (!menuState.selectedKeys.includes(route.name as string)) {
+        menuState.selectedKeys = [route.name as string]
+      }
+      menuState.openKeys = [route.matched[0]?.name as string]
+    }
+
+    watch(router.currentRoute, changeRoute, { immediate: true })
 
     const onOpenChange = (openKeys: string[]) => {
       menuState.openKeys = openKeys
+    }
+
+    const onCollapsed = () => {
+      theme.collapsed = !theme.collapsed
+      if (theme.collapsed) {
+        menuState.openKeys = []
+      } else {
+        changeRoute(router.currentRoute.value)
+      }
     }
 
     return {
       routes,
       ...toRefs(theme),
       ...toRefs(menuState),
-      onOpenChange
+      onOpenChange,
+      onCollapsed
     }
   }
 })
