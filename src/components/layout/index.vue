@@ -33,7 +33,10 @@
               </template>
               <template v-for="sub in route.children" :key="sub.name">
                 <a-menu-item v-if="!sub.meta.hidden" :key="sub.name">
-                  <router-link :to="{ name: sub.name }">{{ sub.meta.title }}</router-link>
+                  <router-link class="menu-item-link" :to="{ name: sub.name }">
+                    <icon :type="sub.meta.icon" class="icon"></icon>
+                    <span>{{ sub.meta.title }}</span>
+                  </router-link>
                 </a-menu-item>
               </template>
             </a-sub-menu>
@@ -172,6 +175,14 @@ export default defineComponent({
     line-height: 32px;
     animation: fade-in;
     animation-duration: 0.2s;
+  }
+}
+
+.menu-item-link {
+  display: flex;
+  align-items: center;
+  .icon {
+    font-size: 16px;
   }
 }
 

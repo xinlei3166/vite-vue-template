@@ -40,6 +40,7 @@ module.exports = {
     '@typescript-eslint/ban-ts-comment': 0,
     '@typescript-eslint/no-non-null-assertion': 0,
     '@typescript-eslint/no-unused-vars': 1,
+    '@typescript-eslint/no-var-requires': 0,
     // vue
     'vue/no-parsing-error': [2, { 'x-invalid-end-tag': false }],
     'vue/html-self-closing': 0,

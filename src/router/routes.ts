@@ -34,7 +34,8 @@ const routes: RouteRecordRaw[] = [
         path: 'router',
         name: 'router',
         meta: {
-          title: 'router'
+          title: 'router',
+          icon: 'iconreloadtime'
         },
         component: () => import('../views/components/router/index.vue')
       },
@@ -42,7 +43,8 @@ const routes: RouteRecordRaw[] = [
         path: 'store',
         name: 'store',
         meta: {
-          title: 'store'
+          title: 'store',
+          icon: 'iconunorderedlist'
         },
         component: () => import('../views/components/store/index.vue')
       },
@@ -50,7 +52,8 @@ const routes: RouteRecordRaw[] = [
         path: 'provide-inject',
         name: 'provide-inject',
         meta: {
-          title: 'provide'
+          title: 'provide',
+          icon: 'iconappstoreadd'
         },
         component: () => import('../views/components/provide/index.vue')
       },
@@ -58,7 +61,8 @@ const routes: RouteRecordRaw[] = [
         path: 'bus',
         name: 'bus',
         meta: {
-          title: 'bus'
+          title: 'bus',
+          icon: 'iconuser'
         },
         component: () => import('../views/components/bus/index.vue')
       },
@@ -66,7 +70,8 @@ const routes: RouteRecordRaw[] = [
         path: 'table',
         name: 'table',
         meta: {
-          title: 'table'
+          title: 'table',
+          icon: 'iconappstore'
         },
         component: () => import('../views/components/table/index.vue')
       },
@@ -74,7 +79,8 @@ const routes: RouteRecordRaw[] = [
         path: 'fixed-table',
         name: 'fixed-table',
         meta: {
-          title: 'fixed-table'
+          title: 'fixed-table',
+          icon: 'iconappstore'
         },
         component: () => import('../views/components/table/fixed.vue')
       },
@@ -82,7 +88,8 @@ const routes: RouteRecordRaw[] = [
         path: 'draggable',
         name: 'draggable',
         meta: {
-          title: 'draggable'
+          title: 'draggable',
+          icon: 'iconsetting'
         },
         component: () => import('../views/components/draggable/index.vue')
       }
@@ -102,7 +109,8 @@ const routes: RouteRecordRaw[] = [
         path: 'vue',
         name: 'vue',
         meta: {
-          title: 'vue'
+          title: 'vue',
+          icon: 'iconsetting'
         },
         component: () => import('../components/HelloWorld.vue')
       }

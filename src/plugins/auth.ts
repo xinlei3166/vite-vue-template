@@ -7,6 +7,7 @@ const auth = (permission: string) => {
 
 export default {
   install: (app: App) => {
+    app.provide('$auth', auth)
     app.config.globalProperties.$auth = auth
   }
 }
