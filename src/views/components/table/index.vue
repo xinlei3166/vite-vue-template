@@ -1,4 +1,24 @@
 <template>
+  <Search
+    :columns="columns"
+    :model="model"
+    class="aaa"
+    style="margin-bottom: 20px"
+    @search="onSearch"
+  >
+    <template #name5>
+      <a-select
+        v-model:value="model.name5"
+        class="select"
+        style="width: 240px"
+        :allow-clear="true"
+        placeholder="请选择课性别"
+      >
+        <a-select-option value="male">男</a-select-option>
+        <a-select-option value="female">女</a-select-option>
+      </a-select>
+    </template>
+  </Search>
   <a-card class="card">
     <a-table
       class="content"
@@ -24,12 +44,15 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, computed, onBeforeMount } from 'vue'
+import { defineComponent, onBeforeMount } from 'vue'
 import { Pagination } from '@/interface'
 import { usePagination } from '@/hooks/pagination'
 import { getData } from '@/api'
+import Search from '@/components/search/index.vue'
+import { columns, model } from './columns'
 
 export default defineComponent({
+  components: { Search },
   setup() {
     const { loading, data, pagination } = usePagination()
 
@@ -46,7 +69,8 @@ export default defineComponent({
       pagination.total = res.total
     }
 
-    async function onSearch() {
+    async function onSearch(search: Object) {
+      console.log(search)
       pagination.current = 1
       await init()
     }
@@ -65,12 +89,26 @@ export default defineComponent({
       window.open('https://baidu.com')
     }
 
-    return { loading, data, pagination, onSearch, onTableChange, onEdit, onPreview }
+    return {
+      columns,
+      model,
+      loading,
+      data,
+      pagination,
+      onSearch,
+      onTableChange,
+      onEdit,
+      onPreview
+    }
   }
 })
 </script>
 
 <style lang="less" scoped>
+.card {
+  min-height: 0;
+}
+
 .btn {
   color: #1890ff;
   margin-right: 10px;

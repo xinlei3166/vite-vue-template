@@ -116,6 +116,10 @@ const routes: RouteRecordRaw[] = [
       }
     ]
   }
+  // {
+  //   path: '/:pathMatch(.*)*',
+  //   redirect: { name: '404' }
+  // }
 ]
 
 export default routes

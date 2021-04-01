@@ -29,13 +29,13 @@
             <a-sub-menu v-if="!route.meta.hidden" :key="route.name">
               <template #title>
                 <icon :type="route.meta.icon" class="icon"></icon>
-                <span>{{ route.meta.title }}</span>
+                <span class="menu-item-title">{{ route.meta.title }}</span>
               </template>
               <template v-for="sub in route.children" :key="sub.name">
                 <a-menu-item v-if="!sub.meta.hidden" :key="sub.name">
                   <router-link class="menu-item-link" :to="{ name: sub.name }">
                     <icon :type="sub.meta.icon" class="icon"></icon>
-                    <span>{{ sub.meta.title }}</span>
+                    <span class="menu-item-title">{{ sub.meta.title }}</span>
                   </router-link>
                 </a-menu-item>
               </template>
@@ -178,6 +178,11 @@ export default defineComponent({
   }
 }
 
+.menu-item-title {
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
 .menu-item-link {
   display: flex;
   align-items: center;
@@ -229,6 +234,10 @@ export default defineComponent({
 }
 
 .layout-sider.ant-layout-sider-collapsed.show-name {
+  .sider-menu {
+    margin-top: 10px;
+  }
+
   .ant-menu-submenu {
     padding-bottom: 20px;
   }
