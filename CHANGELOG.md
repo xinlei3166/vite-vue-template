@@ -1,3 +1,14 @@
+## [1.2.3](https://github.com/xinlei3166/vite-vue-template/compare/v1.2.2...v1.2.3) (2021-04-01)
+
+
+### Features
+
+* add dynamic search component. ([bf3d26a](https://github.com/xinlei3166/vite-vue-template/commit/bf3d26a6daeead7d26e50d8ce181c26c34722296))
+* add git hooks, changelog, route-icon. ([36bed8b](https://github.com/xinlei3166/vite-vue-template/commit/36bed8bf2001ce98bcceb3df4e0f98d1090a2571))
+* add git hooks, changelog, route-icon. ([ecceebb](https://github.com/xinlei3166/vite-vue-template/commit/ecceebba62106ee539eff8521943212d29823f7a))
+
+
+
 ## [1.2.2](https://github.com/xinlei3166/vite-vue-template/compare/v1.2.1...v1.2.2) (2021-03-24)
 
 

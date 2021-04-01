@@ -12,14 +12,17 @@ const args = require('minimist')(process.argv.slice(2))
 const preId =
   args.preid || (semver.prerelease(currentVersion) && semver.prerelease(currentVersion)[0])
 const isDryRun = args.dry
-const skipTests = args.skipTests || false
-const skipBuild = args.skipBuild || false
+const isMonorepo = args.monorepo || false
+const skipTests = args.skipTests || true
+const skipBuild = args.skipBuild || true
 const resolve = (...args) => path.resolve(__dirname, ...args)
-const packages = fs.readdirSync(resolve('../packages')).filter(item => {
-  const stat = resolve('../packages' + item)
-  return stat.isDirectory()
-})
-console.log(packages)
+const packages =
+  (isMonorepo &&
+    fs.readdirSync(resolve('../packages')).filter(item => {
+      const stat = resolve('../packages' + item)
+      return stat.isDirectory()
+    })) ||
+  []
 
 const skippedPackages = []
 
@@ -31,8 +34,9 @@ const versionIncrements = [
 ]
 
 const inc = i => semver.inc(currentVersion, i, preId)
-console.log(inc)
+
 const bin = name => resolve('../node_modules/.bin/', name)
+console.log(resolve('../node_modules/.bin/'))
 const exec = (bin, args, opts = {}) => execa(bin, args, { stdio: 'inherit', ...opts })
 const dryRun = (bin, args, opts = {}) =>
   console.log(chalk.blue(`[dryrun] ${bin} ${args.join(' ')}`), opts)
