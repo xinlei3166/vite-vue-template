@@ -15,16 +15,17 @@ const isDryRun = args.dry
 const isMonorepo = args.monorepo || false
 const skipTests = args.skipTests || true
 const skipBuild = args.skipBuild || true
+const skippedPackages = []
+
+const name = 'vite-vue-template'
 const resolve = (...args) => path.resolve(__dirname, ...args)
 const packages =
   (isMonorepo &&
     fs.readdirSync(resolve('../packages')).filter(item => {
-      const stat = resolve('../packages' + item)
+      const stat = fs.lstatSync(resolve('../packages' + item))
       return stat.isDirectory()
     })) ||
   []
-
-const skippedPackages = []
 
 const versionIncrements = [
   'patch',
@@ -36,7 +37,6 @@ const versionIncrements = [
 const inc = i => semver.inc(currentVersion, i, preId)
 
 const bin = name => resolve('../node_modules/.bin/', name)
-console.log(resolve('../node_modules/.bin/'))
 const exec = (bin, args, opts = {}) => execa(bin, args, { stdio: 'inherit', ...opts })
 const dryRun = (bin, args, opts = {}) =>
   console.log(chalk.blue(`[dryrun] ${bin} ${args.join(' ')}`), opts)
@@ -109,6 +109,7 @@ async function main() {
   }
 
   // generate changelog
+  step('Changelog...')
   await run(`yarn`, ['changelog'])
 
   const { stdout } = await run('git', ['diff'], { stdio: 'pipe' })
@@ -164,12 +165,11 @@ function updatePackage(pkgRoot, version) {
 
 function updateDeps(pkg, depType, version) {
   const deps = pkg[depType]
+  const reg = new RegExp(`^@${name}\/`)
+  const scope = `@${name}`
   if (!deps) return
   Object.keys(deps).forEach(dep => {
-    if (
-      dep === 'vue' ||
-      (dep.startsWith('@vue') && packages.includes(dep.replace(/^@vue\//, '')))
-    ) {
+    if (dep === name || (dep.startsWith(scope) && packages.includes(dep.replace(reg, '')))) {
       console.log(chalk.yellow(`${pkg.name} -> ${depType} -> ${dep}@${version}`))
       deps[dep] = version
     }
