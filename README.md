@@ -8,9 +8,7 @@ vite2 + vue3 + vuex + vue-router + typescript + ant-design-vue + mockjs
 
 ## Quick start
 ```
-npm install -g sao@beta
-
-sao xinlei3166/vite-vue-template my-vue-app
+git clone https://github.com/xinlei3166/vite-vue-template.git
 ```
 
 ## Project setup
