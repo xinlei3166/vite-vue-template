@@ -27,8 +27,10 @@
         >
           <template v-for="route in routes" :key="route.name">
             <a-sub-menu v-if="!route.meta.hidden" :key="route.name">
-              <template #title>
+              <template #icon>
                 <icon :type="route.meta.icon" class="icon"></icon>
+              </template>
+              <template #title>
                 <span class="menu-item-title">{{ route.meta.title }}</span>
               </template>
               <template v-for="sub in route.children" :key="sub.name">
@@ -200,8 +202,12 @@ export default defineComponent({
   }
 }
 
-.layout-sider ::v-deep(.ant-menu-inline .ant-menu-item),
-::v-deep(.ant-menu-inline .ant-menu-submenu-title) {
+.layout-sider ::v-deep(.ant-menu-sub.ant-menu-inline) {
+  background: 0 0;
+}
+
+// ::v-deep(.ant-menu-inline .ant-menu-item) remove width
+.layout-sider ::v-deep(.ant-menu-inline .ant-menu-submenu-title) {
   width: 100%;
 }
 
@@ -238,7 +244,7 @@ export default defineComponent({
     margin-top: 10px;
   }
 
-  .ant-menu-submenu {
+  ::v-deep(.ant-menu-submenu) {
     padding-bottom: 20px;
   }
 
@@ -252,10 +258,14 @@ export default defineComponent({
     transition: none;
   }
 
-  .ant-menu-submenu-title .anticon + span {
+  ::v-deep(.ant-menu-submenu-title .anticon + .ant-menu-title-content) {
     max-width: unset;
     opacity: unset;
     line-height: 24px;
+  }
+
+  ::v-deep(.ant-menu-submenu-title .ant-menu-title-content) {
+    margin-left: 0;
   }
 }
 
@@ -333,6 +343,13 @@ export default defineComponent({
 }
 
 // about theme
+.ant-layout-sider-dark {
+  ::v-deep(.ant-menu-submenu-active),
+  ::v-deep(.ant-menu-submenu-open) {
+    color: #fff;
+  }
+}
+
 .ant-layout-sider-light {
   box-shadow: 2px 0 8px 0 rgb(29 35 41 / 5%);
 

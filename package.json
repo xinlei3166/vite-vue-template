@@ -25,13 +25,13 @@
     "preinstall": "node ./scripts/check-yarn.js"
   },
   "dependencies": {
-    "ant-design-vue": "^2.0.1",
+    "ant-design-vue": "~2.2.1",
     "axios": "^0.21.1",
     "cos-js-sdk-v5": "^1.2.7",
     "dayjs": "^1.10.4",
     "mitt": "^2.1.0",
     "qs": "^6.9.6",
-    "vue": "^3.0.10",
+    "vue": "^3.2.9",
     "vue-router": "^4.0.4",
     "vuedraggable": "^4.0.1",
     "vuex": "^4.0.0"
@@ -43,7 +43,7 @@
     "@typescript-eslint/eslint-plugin": "^4.17.0",
     "@typescript-eslint/parser": "^4.17.0",
     "@vitejs/plugin-vue": "^1.1.5",
-    "@vue/compiler-sfc": "^3.0.5",
+    "@vue/compiler-sfc": "^3.2.9",
     "chalk": "^4.1.0",
     "commander": "^7.2.0",
     "conventional-changelog-cli": "^2.1.1",
@@ -63,7 +63,7 @@
     "prettier": "^2.2.1",
     "semver": "^7.3.5",
     "typescript": "^4.2.3",
-    "vite": "^2.0.5",
+    "vite": "^2.5.3",
     "vite-plugin-html": "^2.0.3",
     "vite-plugin-style-import": "^0.8.1",
     "vue-eslint-parser": "^7.6.0",
