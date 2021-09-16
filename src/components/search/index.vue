@@ -1,17 +1,38 @@
 <template>
   <a-card v-if="card" class="search-card">
-    <Search v-bind:="$attrs" :columns="columns" :model="model">
+    <Search
+      v-bind="$attrs"
+      :columns="columns"
+      :model="model"
+      :label-align="labelAlign"
+      :label-width="labelWidth"
+      :show-search-btn="showSearchBtn"
+      :show-reset-btn="showResetBtn"
+    >
       <template v-for="(column, index) in columns" :key="index" #[column.slot]>
         <slot v-if="column.slot" :name="column.slot" />
       </template>
-      <slot name="search-btn-extra" />
+      <template #extra-btn>
+        <slot name="extra-btn" />
+      </template>
     </Search>
   </a-card>
-  <Search v-else v-bind:="$attrs" :columns="columns" :model="model">
+  <Search
+    v-else
+    v-bind="$attrs"
+    :columns="columns"
+    :model="model"
+    :label-align="labelAlign"
+    :label-width="labelWidth"
+    :show-search-btn="showSearchBtn"
+    :show-reset-btn="showResetBtn"
+  >
     <template v-for="(column, index) in columns" :key="index" #[column.slot]>
       <slot v-if="column.slot" :name="column.slot" />
     </template>
-    <slot name="search-btn-extra" />
+    <template #extra-btn>
+      <slot name="extra-btn" />
+    </template>
   </Search>
 </template>
 
@@ -20,6 +41,7 @@ import { defineComponent } from 'vue'
 import Search from './Search.vue'
 import { props } from './props'
 
+// select的远程搜索及其他特殊场景可用插槽实现
 export default defineComponent({
   components: { Search },
   props: {
@@ -32,7 +54,7 @@ export default defineComponent({
 <style lang="less" scoped>
 .search-card {
   ::v-deep(.ant-card-body) {
-    padding: 24px 24px 8px;
+    padding: 20px 24px 4px;
   }
 }
 </style>

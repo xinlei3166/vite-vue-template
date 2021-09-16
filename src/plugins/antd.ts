@@ -12,7 +12,30 @@ import {
   Layout,
   Table,
   Drawer,
-  Switch
+  Switch,
+  Upload,
+  Modal,
+  TreeSelect,
+  DatePicker,
+  Cascader,
+  Radio,
+  Tabs,
+  Rate,
+  InputNumber,
+  Tag,
+  Popconfirm,
+  Alert,
+  Spin,
+  Popover,
+  Empty,
+  Avatar,
+  Tooltip,
+  Row,
+  Col,
+  Badge,
+  Steps,
+  Image,
+  Timeline
 } from 'ant-design-vue'
 
 export const components = [
@@ -28,7 +51,30 @@ export const components = [
   Layout,
   Table,
   Drawer,
-  Switch
+  Switch,
+  Upload,
+  Modal,
+  TreeSelect,
+  DatePicker,
+  Cascader,
+  Radio,
+  Tabs,
+  Rate,
+  InputNumber,
+  Tag,
+  Popconfirm,
+  Alert,
+  Spin,
+  Popover,
+  Empty,
+  Avatar,
+  Tooltip,
+  Row,
+  Col,
+  Badge,
+  Steps,
+  Image,
+  Timeline
 ]
 
 export default {
