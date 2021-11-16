@@ -10,8 +10,8 @@
     "vite",
     "template"
   ],
-  "author": "junxi",
-  "license": "ISC",
+  "author": "君惜",
+  "license": "MIT",
   "scripts": {
     "dev": "vite",
     "build:dev": "vite build",
