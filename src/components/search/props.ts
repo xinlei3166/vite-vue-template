@@ -4,5 +4,6 @@ export const props = {
   labelAlign: { type: String, default: 'right' }, // left | right
   labelWidth: { type: String, default: 'auto' },
   showSearchBtn: { type: Boolean, default: true },
-  showResetBtn: { type: Boolean, default: true }
+  showResetBtn: { type: Boolean, default: true },
+  showBtn: { type: Boolean, default: true }
 }

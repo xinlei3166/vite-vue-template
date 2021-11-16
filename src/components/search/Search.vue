@@ -120,7 +120,7 @@
         :placeholder="column.placeholder"
       />
     </div>
-    <div class="search-item search-btn">
+    <div v-if="showBtn" class="search-item search-btn">
       <a-button v-if="showSearchBtn" class="btn" type="primary" @click="onSearch">查询</a-button>
       <a-button v-if="showResetBtn" class="btn reset-btn" @click="onReset">重置</a-button>
       <slot name="extra-btn" />

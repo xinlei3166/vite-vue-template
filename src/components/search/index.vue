@@ -8,6 +8,7 @@
       :label-width="labelWidth"
       :show-search-btn="showSearchBtn"
       :show-reset-btn="showResetBtn"
+      :show-btn="showBtn"
     >
       <template v-for="(column, index) in columns" :key="index" #[column.slot]>
         <slot v-if="column.slot" :name="column.slot" />
@@ -26,6 +27,7 @@
     :label-width="labelWidth"
     :show-search-btn="showSearchBtn"
     :show-reset-btn="showResetBtn"
+    :show-btn="showBtn"
   >
     <template v-for="(column, index) in columns" :key="index" #[column.slot]>
       <slot v-if="column.slot" :name="column.slot" />
