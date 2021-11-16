@@ -1,3 +1,28 @@
+## [1.2.6](https://github.com/xinlei3166/vite-vue-template/compare/v1.2.5...v1.2.6) (2021-11-16)
+
+
+### Features
+
+* add Search component ([79b066d](https://github.com/xinlei3166/vite-vue-template/commit/79b066d079fcb6d6c7d31b5e9cdb5915ead8458d))
+* nav dropdown a style ([0902c9f](https://github.com/xinlei3166/vite-vue-template/commit/0902c9f942d141b653c21f4d41cdfdec48699aa8))
+* nav dropdown a style ([9db5a76](https://github.com/xinlei3166/vite-vue-template/commit/9db5a76b5ae1ea121512a155267eb4f169ed545f))
+* Search component add showBtn prop ([5f86f0a](https://github.com/xinlei3166/vite-vue-template/commit/5f86f0a2b1a99758253ef53f7458226fa62a1f57))
+
+
+
+## [1.2.5](https://github.com/xinlei3166/vite-vue-template/compare/v1.2.4...v1.2.5) (2021-09-06)
+
+
+### Features
+
+* index.html. ([4410ebe](https://github.com/xinlei3166/vite-vue-template/commit/4410ebef5b71875345572a8a3282ef9c3186c070))
+* index.html. ([f52091f](https://github.com/xinlei3166/vite-vue-template/commit/f52091f2c7840552474ab5c49530d4b6e52f6df0))
+* index.html. ([06fe479](https://github.com/xinlei3166/vite-vue-template/commit/06fe4796fcf2043139ec926c8a7523cbfdc19249))
+* index.html. ([e5f8b9e](https://github.com/xinlei3166/vite-vue-template/commit/e5f8b9e2206b1f9ab8337110d7852956c12a4c39))
+* update ant-design-vue version to 2.2.x ([6fcf689](https://github.com/xinlei3166/vite-vue-template/commit/6fcf68938207ddb341fe5af07d1be74ac0303756))
+
+
+
 ## [1.2.4](https://github.com/xinlei3166/vite-vue-template/compare/v1.2.3...v1.2.4) (2021-04-01)
 
 
