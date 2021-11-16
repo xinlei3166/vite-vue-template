@@ -1,3 +1,7 @@
+## [1.2.7](https://github.com/xinlei3166/vite-vue-template/compare/v1.2.6...v1.2.7) (2021-11-16)
+
+
+
 ## [1.2.6](https://github.com/xinlei3166/vite-vue-template/compare/v1.2.5...v1.2.6) (2021-11-16)
 
 

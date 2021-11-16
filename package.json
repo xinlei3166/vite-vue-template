@@ -1,6 +1,6 @@
 {
   "name": "vite-vue-template",
-  "version": "1.2.6",
+  "version": "1.2.7",
   "private": true,
   "repository": {
     "type": "git",
@@ -21,7 +21,7 @@
     "build": "vite build --mode online",
     "serve": "vite preview",
     "lint": "eslint --fix --ext .js,.jsx,.ts,.tsx,.vue",
-    "release": "yunque-release",
+    "release": "yunque-release --skipBuild",
     "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s -r 0",
     "preinstall": "node ./scripts/check-yarn.js"
   },
