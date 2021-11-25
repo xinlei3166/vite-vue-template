@@ -6,8 +6,8 @@ import path from 'path'
 
 // @ts-ignore
 export default ({ mode }) => {
-  const base =
-    loadEnv(mode, process.cwd()).VITE_APP_ENV === 'production' ? '/vite-vue-template/' : '/'
+  const env = loadEnv(mode, process.cwd())
+  const base = mode === 'github' ? env.VITE_APP_BASE : '/'
 
   return defineConfig({
     plugins: [
@@ -15,7 +15,7 @@ export default ({ mode }) => {
       injectHtml({
         injectData: {
           // html usage: <%= VITE_APP_ENV %>
-          VITE_APP_ENV: loadEnv(mode, process.cwd()).VITE_APP_ENV
+          VITE_APP_ENV: env.VITE_APP_ENV
           // injectScript: '<script src="./inject.js"></script>'
         }
       }),
