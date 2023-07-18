@@ -1,3 +1,7 @@
+## [2.0.1](https://github.com/xinlei3166/vite-vue-template/compare/v2.0.0...v2.0.1) (2023-07-18)
+
+
+
 # [2.0.0](https://github.com/xinlei3166/vite-vue-template/compare/v1.2.8...v2.0.0) (2023-07-18)
 
 
