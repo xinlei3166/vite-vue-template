@@ -1,4 +1,4 @@
 {
-  "devServer": "http://192.168.200.108:9090",
-  "server": "http://xtbg.digitalgd.com.cn/guomaixinan/prometheus"
+  "devServer": "http://192.168.1.1:9090",
+  "server": "http://xxx.com/prometheus"
 }
