@@ -1,3 +1,12 @@
+# [2.0.0](https://github.com/xinlei3166/vite-vue-template/compare/v1.2.8...v2.0.0) (2023-07-18)
+
+
+### Features
+
+* 2.0新版, vuex to pinia, ant-design-vue 升级到4.x, css to unocss, 项目采用monorepo结构. ([8d83907](https://github.com/xinlei3166/vite-vue-template/commit/8d83907142f5509b336e4090969e6f14dafca380))
+
+
+
 ## [1.2.8](https://github.com/xinlei3166/vite-vue-template/compare/v1.2.7...v1.2.8) (2021-11-16)
 
 
