@@ -1,1 +1,0 @@
-import{d as t,a2 as s,J as o,ab as c,G as n,K as r,N as _,I as d}from"./index-36d3cba6.js";const i={class:"title"},m=t({__name:"index",setup(p){const a="Vue App";return(l,u)=>{const e=c;return n(),s(e,{class:"card"},{default:o(()=>[r("div",i,_(d(a)),1)]),_:1})}}});export{m as default};
