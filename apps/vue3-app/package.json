@@ -1,0 +1,38 @@
+{
+  "name": "vue3-app",
+  "version": "1.0.0",
+  "private": true,
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/xinlei3166/vite-vue-template.git",
+    "directory": "apps/vue3-app"
+  },
+  "keywords": [
+    "vue",
+    "vite",
+    "template"
+  ],
+  "author": "君惜",
+  "license": "MIT",
+  "scripts": {
+    "preinstall": "npx only-allow pnpm",
+    "dev": "vite --host --port 6001",
+    "build:dev": "vite build --mode development",
+    "build:qa": "vite build --mode qa",
+    "build:github": "vite build --mode github",
+    "build": "vite build",
+    "serve": "vite preview --host",
+    "upload": "node upload",
+    "test": "pnpm run build:qa && pnpm run upload"
+  },
+  "dependencies": {
+    "@packages/components": "workspace:*",
+    "@packages/hooks": "workspace:*",
+    "@packages/lib": "workspace:*",
+    "@packages/plugins": "workspace:*",
+    "@packages/styles": "workspace:*",
+    "@packages/utils": "workspace:*",
+    "@packages/types": "workspace:*"
+  },
+  "devDependencies": {}
+}

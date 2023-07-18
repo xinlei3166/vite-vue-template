@@ -1,0 +1,13 @@
+{
+  "name": "@packages/hooks",
+  "version": "1.0.0",
+  "description": "@packages/hooks",
+  "main": "index.ts",
+  "keywords": [],
+  "author": "君惜",
+  "license": "MIT",
+  "dependencies": {
+    "@packages/types": "workspace:*",
+    "@packages/utils": "workspace:*"
+  }
+}

@@ -1,0 +1,9 @@
+{
+  "name": "@packages/directives",
+  "version": "1.0.0",
+  "description": "@packages/directives",
+  "main": "index.ts",
+  "keywords": [],
+  "author": "君惜",
+  "license": "MIT"
+}

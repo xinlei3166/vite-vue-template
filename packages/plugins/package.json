@@ -1,0 +1,13 @@
+{
+  "name": "@packages/plugins",
+  "version": "1.0.0",
+  "description": "@packages/plugins",
+  "main": "index.ts",
+  "keywords": [],
+  "author": "君惜",
+  "license": "MIT",
+  "dependencies": {
+    "@packages/components": "workspace:*",
+    "@packages/utils": "workspace:*"
+  }
+}

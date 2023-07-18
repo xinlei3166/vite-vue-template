@@ -4,6 +4,8 @@ dist
 dist-ssr
 *.local
 
+# build files
+
 # local env files
 .env.local
 .env.*.local
@@ -16,6 +18,7 @@ pnpm-debug.log*
 
 # Editor directories and files
 .idea
+.fleet
 .vscode
 *.suo
 *.ntvs*

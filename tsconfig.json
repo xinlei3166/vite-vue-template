@@ -11,12 +11,12 @@
     "allowJs": true,
     "noImplicitAny": true,
     "lib": ["esnext", "dom"],
-    "types": ["vite/client"],
-    "baseUrl": ".",
-    "paths": {
-      "@/*": ["./src/*"]
-    }
+    "types": ["vite/client", "node"],
+//    "baseUrl": ".",
+//    "paths": {
+//      "@/*": ["./src/*"]
+//    }
   },
-  "include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.tsx", "src/**/*.vue"],
+  "include": ["packages/**/*.ts", "packages/**/*.d.ts", "packages/**/*.tsx", "packages/**/*.vue"],
   "exclude": ["node_modules"]
 }

@@ -1,0 +1,20 @@
+{
+  "name": "@packages/utils",
+  "version": "1.0.0",
+  "description": "@packages/utils",
+  "main": "index.ts",
+  "keywords": [],
+  "license": "MIT",
+  "dependencies": {
+    "exceljs": "^4.3.0",
+    "js-cookie": "^3.0.1",
+    "qs": "^6.11.0",
+    "dayjs": "^1.11.5",
+    "nprogress": "^0.2.0"
+  },
+  "devDependencies": {
+    "@types/js-cookie": "^3.0.2",
+    "@types/nprogress": "^0.2.0",
+    "@types/qs": "^6.9.7"
+  }
+}

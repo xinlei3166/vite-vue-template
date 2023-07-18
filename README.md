@@ -1,38 +1,60 @@
-# Vite-Vue-Template
+# vite-vue-template
 
-This template should help get you started developing with Vue 3 and Typescript in Vite.
+这个模板可以帮助你快速使用 `Vue3`, `TypeScript` 和 `Vite` 进行项目开发。
 
-## Template Description
+**安装pnpm**
 
-vite2 + vue3 + vuex + vue-router + typescript + ant-design-vue + mockjs
-
-## Quick start
-```
-git clone https://github.com/xinlei3166/vite-vue-template.git
+```javascript
+npm i -g pnpm 
 ```
 
-## Project setup
-```
-yarn install
+**起步**
+
+执行这个命令安装完依赖，apps目录下的应用可以正常启动。
+
+```javascript
+pnpm i 
 ```
 
-### Compiles and hot-reloads for development
-```
-yarn run dev
+**安装依赖**
+
+```javascript
+pnpm i -w pkgName
 ```
 
-### Compiles and minifies for production
-```
-yarn run build
-```
-
-### Run your tests
-```
-yarn run test
+递归每个package安装
+```javascript
+pnpm i -w -r pkgName
 ```
 
-### Lints and fixes files
-```
-yarn run lint
+**给子包安装指定依赖**
+```javascript
+pnpm -F @packages/components add lodash
 ```
 
+**package间的相互引用**
+```javascript
+pnpm -F @packages/components add @packages/utils
+```
+
+
+**项目结构**
+```javascript
+├── base
+├── apps // web项目及子应用
+├── features // 可复用的页面组件代码
+├── packages // 常用工具和库
+│   ├── components
+│   ├── hooks
+│   ├── lib
+│   ├── plugins
+│   ├── styles
+│   ├── types
+│   └── utils
+├── .gitignore
+├── package.json
+├── pnpm-lock.yaml
+├── pnpm-workspace.yaml
+├── README.md
+└── tsconfig.json
+```

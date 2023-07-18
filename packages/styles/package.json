@@ -1,0 +1,9 @@
+{
+  "name": "@packages/styles",
+  "version": "1.0.0",
+  "description": "@packages/styles",
+  "main": "index.ts",
+  "keywords": [],
+  "license": "MIT",
+  "dependencies": {}
+}

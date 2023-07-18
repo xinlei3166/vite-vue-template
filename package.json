@@ -1,80 +1,116 @@
 {
   "name": "vite-vue-template",
-  "version": "1.2.8",
+  "version": "1.0.0",
+  "description": "vite-vue-template",
   "private": true,
   "repository": {
     "type": "git",
-    "url": "https://github.com/xinlei3166/vite-vue-template"
+    "url": "git+https://github.com/xinlei3166/vite-vue-template.git"
   },
   "keywords": [
     "vue",
-    "vite",
-    "template"
+    "ant-design-vue",
+    "typescript",
+    "monorepo"
   ],
   "author": "君惜",
   "license": "MIT",
   "scripts": {
-    "dev": "vite",
-    "build:dev": "vite build",
-    "build:test": "vite build --mode test",
-    "build:sim": "vite build --mode sim",
-    "build:github": "vite build --mode github",
-    "build": "vite build --mode online",
-    "serve": "vite preview",
-    "lint": "eslint --fix --ext .js,.jsx,.ts,.tsx,.vue",
+    "preinstall": "npx only-allow pnpm",
+    "prepare": "simple-git-hooks",
     "release": "yunque-release --skipBuild",
-    "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s -r 0",
-    "preinstall": "node ./scripts/check-yarn.js"
+    "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s -r 0"
   },
   "dependencies": {
-    "ant-design-vue": "~2.2.1",
-    "axios": "^0.21.1",
-    "cos-js-sdk-v5": "^1.2.7",
-    "dayjs": "^1.10.4",
-    "mitt": "^2.1.0",
-    "qs": "^6.9.6",
-    "vue": "^3.2.20",
-    "vue-router": "^4.0.4",
-    "vuedraggable": "^4.0.1",
-    "vuex": "^4.0.0"
+    "@ant-design/icons-vue": "^6.1.0",
+    "@packages/components": "workspace:*",
+    "@packages/hooks": "workspace:*",
+    "@packages/lib": "workspace:*",
+    "@packages/plugins": "workspace:*",
+    "@packages/styles": "workspace:*",
+    "@packages/types": "workspace:*",
+    "@packages/utils": "workspace:*",
+    "@vueuse/components": "^10.0.2",
+    "@vueuse/core": "^10.0.2",
+    "animate.css": "^4.1.1",
+    "ant-design-vue": "^4.0.0-rc.5",
+    "await-to-js": "^3.0.0",
+    "axios": "^0.27.2",
+    "cos-js-sdk-v5": "^1.4.18",
+    "dayjs": "^1.11.5",
+    "echarts": "^5.3.3",
+    "js-cookie": "^3.0.1",
+    "mitt": "^3.0.0",
+    "nanoid": "^4.0.0",
+    "nprogress": "^0.2.0",
+    "pinia": "^2.0.17",
+    "pinia-plugin-persist": "^1.0.0",
+    "qs": "^6.11.0",
+    "sortablejs": "^1.15.0",
+    "vue": "^3.2.37",
+    "vue-echarts": "^6.2.3",
+    "vue-router": "^4.1.3",
+    "wujie-vue3": "^1.0.5"
   },
   "devDependencies": {
-    "@types/mockjs": "^1.0.3",
-    "@types/node": "^14.14.33",
-    "@types/qs": "^6.9.6",
-    "@typescript-eslint/eslint-plugin": "^4.17.0",
-    "@typescript-eslint/parser": "^4.17.0",
-    "@vitejs/plugin-vue": "^1.9.0",
-    "@vue/compiler-sfc": "^3.2.20",
-    "@yunquejs/release": "^0.1.4",
-    "chalk": "^4.1.0",
+    "@types/js-cookie": "^3.0.2",
+    "@types/mockjs": "^1.0.6",
+    "@types/node": "^14.18.23",
+    "@types/nprogress": "^0.2.0",
+    "@types/qs": "^6.9.7",
+    "@types/sortablejs": "^1.15.1",
+    "@typescript-eslint/eslint-plugin": "^4.33.0",
+    "@typescript-eslint/parser": "^4.33.0",
+    "@unocss/postcss": "^0.53.4",
+    "@unocss/preset-rem-to-px": "^0.53.4",
+    "@vitejs/plugin-vue": "^4.1.0",
+    "@vitejs/plugin-vue-jsx": "^3.0.0",
+    "@vue/compiler-sfc": "^3.2.37",
+    "@vueuse/shared": "^10.2.1",
+    "@yunquejs/release": "^0.1.9",
+    "autoprefixer": "^10.4.14",
+    "consola": "^2.15.3",
     "conventional-changelog-cli": "^2.1.1",
     "cross-env": "^7.0.3",
-    "eslint": "^7.21.0",
-    "eslint-config-prettier": "^8.1.0",
-    "eslint-plugin-prettier": "^3.3.1",
-    "eslint-plugin-vue": "^7.7.0",
-    "less": "^4.1.1",
-    "less-loader": "^8.0.0",
+    "eslint": "^7.32.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-prettier": "^3.4.1",
+    "eslint-plugin-vue": "^7.20.0",
+    "less": "^4.1.3",
+    "less-loader": "^8.1.1",
     "lint-staged": "^10.5.4",
     "mockjs": "^1.1.0",
     "npm-run-all": "^4.1.5",
-    "prettier": "^2.2.1",
-    "typescript": "^4.4.4",
-    "vite": "^2.6.0",
-    "vite-plugin-html": "^2.1.1",
-    "vite-plugin-style-import": "^1.3.0",
-    "vue-eslint-parser": "^7.6.0",
-    "yorkie": "^2.0.0"
+    "picocolors": "latest",
+    "postcss": "^8.4.23",
+    "prettier": "^2.8.8",
+    "simple-git-hooks": "latest",
+    "ssh2-sftp-client": "^9.0.2",
+    "tsx": "latest",
+    "typescript": "^4.9.5",
+    "unocss": "^0.53.5",
+    "unplugin-auto-import": "^0.12.2",
+    "unplugin-vue-components": "^0.23.0",
+    "vite": "^4.3.9",
+    "vite-plugin-html": "^3.2.0",
+    "vite-plugin-style-import": "^2.0.0",
+    "vue-eslint-parser": "^7.11.0"
   },
-  "gitHooks": {
-    "pre-commit": "lint-staged",
-    "commit-msg": "node scripts/verify-commit.js"
+  "simple-git-hooks": {
+    "pre-commit": "pnpm exec lint-staged --concurrent false",
+    "commit-msg": "pnpm exec tsx scripts/verifyCommit.ts $1"
   },
   "lint-staged": {
     "*.{js,jsx,ts,tsx,vue}": [
-      "eslint --fix",
-      "git add"
+      "eslint --fix"
     ]
+  },
+  "pnpm": {
+    "peerDependencyRules": {
+      "ignoreMissing": [
+        "webpack",
+        "umi"
+      ]
+    }
   }
 }

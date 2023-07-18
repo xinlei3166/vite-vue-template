@@ -1,0 +1,12 @@
+{
+  "name": "@packages/components",
+  "version": "1.0.0",
+  "description": "@packages/components",
+  "main": "index.ts",
+  "keywords": [],
+  "author": "君惜",
+  "license": "MIT",
+  "dependencies": {
+    "@packages/utils": "workspace:*"
+  }
+}

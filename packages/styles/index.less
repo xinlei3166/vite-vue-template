@@ -1,0 +1,157 @@
+@import './antd';
+
+// required
+.label-required::before {
+  content: '*';
+  color: theme('colors.error');
+  margin-right: 4px;
+}
+
+// overflow
+.overflow-ellipsis {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+// column-wrap
+.column-wrap  {
+  display: flex;
+  align-items: center;
+}
+
+// column-mark
+.column-tooltip {
+  .ivu-tooltip-content {
+    max-height: 400px;
+    overflow-y: auto;
+  }
+}
+
+.column-mark {
+  display: inline-block;
+  width: 70px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+// dropdown-icon
+.dropdown-icon {
+  font-size: 12px;
+  vertical-align: baseline;
+}
+
+// card
+.g-card {
+  display: flex;
+  background: #fff;
+  border-radius: 4px;
+  font-size: 14px;
+  transition: all 0.2s ease-in-out;
+}
+
+// readonly-text
+.readonly-text {
+  .ivu-input[disabled] {
+    background-color: transparent;
+    opacity: 1;
+    cursor: default;
+    color: theme('colors.text');
+  }
+}
+
+// empty-style
+.empty-style {
+  text-align: center;
+  color: theme('colors.text2');
+
+  .ant-empty-image {
+    margin-bottom: 8px;
+  }
+}
+
+// nprogress style
+#nprogress .bar {
+  background: theme('colors.primary');
+}
+
+// reset-btn
+.reset-btn {
+  color: #fff !important;
+  background-color: theme('colors.warning');
+  border-color: theme('colors.warning');
+  text-shadow: 0 -1px 0 rgb(0 0 0 / 12%);
+  box-shadow: 0 2px 0 rgb(0 0 0 / 5%);
+
+  &:hover, &:focus, &:active {
+    text-decoration: none;
+  }
+
+  &:hover, &:focus {
+    background-color: theme('colors.warningHover');
+    border-color: theme('colors.warningHover');
+  }
+
+  &:focus, &:active {
+    outline: 0;
+  }
+
+  &:active {
+    background-color: theme('colors.warningActive');
+    border-color: theme('colors.warningActive');
+    box-shadow: none;
+    outline: 0;
+  }
+}
+
+// text-btn
+.text-btn-success {
+  cursor: pointer;
+  color: theme('colors.success');
+
+  &:hover {
+    color: theme('colors.successHover');
+  }
+}
+
+.text-btn-error {
+  cursor: pointer;
+  color: theme('colors.error');
+
+  &:hover {
+    color: theme('colors.errorHover');
+  }
+}
+
+.text-btn-disabled {
+  cursor: not-allowed;
+  color: theme('colors.text2');
+}
+
+.text-btn, .phone-icon, .im-icon {
+  color: theme('colors.primary');
+  cursor: pointer;
+}
+
+.text-btn:hover, .phone-icon:hover {
+  color: theme('colors.primaryHover');
+  //color: theme('antd.colorPrimaryHover');
+}
+
+.text-btn + .text-btn {
+  margin-left: 8px;
+}
+
+.hover-btn {
+  cursor: pointer;
+
+  &:hover {
+    color: theme('colors.primary') !important;
+  }
+}
+
+.phone-icon {
+  font-size: 20px;
+  margin-left: 8px;
+}

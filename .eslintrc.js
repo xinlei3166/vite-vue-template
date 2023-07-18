@@ -41,8 +41,7 @@ module.exports = {
     '@typescript-eslint/no-non-null-assertion': 0,
     '@typescript-eslint/no-unused-vars': 1,
     '@typescript-eslint/no-var-requires': 0,
-    // 强制 typescript 类型导入的一致使用
-    // '@typescript-eslint/consistent-type-imports': 1,
+    '@typescript-eslint/consistent-type-imports': 1,
     // vue
     'vue/no-parsing-error': [2, { 'x-invalid-end-tag': false }],
     'vue/html-self-closing': 0,
