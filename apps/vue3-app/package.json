@@ -22,6 +22,7 @@
     "build:github": "vite build --mode github",
     "build": "vite build",
     "serve": "vite preview --host",
+    "deploy": "zsh scripts/gh-pages.sh",
     "upload": "node upload",
     "test": "pnpm run build:qa && pnpm run upload"
   },
