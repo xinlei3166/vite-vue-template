@@ -135,9 +135,6 @@ importers:
       '@vitejs/plugin-vue-jsx':
         specifier: ^3.0.0
         version: 3.0.0(vite@4.3.9)(vue@3.2.37)
-      '@vue/compiler-sfc':
-        specifier: ^3.2.37
-        version: 3.2.37
       '@vueuse/shared':
         specifier: ^10.2.1
         version: 10.2.1(vue@3.2.37)
