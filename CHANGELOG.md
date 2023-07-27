@@ -1,3 +1,12 @@
+# [2.1.0](https://github.com/xinlei3166/vite-vue-template/compare/v2.0.2...v2.1.0) (2023-07-27)
+
+
+### Features
+
+* use css-vars, add dynamic theme ([a469563](https://github.com/xinlei3166/vite-vue-template/commit/a469563d97d5def4a8e74c65de957fcecf33769f))
+
+
+
 ## [2.0.2](https://github.com/xinlei3166/vite-vue-template/compare/v2.0.1...v2.0.2) (2023-07-18)
 
 
