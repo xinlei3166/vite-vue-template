@@ -1,4 +1,6 @@
 import { ref } from 'vue'
+import type { Ref } from 'vue'
+import type { GlobalToken } from 'ant-design-vue/es/theme'
 
 export interface Theme {
   theme: 'dark' | 'light'
@@ -10,6 +12,7 @@ export interface Theme {
   collapsedWidth: string
   headerTheme: boolean
   showBreadcrumb: boolean
+  token: Partial<GlobalToken>
 }
 
 const theme = ref<Theme>({
@@ -21,9 +24,13 @@ const theme = ref<Theme>({
   collapsed: false,
   collapsedWidth: '80px',
   headerTheme: false,
-  showBreadcrumb: true // 是否显示面包屑
+  showBreadcrumb: true, // 是否显示面包屑
+  token: {
+    colorPrimary: '#0077fa',
+    colorInfo: '#0077fa'
+  }
 })
 
-export const useTheme = function () {
+export const useTheme = function (): Ref<Theme> {
   return theme
 }

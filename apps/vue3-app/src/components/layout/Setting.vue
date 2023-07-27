@@ -29,10 +29,18 @@
         </a-select>
       </div>
       <div class="drawer-item">
-        <span>主题色</span>
+        <span>风格</span>
         <a-select v-model:value="theme.theme" class="select" @change="onChangeTheme">
           <a-select-option value="dark">暗黑</a-select-option>
           <a-select-option value="light">明亮</a-select-option>
+        </a-select>
+      </div>
+      <div class="drawer-item">
+        <span>主题色</span>
+        <a-select v-model:value="theme.token.colorPrimary" class="select" @change="onChangeToken">
+          <a-select-option v-for="(color, index) in colors" :key="color.value" :value="color.value">
+            <span :style="{ color: index !== 0 ? color.value : 'unset' }">{{ color.label }}</span>
+          </a-select-option>
         </a-select>
       </div>
       <div class="drawer-item">
@@ -69,33 +77,42 @@
   </a-drawer>
 </template>
 
-<script lang="ts">
-import { defineComponent, ref, onMounted } from 'vue'
+<script lang="ts" setup>
+import { ref, onMounted } from 'vue'
 import { useTheme } from '@packages/hooks'
 import { SettingOutlined, CloseOutlined } from '@ant-design/icons-vue'
 
-export default defineComponent({
-  components: { SettingOutlined, CloseOutlined },
-  setup() {
-    const visible = ref(false)
-    const theme = useTheme()
+const visible = ref(false)
+const theme = useTheme()
+const colors = [
+  { label: '默认', value: '#0077fa' },
+  { label: '薄暮', value: '#f5222d' },
+  { label: '火山', value: '#fa541c' },
+  { label: '日暮', value: '#fa8c16' },
+  { label: '金盏花', value: '#faad14' },
+  { label: '日出', value: '#fadb14' },
+  { label: '青柠', value: '#a0d911' },
+  { label: '极光绿', value: '#52c41a' },
+  { label: '明青', value: '#13c2c2' },
+  { label: '拂晓蓝', value: '#1677ff' }
+]
 
-    onMounted(() => {
-      setLocalTheme()
-    })
-
-    const setLocalTheme = () => {
-      const el = document.querySelector('html')
-      el?.classList.toggle('dark', theme.value.theme === 'dark')
-    }
-
-    const onChangeTheme = () => {
-      setLocalTheme()
-    }
-
-    return { visible, theme, onChangeTheme }
-  }
+onMounted(() => {
+  setLocalTheme()
 })
+
+const setLocalTheme = () => {
+  const el = document.querySelector('html')
+  el?.classList.toggle('dark', theme.value.theme === 'dark')
+}
+
+const onChangeTheme = () => {
+  setLocalTheme()
+}
+
+const onChangeToken = () => {
+  //
+}
 </script>
 
 <style lang="less" scoped>

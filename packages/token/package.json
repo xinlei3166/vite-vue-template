@@ -1,0 +1,15 @@
+{
+  "name": "@packages/token",
+  "version": "1.0.0",
+  "description": "@packages/token",
+  "main": "index.ts",
+  "keywords": [],
+  "license": "MIT",
+  "peerDependencies": {
+    "ant-design-vue": ">=4.0.0"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "ant-design-vue": "^4.0.0"
+  }
+}

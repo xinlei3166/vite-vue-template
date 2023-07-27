@@ -120,7 +120,7 @@ export function doSM3(text: String): String {
   return sm3(text)
 }
 
-export const randomString = (len: Number): String => {
+export const randomString = (len: number): String => {
   len = len || 32
   const $chars = 'ABCDEFGHJKMNPQRSTWXYZabcdefhijkmnprstwxyz2345678'
   /** **默认去掉了容易混淆的字符oOLl,9gq,Vv,Uu,I1****/
@@ -216,4 +216,8 @@ export function isJSON(str: any) {
 
 export const convertStringToBoolean = (value: string) => {
   return value === 'true' ? true : value === 'false' ? false : value
+}
+
+export const kebabCase = (str: string) => {
+  return str.replace(/[A-Z]/g, match => `-${match.toLowerCase()}`)
 }
