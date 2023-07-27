@@ -1,1 +1,0 @@
-import{d as s,G as a,aj as n,a6 as o,a7 as r,aa as t,ab as u,aq as c}from"./index-242e2b80.js";const i=s({setup(){return{number:a("number")}}}),d=t("div",{class:"title"},"子组件",-1),l={class:"title"};function p(e,_,m,f,b,F){return o(),r(c,null,[d,t("div",l,"当前结果："+u(e.number),1)],64)}const B=n(i,[["render",p]]);export{B as default};
