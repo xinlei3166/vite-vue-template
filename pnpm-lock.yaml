@@ -106,8 +106,8 @@ importers:
         specifier: ^1.0.6
         version: 1.0.6
       '@types/node':
-        specifier: ^14.18.23
-        version: 14.18.24
+        specifier: ^20.4.5
+        version: 20.4.5
       '@types/nprogress':
         specifier: ^0.2.0
         version: 0.2.0
@@ -212,7 +212,7 @@ importers:
         version: 0.23.0(vue@3.2.37)
       vite:
         specifier: ^4.3.9
-        version: 4.3.9(@types/node@14.18.24)(less@4.1.3)
+        version: 4.3.9(@types/node@20.4.5)(less@4.1.3)
       vite-plugin-html:
         specifier: ^3.2.0
         version: 3.2.0(vite@4.3.9)
@@ -1258,6 +1258,11 @@ packages:
 
   /@types/node@14.18.24:
     resolution: {integrity: sha512-aJdn8XErcSrfr7k8ZDDfU6/2OgjZcB2Fu9d+ESK8D7Oa5mtsv8Fa8GpcwTA0v60kuZBaalKPzuzun4Ov1YWO/w==}
+    dev: false
+
+  /@types/node@20.4.5:
+    resolution: {integrity: sha512-rt40Nk13II9JwQBdeYqmbn2Q6IVTA5uPhvSO+JVqdXw/6/4glI6oR9ezty/A9Hg5u7JH4OmYmuQ+XvjKm0Datg==}
+    dev: true
 
   /@types/normalize-package-data@2.4.1:
     resolution: {integrity: sha512-Gj7cI7z+98M282Tqmp2K5EIsoouUEzbBJhQQzDE3jSIRk6r9gsz0oUokqIUR4u1R3dMHo0pDHM7sNOHyhulypw==}
@@ -1578,7 +1583,7 @@ packages:
       chokidar: 3.5.3
       fast-glob: 3.3.0
       magic-string: 0.30.1
-      vite: 4.3.9(@types/node@14.18.24)(less@4.1.3)
+      vite: 4.3.9(@types/node@20.4.5)(less@4.1.3)
     transitivePeerDependencies:
       - rollup
     dev: true
@@ -1593,7 +1598,7 @@ packages:
       '@babel/core': 7.20.12
       '@babel/plugin-transform-typescript': 7.20.13(@babel/core@7.20.12)
       '@vue/babel-plugin-jsx': 1.1.1(@babel/core@7.20.12)
-      vite: 4.3.9(@types/node@14.18.24)(less@4.1.3)
+      vite: 4.3.9(@types/node@20.4.5)(less@4.1.3)
       vue: 3.2.37
     transitivePeerDependencies:
       - supports-color
@@ -1606,7 +1611,7 @@ packages:
       vite: ^4.0.0
       vue: ^3.2.25
     dependencies:
-      vite: 4.3.9(@types/node@14.18.24)(less@4.1.3)
+      vite: 4.3.9(@types/node@20.4.5)(less@4.1.3)
       vue: 3.2.37
     dev: true
 
@@ -6364,7 +6369,7 @@ packages:
       html-minifier-terser: 6.1.0
       node-html-parser: 5.4.2
       pathe: 0.2.0
-      vite: 4.3.9(@types/node@14.18.24)(less@4.1.3)
+      vite: 4.3.9(@types/node@20.4.5)(less@4.1.3)
     dev: true
 
   /vite-plugin-style-import@2.0.0(vite@4.3.9):
@@ -6379,10 +6384,10 @@ packages:
       fs-extra: 10.1.0
       magic-string: 0.25.9
       pathe: 0.2.0
-      vite: 4.3.9(@types/node@14.18.24)(less@4.1.3)
+      vite: 4.3.9(@types/node@20.4.5)(less@4.1.3)
     dev: true
 
-  /vite@4.3.9(@types/node@14.18.24)(less@4.1.3):
+  /vite@4.3.9(@types/node@20.4.5)(less@4.1.3):
     resolution: {integrity: sha512-qsTNZjO9NoJNW7KnOrgYwczm0WctJ8m/yqYAMAK9Lxt4SoySUfS5S8ia9K7JHpa3KEeMfyF8LoJ3c5NeBJy6pg==}
     engines: {node: ^14.18.0 || >=16.0.0}
     hasBin: true
@@ -6407,7 +6412,7 @@ packages:
       terser:
         optional: true
     dependencies:
-      '@types/node': 14.18.24
+      '@types/node': 20.4.5
       esbuild: 0.17.17
       less: 4.1.3
       postcss: 8.4.23
