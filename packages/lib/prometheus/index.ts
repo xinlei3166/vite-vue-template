@@ -98,28 +98,6 @@ export const usePrometheus = (options?: PrometheusOptions) => {
   /**
    * query
    * @param query 查询表达式
-   * 每秒事务数 dm_global_status_tps{db="192.168.200.161:5236",}
-   * 每秒查询数 dm_global_status_qps{db="192.168.200.161:5236",}
-   * 每秒插入数 dm_global_status_ips{db="192.168.200.161:5236",}
-   * 每秒删除数 dm_global_status_dps{db="192.168.200.161:5236",}
-   * 每秒更新数 dm_global_status_ups{db="192.168.200.161:5236",}
-   * 内存使用数量 dm_global_status_mem_used{db="192.168.200.161:5236",}
-   * CPU使用率 dm_global_status_cpu_use_rate{db="192.168.200.161:5236",}
-   * 任务平均等待时间 dm_global_status_avg_wait_time{db="192.168.200.161:5236",}
-   * 线程数 dm_global_status_threads{db="192.168.200.161:5236",}
-   * 金蝶监控
-   * 系统CPU使用率 system_cpu_load{host="192.168.200.161",}
-   * 进程CPU使用率 process_cpu_load{host="192.168.200.161",}
-   * 物理内存总量 physical_memory_total_size_bytes{host="192.168.200.161",}
-   * 空余内存 free_physical_memory_size_bytes{host="192.168.200.161",}
-   * JVM
-   * JVM线程数 jvm_threads_current{host="192.168.200.161",}
-   * JVM-CodeCache jvm_memory_pool_bytes_used{pool="Code Cache",host="192.168.200.161",}
-   * JVM-Metaspace jvm_memory_pool_bytes_used{pool="Metaspace",host="192.168.200.161",}
-   * JVM-CompressedClassSpace jvm_memory_pool_bytes_used{pool="Compressed Class Space",host="192.168.200.161",}
-   * JVM-PSEdenSpace jvm_memory_pool_bytes_used{pool="PS Eden Space",host="192.168.200.161",}
-   * JVM-PSSurvivorSpace jvm_memory_pool_bytes_used{pool="PS Survivor Space",host="192.168.200.161",}
-   * JVM-PSOldGen jvm_memory_pool_bytes_used{pool="PS Old Gen",host="192.168.200.161",}
    * @param params 查询表达式参数
    * @param config 查询方法配置
    */
