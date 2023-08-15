@@ -47,8 +47,8 @@ const onLogout = async () => {
     content: '退出登录成功',
     duration: 1,
     onClose: () => {
-      router.push('/login')
       removeToken()
+      router.push('/login')
       userStore.cleanup()
       menuStore.cleanup()
     }

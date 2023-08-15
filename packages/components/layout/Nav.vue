@@ -1,16 +1,15 @@
 <template>
   <div class="layout-nav">
-    <!--    <BellOutlined class="layout-header-icon" />-->
-    <a-dropdown placement="bottom">
-      <span class="dropdown-link" @click.prevent>
+    <BellOutlined class="layout-header-icon" />
+    <a-dropdown>
+      <span class="dropdown-link">
         <span class="dropdown-img-wrap">
-          <img class="dropdown-img" src="~@/assets/avatar.svg" />
+          <img class="dropdown-img" src="~@/assets/avatar.png" />
         </span>
         <span class="dropdown-text">{{ userinfo.name }}</span>
       </span>
       <template #overlay>
         <a-menu>
-          <!--          <a-menu-divider />-->
           <a-menu-item @click="onLogout">
             <LoginOutlined class="menu-item-icon" />
             退出登录
@@ -24,25 +23,36 @@
 <script setup lang="ts">
 import { computed } from 'vue'
 import { message } from 'ant-design-vue'
+import { useRouter } from 'vue-router'
 import { BellOutlined, UserOutlined, LoginOutlined, SettingOutlined } from '@ant-design/icons-vue'
-import { useTheme, useOpenRoute } from '@packages/hooks'
-import { useUserStore } from '@/store/user'
+import { useTheme } from '@packages/hooks'
 import { removeToken } from '@packages/utils'
+import { logout } from '@/api'
+import { useUserStore } from '@/store/user'
+import { useMenuStore } from '@/store/menu'
 
 // ====================== Hooks ======================
 const theme = useTheme()
-const { openRoute } = useOpenRoute()
+const router = useRouter()
 const userStore = useUserStore()
+const menuStore = useMenuStore()
 
 // ====================== Components ======================
 const userinfo = computed(() => userStore.Userinfo)
 
-const onLogout = () => {
-  removeToken()
-  message.success('退出成功')
-  setTimeout(() => {
-    openRoute('login')
-  }, 300)
+const onLogout = async () => {
+  const res = await logout()
+  if (!res || res.code !== 0) return
+  message.success({
+    content: '退出登录成功',
+    duration: 1,
+    onClose: () => {
+      removeToken()
+      router.push('/login')
+      userStore.cleanup()
+      menuStore.cleanup()
+    }
+  })
 }
 </script>
 
@@ -69,13 +79,12 @@ const onLogout = () => {
   .dropdown-img-wrap {
     display: inline-flex;
     align-items: center;
-    width: 30px;
+    width: 24px;
     margin-right: 8px;
   }
-
   .dropdown-img {
-    width: 30px;
-    height: 30px;
+    width: 24px;
+    height: 24px;
   }
 
   .dropdown-text {
@@ -89,7 +98,13 @@ const onLogout = () => {
 
 // theme
 .layout-header-mix.dark,
-.layout-header.dark,
+.layout-header.dark {
+  .dropdown-text,
+  .layout-header-icon {
+    color: #fff;
+  }
+}
+
 html.dark .layout-header-mix {
   .dropdown-text,
   .layout-header-icon {

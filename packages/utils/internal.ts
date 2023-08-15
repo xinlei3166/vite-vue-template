@@ -20,8 +20,8 @@ export const removeToken = () => {
 export const logoutCleanup = () => {
   const userStore = useUserStore()
   const menuStore = useMenuStore()
-  router.push('/login')
   removeToken()
+  router.push('/login')
   userStore.cleanup()
   menuStore.cleanup()
 }
