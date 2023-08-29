@@ -7,7 +7,7 @@ import { useMenuStore } from '@/store/menu'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
-  routes: [...home, ...routes, ...common]
+  routes: __DYNAMIC_MENU__ ? [...home, ...common] : [...home, ...routes, ...common]
 })
 
 export const checkExternalWhiteRoute = (routePath: string) => {
