@@ -108,6 +108,7 @@ const setLocalTheme = () => {
 
 const onChangeTheme = () => {
   setLocalTheme()
+  theme.value.algorithm = theme.value.theme === 'dark' ? 'darkAlgorithm' : 'defaultAlgorithm'
 }
 
 const onChangeToken = () => {

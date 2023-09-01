@@ -13,6 +13,7 @@ export interface Theme {
   headerTheme: boolean
   showBreadcrumb: boolean
   token: Partial<GlobalToken>
+  algorithm: string
 }
 
 const theme = ref<Theme>({
@@ -28,7 +29,8 @@ const theme = ref<Theme>({
   token: {
     colorPrimary: '#0077fa',
     colorInfo: '#0077fa'
-  }
+  },
+  algorithm: 'defaultAlgorithm'
 })
 
 export const useTheme = function (): Ref<Theme> {

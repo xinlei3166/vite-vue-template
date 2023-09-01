@@ -11,6 +11,7 @@ import { useRouter } from 'vue-router'
 import zhCN from 'ant-design-vue/es/locale/zh_CN'
 import { useUserStore } from '@/store/user'
 import { useTheme } from '@packages/hooks'
+// import { theme as antdTheme } from 'ant-design-vue'
 import TokenContextHolder from '@packages/token/TokenContextHolder.vue'
 import { getToken } from '@packages/utils'
 import { checkExternalWhiteRoute } from '@/router'
@@ -43,10 +44,12 @@ onMounted(async () => {
   }
 })
 
-const configProvider = reactive({
+const configProvider = computed(() => ({
   locale: zhCN,
+  // @ts-ignore
+  // theme: { token: theme.value.token, algorithm: antdTheme[theme.value.algorithm] }
   theme: { token: theme.value.token }
-})
+}))
 </script>
 
 <style></style>

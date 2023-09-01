@@ -239,7 +239,8 @@ const onCollapsed = () => {
 
 html.dark {
   .trigger {
-    color: theme('colors.brandDark.text2');
+    //color: theme('colors.text2');
+    color: rgba(255, 255, 255, 0.65);
     &:hover {
       color: #fff !important;
     }
