@@ -14,9 +14,8 @@ const beforeEnter = async (to: any, from: any, next: any) => {
     })
     return
   }
-  next({
-    path: routeMenus[0].path
-  })
+  const path = routeMenus[0].children?.length ? routeMenus[0].children[0].path : routeMenus[0].path
+  next({ path })
 }
 
 export default [
