@@ -57,7 +57,7 @@ export default defineComponent({
     const params = computed(() => ({
       ...search
     }))
-    const { loading, data, pagination, init, onSearch } = useData(getList, {
+    const { loading, data, pagination, init, onSearch, onTableChange } = useData(getList, {
       params,
       pagination: { pageSize: 10 }
     })
@@ -82,12 +82,6 @@ export default defineComponent({
     async function onReset() {
       Object.keys(search).forEach(key => (search[key] = undefined))
       pagination.current = 1
-      await init()
-    }
-
-    async function onTableChange(pag: Pagination) {
-      pagination.current = pag.current
-      pagination.pageSize = pag.pageSize
       await init()
     }
 

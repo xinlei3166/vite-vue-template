@@ -50,7 +50,7 @@ import { columns, tableColumns } from './columns'
 const params = computed(() => ({
   ...search
 }))
-const { loading, data, pagination, init, onSearch } = useData(getList, {
+const { loading, data, pagination, init, onSearch, onTableChange } = useData(getList, {
   params,
   pagination: { pageSize: 10 } // 不传，默认为10
 })
@@ -75,12 +75,6 @@ const search = reactive<Record<string, any>>({
 async function onReset() {
   Object.keys(search).forEach(key => (search[key] = undefined))
   await onSearch()
-}
-
-async function onTableChange(pag: Pagination) {
-  pagination.current = pag.current
-  pagination.pageSize = pag.pageSize
-  await init()
 }
 
 function onEdit() {

@@ -10,6 +10,7 @@ interface DataOptions {
   params?: ComputedRef<Record<string, any>> | Record<string, any>
   pagination?: Pagination | false
   cb?: ({ sourceData, data }: { sourceData: Ref<any>; data: Ref<any> }) => void
+  onTableChange?: Function
   dataKey?: any
   method?: string
   codeKey?: string
@@ -24,6 +25,7 @@ interface DataOptions {
  * @param pagination table pagination 分页器参数, false 表示不分页
  * @param dataKey 数据key
  * @param cb callback
+ * @param onTableChange table change
  * @param codeKey 请求响应 codeKey
  * @param successCode 请求响应成功 code
  */
@@ -34,6 +36,7 @@ export function useData(
     pagination = {},
     dataKey = 'list',
     cb,
+    onTableChange: _onTableChange,
     method = 'get',
     codeKey = 'code',
     successCode = 0
@@ -69,13 +72,26 @@ export function useData(
     await init(_params)
   }
 
+  async function onTableChange(
+    pagination: Pagination,
+    filters: any,
+    sorter: any,
+    { currentDataSource }: any
+  ) {
+    pag.current = pagination.current
+    pag.pageSize = pagination.pageSize
+    await init()
+    _onTableChange?.(pagination, filters, sorter, { currentDataSource })
+  }
+
   return {
     loading,
     sourceData,
     data,
     pagination: pag,
     init,
-    onSearch
+    onSearch,
+    onTableChange
   }
 }
 

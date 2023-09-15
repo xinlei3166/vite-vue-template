@@ -33,19 +33,13 @@ import { useData } from '@packages/hooks'
 import { getList } from '@/api'
 
 const params = computed(() => ({}))
-const { loading, data, pagination, init, onSearch } = useData(getList, {
+const { loading, data, pagination, init, onSearch, onTableChange } = useData(getList, {
   params,
   pagination: { pageSize: 10 } // 不传，默认为10
 })
 onBeforeMount(async () => {
   await init()
 })
-
-async function onTableChange(pag: Pagination) {
-  pagination.current = pag.current
-  pagination.pageSize = pag.pageSize
-  await init()
-}
 
 function onEdit() {
   window.open('https://baidu.com')
