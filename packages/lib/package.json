@@ -7,9 +7,9 @@
   "author": "君惜",
   "license": "MIT",
   "dependencies": {
-    "@packages/utils": "workspace:*",
     "@packages/types": "workspace:*",
-    "axios": "^0.27.2",
-    "dayjs": "^1.11.5"
+    "@packages/utils": "workspace:*",
+    "axios": "^1.5.1",
+    "dayjs": "^1.11.10"
   }
 }

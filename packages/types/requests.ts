@@ -1,4 +1,4 @@
-import type { AxiosRequestConfig } from 'axios'
+import type { AxiosRequestConfig, InternalAxiosRequestConfig } from 'axios'
 
 export interface RequestsConfig {
   baseURL?: string
@@ -22,10 +22,12 @@ export interface RequestOptions {
   blobOptions?: Record<string, any>
 }
 
-export interface Config extends AxiosRequestConfig {
+export interface RequestConfig {
   requestOptions?: RequestOptions
   [key: string]: any
 }
+export type Config = RequestConfig & AxiosRequestConfig
+export type InternalConfig = RequestConfig & InternalAxiosRequestConfig
 
 export interface Request {
   [key: string]: any

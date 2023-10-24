@@ -27,14 +27,14 @@
     "test": "pnpm run build:qa && pnpm run upload"
   },
   "dependencies": {
-    "@packages/token": "workspace:*",
     "@packages/components": "workspace:*",
     "@packages/hooks": "workspace:*",
     "@packages/lib": "workspace:*",
     "@packages/plugins": "workspace:*",
     "@packages/styles": "workspace:*",
-    "@packages/utils": "workspace:*",
-    "@packages/types": "workspace:*"
+    "@packages/token": "workspace:*",
+    "@packages/types": "workspace:*",
+    "@packages/utils": "workspace:*"
   },
   "devDependencies": {}
 }
