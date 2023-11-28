@@ -49,6 +49,7 @@ module.exports = {
     'vue/html-closing-bracket-newline': 0,
     'vue/max-attributes-per-line': 0,
     'vue/no-unused-components': 1,
-    'vue/no-mutating-props': 0
+    'vue/no-mutating-props': 0,
+    'vue/multi-word-component-names': 0
   }
 }
