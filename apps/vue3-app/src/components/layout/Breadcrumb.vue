@@ -4,7 +4,9 @@
       <span v-if="routes.indexOf(route) === lastIndex">
         {{ route.meta.title }}
       </span>
-      <router-link v-else :to="route.path">{{ route.meta.title }}</router-link>
+      <router-link v-else :to="route.meta.firstChildrenRoutePath || route.path">
+        {{ route.meta.title }}
+      </router-link>
     </template>
   </a-breadcrumb>
 </template>
