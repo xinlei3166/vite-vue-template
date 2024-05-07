@@ -1,3 +1,26 @@
+# [2.2.0](https://github.com/xinlei3166/vite-vue-template/compare/v2.1.0...v2.2.0) (2024-05-07)
+
+
+### Features
+
+* add a-text-btn style ([6eec9a5](https://github.com/xinlei3166/vite-vue-template/commit/6eec9a57f846da5c21deae853d2695520cc67f56))
+* add logoutCleanup method ([e33a07b](https://github.com/xinlei3166/vite-vue-template/commit/e33a07b625b1f7e00fd8871556c8fb62fc2764ce))
+* add logoutCleanup method ([a1f2468](https://github.com/xinlei3166/vite-vue-template/commit/a1f24680ca20e02e4d50e2b385288cdfc8b3d8d3))
+* add nuxt3 template ([1f4b7c6](https://github.com/xinlei3166/vite-vue-template/commit/1f4b7c69cdff6f7c92e509627bbf7d1134b50960))
+* hook useData ([737522d](https://github.com/xinlei3166/vite-vue-template/commit/737522d34b443d8186a954369a46ab79535e06aa))
+* menu ([2a6828e](https://github.com/xinlei3166/vite-vue-template/commit/2a6828ef766696b54494c64d92f3a1458fe408fe))
+* routes ([2eb338b](https://github.com/xinlei3166/vite-vue-template/commit/2eb338bf5412a96e081363bcdb572a99c34b5f17))
+* styles ([18be282](https://github.com/xinlei3166/vite-vue-template/commit/18be282c09ef1a3536618e4d291e6a2188d50c70))
+* theme algorithm ([31d137e](https://github.com/xinlei3166/vite-vue-template/commit/31d137e1d1f6ae04077ee5e1a10cdf00d7d5a5cd))
+* theme algorithm ([3326916](https://github.com/xinlei3166/vite-vue-template/commit/3326916c45ccab2811bb6c4f21201e621dad9513))
+* update all packages to the latest. ([f36b311](https://github.com/xinlei3166/vite-vue-template/commit/f36b31141864c465f32c3800e7ca30a8255a5506))
+* update packages ([228ab89](https://github.com/xinlei3166/vite-vue-template/commit/228ab89da71cd95adcc54a25c02d5b53b13341de))
+* VITE_OUTDIR. ([20b9657](https://github.com/xinlei3166/vite-vue-template/commit/20b96570e674e29db33490af8f062a7e0c88cb3f))
+* 环境变量调整，使用vite内置变量，生产环境使用import.meta.env.PROD，开发环境使用import.meta.env.DEV。 ([0fd7c78](https://github.com/xinlei3166/vite-vue-template/commit/0fd7c78b07ac700a0e5ac694aae80fd168650e4f))
+* 环境变量调整，使用vite内置变量，生产环境使用import.meta.env.PROD，开发环境使用import.meta.env.DEV。 ([d46fd8d](https://github.com/xinlei3166/vite-vue-template/commit/d46fd8d7cd4204c1a9b7f179e5b54b145400f503))
+
+
+
 # [2.1.0](https://github.com/xinlei3166/vite-vue-template/compare/v2.0.2...v2.1.0) (2023-07-27)
 
 
