@@ -66,7 +66,7 @@
           <a class="link" href="_self">隐私</a>
           <a class="link" href="_self">条款</a>
         </div>
-        <div class="copyright">Copyright © 2023 君惜 (xinlei3166)</div>
+        <div class="copyright">Copyright © 2023-present 君惜 (xinlei3166)</div>
       </div>
     </div>
   </div>

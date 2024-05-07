@@ -1,7 +1,8 @@
 export const regPhone = /^1\d{10}$/ // 手机号
 export const regEmail = /^[A-Za-z0-9\u4e00-\u9fa5_-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/
 export const regpassword = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[^]{8,20}$/ // 密码8-20位字符，包含大小写字母、数字
-export const regIDCard = /(^\d{15}$)|(^\d{18}$)|(^\d{17}(\d|X|x)$)/ // 身份证号
+export const regIDCard =
+  /^[1-9]\d{5}(18|19|20|21)\d{2}((0[1-9])|10|11|12)(([0-2][1-9])|10|20|30|31)\d{3}[0-9Xx]$/ // 身份证号
 export const regCode = /^\d{6}$/ // 验证码
 export const regSignPassword = /^\d{6}$/ // 签约密码
 export const regName = /^[\u4e00-\u9fa5\.]{2,15}$/ // 姓名 2-15位汉字，可以包含“·”
@@ -20,10 +21,10 @@ export const regChina = /[^\u4E00-\u9FA5]$/ // 中文
 export const urlPattern = /^(https?:\/\/)([\da-z.-]+)\.([a-z.]{2,6})([\/\w.-]*)*\/?$/
 
 // 手机号正则
-export const phonePattern = /^1[123456789]\d(\*{4}|\d{4})\d{4}$/
+export const phonePattern = /^1[3456789]\d(\*{4}|\d{4})\d{4}$/
 
 // 手机号正则
-export const phoneRegular = /^1[123456789]\d{9}$/
+export const phoneRegular = /^1[3456789]\d{9}$/
 
 // 外国手机号正则
 export const foreignPhonePattern = /^\d+-?(\*{3,4}|\d{4})\d+$/

@@ -22,7 +22,8 @@ export const checkExternalWhiteRoute = (routePath: string) => {
 }
 
 export const externalWhiteList = ['/visualScreen']
-const whiteList = ['/login', '/initLogin', '/netAccessConfig']
+
+const whiteList = ['/login', '/initLogin']
 router.beforeEach(async (to, from, next) => {
   loadingStart()
   if (checkExternalWhiteRoute(to.path)) return next()

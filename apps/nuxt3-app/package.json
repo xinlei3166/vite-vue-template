@@ -1,0 +1,45 @@
+{
+  "name": "nuxt3-app",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/xinlei3166/vite-vue-template.git",
+    "directory": "apps/nuxt3-app"
+  },
+  "author": "君惜",
+  "license": "MIT",
+  "scripts": {
+    "preinstall": "npx only-allow pnpm",
+    "postinstall": "nuxi prepare",
+    "dev": "nuxi dev",
+    "build:qa": "nuxi build --mode qa",
+    "build:github": "nuxi build --mode github",
+    "build": "nuxi build",
+    "generate": "nuxi generate",
+    "preview": "nuxi preview",
+    "deploy": "zsh scripts/gh-pages.sh",
+    "upload": "node upload",
+    "test": "pnpm run build:qa && pnpm run upload"
+  },
+  "dependencies": {
+    "nuxt": "^3.11.2",
+    "@ant-design-vue/nuxt": "^1.4.1",
+    "@unocss/nuxt": "^0.59.0",
+    "@pinia/nuxt": "^0.5.1",
+    "@pinia-plugin-persistedstate/nuxt": "^1.2.0",
+    "vue": "^3.4.21",
+    "vue-router": "^4.3.0",
+    "exceljs": "^4.4.0",
+    "@packages/components": "workspace:*",
+    "@packages/hooks": "workspace:*",
+    "@packages/lib": "workspace:*",
+    "@packages/plugins": "workspace:*",
+    "@packages/styles": "workspace:*",
+    "@packages/token": "workspace:*",
+    "@packages/types": "workspace:*",
+    "@packages/utils": "workspace:*"
+  },
+  "devDependencies": {}
+}
