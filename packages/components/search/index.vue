@@ -11,6 +11,8 @@
       :show-reset-btn="showResetBtn"
       :show-btn="showBtn"
       :btn-align="btnAlign"
+      :btn-class="btnClass"
+      :btn-style="btnStyle"
       :search-btn-label="searchBtnLabel"
       :reset-btn-label="resetBtnLabel"
     >
@@ -34,6 +36,8 @@
     :show-reset-btn="showResetBtn"
     :show-btn="showBtn"
     :btn-align="btnAlign"
+    :btn-class="btnClass"
+    :btn-style="btnStyle"
     :search-btn-label="searchBtnLabel"
     :reset-btn-label="resetBtnLabel"
   >

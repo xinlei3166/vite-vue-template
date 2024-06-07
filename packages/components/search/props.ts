@@ -9,5 +9,7 @@ export const props = {
   showBtn: { type: Boolean, default: true },
   searchBtnLabel: { type: String, default: '查询' }, // 查询, 搜索
   resetBtnLabel: { type: String, default: '重置' },
-  btnAlign: { type: String, default: 'left' } // left/right
+  btnAlign: { type: String, default: 'left' }, // left/right
+  btnClass: { type: String, default: '' },
+  btnStyle: { type: Object, default: () => ({}) }
 }

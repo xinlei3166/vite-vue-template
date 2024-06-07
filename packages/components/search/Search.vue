@@ -1,5 +1,5 @@
 <template>
-  <div :class="['search', { 'search-inline': inline }]">
+  <div :class="['search', { 'search-inline': inline }, $attrs.class]">
     <div
       v-for="(column, index) in columns"
       :key="index"
@@ -122,8 +122,8 @@
     </div>
     <div
       v-if="showBtn"
-      class="search-item search-btn"
-      :style="{ marginLeft: btnAlign === 'right' ? 'auto' : 0 }"
+      :class="['search-item search-btn', btnClass]"
+      :style="{ marginLeft: btnAlign === 'right' ? 'auto' : 0, ...btnStyle }"
     >
       <a-button v-if="showSearchBtn" class="btn" type="primary" @click="onSearch">
         {{ searchBtnLabel }}
