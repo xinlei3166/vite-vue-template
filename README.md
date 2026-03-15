@@ -40,7 +40,6 @@ pnpm -F @packages/components add @packages/utils
 
 **项目结构**
 ```javascript
-├── base
 ├── apps // web项目
 ├── features // 可复用的页面组件代码
 ├── packages // 常用工具和库
