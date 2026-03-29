@@ -71,14 +71,14 @@ export default ({ mode, command }) => {
       drop: command === 'build' ? ['console', 'debugger'] : []
     },
     server: {
-      // proxy: {
-      //   [env.VITE_API_URL]: {
-      //     target: env.VITE_PROXY_TARGET,
-      //     changeOrigin: true,
-      //     secure: false
-      //     // rewrite: path => path.replace(new RegExp(`^${env.VITE_API_URL}`), '')
-      //   }
-      // }
+      proxy: {
+        [env.VITE_API_URL]: {
+          target: env.VITE_PROXY_TARGET,
+          changeOrigin: true,
+          secure: false,
+          rewrite: path => path.replace(new RegExp(`^${env.VITE_API_URL}`), '')
+        }
+      }
     }
   })
 }
