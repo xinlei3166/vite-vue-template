@@ -7,7 +7,6 @@
   "arrowParens": "avoid",
   "bracketSpacing": true,
   "htmlWhitespaceSensitivity": "ignore",
-  "ignorePath": ".prettierignore",
   "jsxBracketSameLine": false,
   "jsxSingleQuote": false,
   "trailingComma": "none",
