@@ -16,7 +16,6 @@ interface Config {
  * @param config.params url参数。
  * @param config.data 请求数据主体。
  */
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 export function useSelectSearch<T>(api: Function, dataKey?: any, config?: Config) {
   const options = ref<T[]>([])
 

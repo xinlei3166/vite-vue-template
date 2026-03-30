@@ -4,11 +4,11 @@
   "sourceMap": true,
   "noImplicitAny": true,
   "lib": ["esnext", "dom"],
-  "types": ["vite/client", "node"],
-//  "baseUrl": ".",
-//  "paths": {
-//    "features/*": ["../../features/*"]
-//  },
-//  "include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.tsx", "src/**/*.vue"],
-//  "exclude": ["node_modules"]
+  "types": ["vite/client", "node"]
+  //  "baseUrl": ".",
+  //  "paths": {
+  //    "features/*": ["../../features/*"]
+  //  },
+  //  "include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.tsx", "src/**/*.vue"],
+  //  "exclude": ["node_modules"]
 }

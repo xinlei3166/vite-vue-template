@@ -1,0 +1,23 @@
+{
+  "$schema": "./node_modules/oxlint/configuration_schema.json",
+  "plugins": ["typescript"],
+  "categories": {
+    "correctness": "off"
+  },
+  "env": {
+    "builtin": true
+  },
+  "rules": {
+    "no-var": "error",
+    "@typescript-eslint/consistent-type-imports": "warn",
+    "no-unused-vars": "warn"
+  },
+  "ignorePatterns": [
+    "dist",
+    "public",
+    "node_modules",
+    "iconfont.js",
+    "packages/docs/.vitepress/cache",
+    "components.d.ts"
+  ]
+}

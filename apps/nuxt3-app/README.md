@@ -7,14 +7,17 @@ Look at the [Nuxt 3 documentation](https://nuxt.com/docs/getting-started/introdu
 Vite5 + Nuxt3 + Pinia + Vue Router + TypeScript + Ant Design Vue
 
 ## Package Manager
+
 pnpm
 
 ## Quick start
+
 ```
 git clone https://github.com/xinlei3166/vite-vue-template.git
 ```
 
 ## Project setup
+
 ```
 pnpm install
 ```
@@ -28,21 +31,25 @@ pnpm run dev
 ```
 
 ### Compiles and minifies for production
+
 ```
 pnpm run build
 ```
 
 ### Locally preview production build
+
 ```
 pnpm run preview
 ```
 
 ### Run your tests
+
 ```
 pnpm run test
 ```
 
 ### Lints and fixes files
+
 ```
 pnpm run lint
 ```

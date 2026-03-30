@@ -1,6 +1,7 @@
 # antd 变量 和 unocss 配合使用说明
 
 获取 antd token 生成的 css 变量(color开头的token), colorPrimary -> { primary: var(--ant-color-primary) }
+
 ```js
 // import { theme } from 'ant-design-vue'
 // const { defaultAlgorithm, defaultSeed } = theme

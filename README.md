@@ -5,7 +5,7 @@
 **安装pnpm**
 
 ```javascript
-npm i -g pnpm 
+npm i -g pnpm
 ```
 
 **起步**
@@ -13,7 +13,7 @@ npm i -g pnpm
 执行这个命令安装完依赖，apps目录下的应用可以正常启动。
 
 ```javascript
-pnpm i 
+pnpm i
 ```
 
 **安装依赖**
@@ -23,22 +23,25 @@ pnpm i -w pkgName
 ```
 
 递归每个package安装
+
 ```javascript
 pnpm i -w -r pkgName
 ```
 
 **给子包安装指定依赖**
+
 ```javascript
 pnpm -F @packages/components add lodash
 ```
 
 **package间的相互引用**
+
 ```javascript
 pnpm -F @packages/components add @packages/utils
 ```
 
-
 **项目结构**
+
 ```javascript
 ├── apps // web项目
 ├── features // 可复用的页面组件代码

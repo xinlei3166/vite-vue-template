@@ -100,7 +100,7 @@ export const writeFile = async (
 export const writeBase64File = async (
   filename: string,
   base64Str: string,
-  options?: Record<string, any> = {}
+  options: Record<string, any> = {}
 ) => {
   const bStr = atob(base64Str)
   let n = bStr.length
