@@ -12,7 +12,26 @@
   "trailingComma": "none",
   "vueIndentScriptAndStyle": false,
   "embeddedLanguageFormatting": "auto",
-  "sortPackageJson": false,
+  "sortPackageJson": true,
+  "sortImports": {
+    "newlinesBetween": false,
+    "groups": [
+      "type-import",
+      ["value-builtin", "value-external"],
+      "package-scoped",
+      "type-internal",
+      "value-internal",
+      ["type-parent", "type-sibling", "type-index"],
+      ["value-parent", "value-sibling", "value-index"],
+      "unknown"
+    ],
+    "customGroups": [
+      {
+        "groupName": "package-scoped",
+        "elementNamePattern": ["@packages/**"]
+      }
+    ]
+  },
   "ignorePatterns": [
     "dist",
     "public",

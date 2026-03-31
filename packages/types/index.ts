@@ -1,5 +1,5 @@
-import type { Ref } from 'vue'
 import type { TablePaginationConfig } from 'ant-design-vue'
+import type { Ref } from 'vue'
 
 export * from './requests'
 
@@ -13,7 +13,7 @@ export interface TabList {
   permission?: string
   name?: string // cn name
   tab?: string
-  slots?: Object
+  slots?: any
 }
 
 export type TabListRef = Ref<TabList[]>

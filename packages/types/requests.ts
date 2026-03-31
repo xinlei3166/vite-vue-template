@@ -2,12 +2,14 @@ import type { AxiosRequestConfig, InternalAxiosRequestConfig } from 'axios'
 
 export interface RequestsConfig {
   baseURL?: string
-  AuthorizationKey?: string
+  authorizationKey?: string
   errorCodes?: Array<string | number>
   codeKey?: string
   messageKey?: string
   successCode?: string | number
   errorHandler?: Function
+  noRefreshToken?: boolean
+  refreshTokenApi?: (...args: any[]) => Promise<any>
 }
 
 export type Method = 'get' | 'post' | 'put' | 'patch' | 'delete'

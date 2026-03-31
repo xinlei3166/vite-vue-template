@@ -1,28 +1,29 @@
-import axios from 'axios'
 import { message } from 'ant-design-vue'
-import type { Config, InternalConfig, RequestsConfig, Method } from '@packages/types'
-import { httpMsg } from '@packages/types/enums'
+import axios from 'axios'
+import type { Config, RequestsConfig, Method } from '@packages/types'
+import { ContentTypeEnum } from '@packages/types/enums'
 import { getToken, writeFile, writeBase64File } from '@packages/utils'
+// import { useTokenRefresh } from './useTokenRefresh'
 
 const createRequests = (requestsConfig: RequestsConfig = {}) => {
   const baseURL = requestsConfig.baseURL || import.meta.env.VITE_API_URL
-  const AuthorizationKey = requestsConfig.AuthorizationKey || 'Access-Token'
-  const errorCodes = requestsConfig.errorCodes || [
-    502001, 10010004, 10010006, 170019, 10000004, 313001
-  ]
+  const authorizationKey = requestsConfig.authorizationKey || 'Authorization'
+  const errorCodes = requestsConfig.errorCodes || [20004, 20010]
   const codeKey = requestsConfig.codeKey || 'code'
-  const messageKey = requestsConfig.messageKey || 'message'
+  const messageKey = requestsConfig.messageKey || 'msg'
   const successCode = requestsConfig.successCode || 0
   const errorHandler = requestsConfig.errorHandler
+  // const noRefreshToken = requestsConfig.noRefreshToken
+  // const refreshTokenApi = requestsConfig.refreshTokenApi
 
   const service = axios.create({
     baseURL,
     // timeout: 60 * 1000 * 5,
     withCredentials: true, // 允许携带cookie
     headers: {
-      // 'Content-Type': 'application/x-www-form-urlencoded',
+      // 'Content-Type': ContentTypeEnum.FormURLEncoded,
       // Authorization: 'token',
-      'Content-Type': 'application/json'
+      'Content-Type': ContentTypeEnum.Json
     },
     requestOptions: {
       withRequestId: false,
@@ -31,6 +32,13 @@ const createRequests = (requestsConfig: RequestsConfig = {}) => {
     }
   } as Config)
 
+  // const { handleRefreshed } = useTokenRefresh({
+  //   authorizationKey,
+  //   successCode,
+  //   errorHandler,
+  //   refreshTokenApi
+  // })
+
   // request 拦截器
   service.interceptors.request.use(
     async config => {
@@ -38,7 +46,7 @@ const createRequests = (requestsConfig: RequestsConfig = {}) => {
       config.headers = config.headers || {}
       const token = getToken()
       if (token) {
-        config.headers[AuthorizationKey] = token
+        config.headers[authorizationKey] = `Bearer ${token}`
       }
       return config
     },
@@ -55,11 +63,13 @@ const createRequests = (requestsConfig: RequestsConfig = {}) => {
       if (responseType === 'blob') return response.data
       const { [codeKey]: code, [messageKey]: msg } = response?.data || {}
       if (code && errorCodes.includes(code)) {
-        // message.error(msg)
-        // router.push('/login')
         errorHandler?.(msg)
         return response.data
       }
+      // token过期，需要续期
+      // if (code && code === 20011 && !noRefreshToken) {
+      //   return handleRefreshed(service, response.config)
+      // }
       if (code && code !== successCode) {
         message.destroy()
         message.error(msg)
@@ -130,10 +140,8 @@ const createRequests = (requestsConfig: RequestsConfig = {}) => {
         if (responseType === 'blob') {
           data = res
         } else {
-          const { code, data: _data, message: msg } = res
-          if (code && code !== successCode) {
-            return
-          }
+          const { code, data: _data } = res
+          if (code && code !== successCode) return
           data = stringify ? JSON.stringify(_data) : _data
         }
         const write = responseType === 'base64' ? writeBase64File : writeFile
