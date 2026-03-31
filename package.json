@@ -1,21 +1,21 @@
 {
   "name": "vite-vue-template",
   "version": "2.2.1",
-  "description": "vite-vue-template",
   "private": true,
+  "description": "vite-vue-template",
+  "keywords": [
+    "ant-design-vue",
+    "monorepo",
+    "nuxt",
+    "typescript",
+    "vue"
+  ],
+  "license": "MIT",
+  "author": "君惜",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/xinlei3166/vite-vue-template.git"
   },
-  "keywords": [
-    "vue",
-    "nuxt",
-    "ant-design-vue",
-    "typescript",
-    "monorepo"
-  ],
-  "author": "君惜",
-  "license": "MIT",
   "scripts": {
     "preinstall": "npx only-allow pnpm",
     "prepare": "simple-git-hooks",
@@ -75,7 +75,6 @@
     "autoprefixer": "^10.4.19",
     "consola": "^3.2.3",
     "conventional-changelog-cli": "^4.1.0",
-    "cross-env": "^7.0.3",
     "less": "^4.2.0",
     "less-loader": "^12.2.0",
     "lint-staged": "^15.2.2",
