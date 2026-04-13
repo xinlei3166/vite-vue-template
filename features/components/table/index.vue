@@ -3,15 +3,14 @@
     :columns="columns"
     :model="search"
     label-width="42px"
-    style="margin-bottom: 20px"
+    style="margin-bottom: 16px"
     @search="onSearch"
     @reset="onReset"
   >
     <template #name6>
       <a-select
         v-model:value="search.name5"
-        class="select"
-        style="width: 200px"
+        class="w-full"
         :allow-clear="true"
         placeholder="请选择性别"
       >
@@ -42,8 +41,8 @@
 
 <script setup lang="ts">
 import { onBeforeMount, computed, reactive } from 'vue'
-import type { Pagination } from '@packages/types'
 import { useData } from '@packages/hooks'
+import type { Pagination } from '@packages/types'
 import { getList } from '@/api'
 import { columns, tableColumns } from './columns'
 

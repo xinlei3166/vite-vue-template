@@ -108,6 +108,17 @@
   "pnpm": {
     "peerDependencyRules": {
       "ignoreMissing": []
-    }
+    },
+    "onlyBuiltDependencies": [
+      "@parcel/watcher",
+      "core-js",
+      "cos-js-sdk-v5",
+      "cpu-features",
+      "esbuild",
+      "simple-git-hooks",
+      "ssh2",
+      "vue-demi",
+      "vue-echarts"
+    ]
   }
 }

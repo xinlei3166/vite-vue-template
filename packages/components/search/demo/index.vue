@@ -4,15 +4,14 @@
     :model="search"
     label-width="42px"
     :show-reset-btn="true"
-    style="margin-bottom: 20px"
+    :style="{ marginBottom: '16px' }"
     @search="onSearch"
     @reset="onReset"
   >
     <template #name6>
       <a-select
         v-model:value="search.name6"
-        class="select"
-        style="width: 240px"
+        class="w-full"
         :allow-clear="true"
         placeholder="请选择课性别"
       >
@@ -23,6 +22,7 @@
   </Search>
   <a-card class="card">
     <a-table
+      :scroll="{ x: 'max-content' }"
       class="content"
       row-key="id"
       :loading="loading"
@@ -36,9 +36,9 @@
       <a-table-column key="hobby" title="爱好" data-index="hobby" />
       <a-table-column key="updateTime" title="更新时间" data-index="updateTime" />
       <a-table-column key="operation" title="操作" width="150px">
-        <template #default="text, record">
-          <span class="btn" @click="onEdit(record)">编辑</span>
-          <span class="btn" @click="onPreview(record)">预览</span>
+        <template #default="{ text, record }">
+          <a-button type="link" class="a-text-btn" @click="onEdit(record)">编辑</a-button>
+          <a-button type="link" class="a-text-btn" @click="onPreview(record)">预览</a-button>
         </template>
       </a-table-column>
     </a-table>
@@ -47,8 +47,8 @@
 
 <script lang="ts">
 import { defineComponent, onBeforeMount, reactive, computed } from 'vue'
-import type { Pagination } from '@packages/types'
 import { useData } from '@packages/hooks'
+import type { Pagination } from '@packages/types'
 import { getList } from '@/api'
 import { columns } from './columns'
 
@@ -58,8 +58,7 @@ export default defineComponent({
       ...search
     }))
     const { loading, data, pagination, init, onSearch, onTableChange } = useData(getList, {
-      params,
-      pagination: { pageSize: 10 }
+      params
     })
 
     onBeforeMount(async () => {
@@ -79,17 +78,17 @@ export default defineComponent({
       name10: undefined
     })
 
-    async function onReset() {
+    const onReset = async () => {
       Object.keys(search).forEach(key => (search[key] = undefined))
       pagination.current = 1
       await init()
     }
 
-    function onEdit() {
+    const onEdit = () => {
       window.open('https://baidu.com')
     }
 
-    function onPreview() {
+    const onPreview = () => {
       window.open('https://baidu.com')
     }
 

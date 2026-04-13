@@ -1,5 +1,3 @@
-import { ref, reactive } from 'vue'
-
 export interface Options {
   label: string
   value: any
