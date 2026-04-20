@@ -1,11 +1,8 @@
 import { Button } from 'tdesign-vue-next'
-import { useRouter } from 'vue-router'
 
 export default function Buttons() {
-  const router = useRouter()
-
   const onGoHome = () => {
-    router.push('/')
+    navigateTo('/')
   }
 
   return (

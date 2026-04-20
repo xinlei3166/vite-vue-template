@@ -7,55 +7,55 @@ const routes: RouteRecordRaw[] = [
     name: '403',
     path: '/403',
     meta: { title: '403', hnameden: true, noUseLayout: true },
-    component: () => import('@exception/403')
+    component: () => import('@packages/components/exception/403')
   },
   {
     name: '404',
     path: '/404',
     meta: { title: '404', hnameden: true, noUseLayout: true },
-    component: () => import('@exception/404')
+    component: () => import('@packages/components/exception/404')
   },
   {
     name: '500',
     path: '/500',
     meta: { title: '500', hnameden: true, noUseLayout: true },
-    component: () => import('@exception/500')
+    component: () => import('@packages/components/exception/500')
   },
   {
     name: 'browserIncompatible',
     path: '/browser-incompatible',
     meta: { title: '浏览器不兼容', hnameden: true, noUseLayout: true },
-    component: () => import('@exception/BrowserIncompatible')
+    component: () => import('@packages/components/exception/BrowserIncompatible')
   },
   {
     name: 'maintenance',
     path: '/maintenance',
     meta: { title: '系统维护', hnameden: true, noUseLayout: true },
-    component: () => import('@exception/Maintenance')
+    component: () => import('@packages/components/exception/Maintenance')
   },
   {
     name: 'networkError',
     path: '/network-error',
     meta: { title: '网络异常', hnameden: true, noUseLayout: true },
-    component: () => import('@exception/NetworkError')
+    component: () => import('@packages/components/exception/NetworkError')
   },
   {
     name: 'success',
     path: '/success',
     meta: { title: '成功', hnameden: true, noUseLayout: true },
-    component: () => import('@exception/Success')
+    component: () => import('@packages/components/exception/Success')
   },
   {
     name: 'fail',
     path: '/fail',
     meta: { title: '失败', hnameden: true, noUseLayout: true },
-    component: () => import('@exception/Fail')
+    component: () => import('@packages/components/exception/Fail')
   },
   {
     name: 'error403',
     path: '/error-403',
     meta: { title: 'Error403', hnameden: true, noUseLayout: true },
-    component: () => import('@exception/Error403')
+    component: () => import('@packages/components/exception/Error403')
   }
 ]
 

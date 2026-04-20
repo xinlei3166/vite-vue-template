@@ -1,7 +1,8 @@
 import { fileURLToPath } from 'node:url'
 import path from 'path'
-// 环境变量配置
 import { loadEnv } from 'vite'
+
+// 环境变量配置
 const isBuildCommand = (command: any) => ['build', 'generate'].includes(command)
 // @ts-ignore
 const command = process.env.npm_lifecycle_script.match(/nuxi\s(\S+)/)?.[1]
@@ -22,45 +23,53 @@ console.log('env', env)
 
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
+  compatibilityDate: '2024-04-03',
   // ssr: false,
+  // envDir: './env',
   alias: {
-    features: fileURLToPath(new URL('../../features', import.meta.url)),
-    '@layout': fileURLToPath(new URL('../vue3-app/src/components/layout', import.meta.url)),
-    '@exception': fileURLToPath(new URL('../vue3-app/src/components/exception', import.meta.url))
+    features: fileURLToPath(new URL('../../features', import.meta.url))
   },
-  baseURL,
-  // buildDir: env.VITE_OUTDIR || '.nuxt',
-  extensions: ['.js', '.jsx', '.ts', '.tsx', '.mjs', '.vue', '.json', '.less', '.scss', '.css'],
+  app: {
+    baseURL: process.env.VITE_APP_BASE || '/'
+  },
   devtools: { enabled: true },
+  // extensions: ['.js', '.jsx', '.ts', '.tsx', '.mjs', '.vue', '.json', '.less', '.scss', '.css'],
   modules: [
     '@tdesign-vue-next/nuxt',
     '@unocss/nuxt',
     '@pinia/nuxt',
     'pinia-plugin-persistedstate/nuxt'
   ],
-  // plugins: ['~/plugins/external'],
+  runtimeConfig: {
+    public: {
+      appTitle: process.env.VITE_APP_TITLE,
+      dynamicMenu: process.env.VITE_DYNAMIC_MENU === 'true'
+    }
+  },
   nitro: {
     // @ts-ignore
     devProxy: {
-      [env.VITE_API_URL]: {
+      [env.VITE_API_URL as any]: {
         target: env.VITE_PROXY_TARGET,
         changeOrigin: true,
         secure: false,
         rewrite: (path: any) => path.replace(new RegExp(`^${env.VITE_API_URL}`), '')
       }
     }
-    // prerender: {
-    //   failOnError: false
-    // }
   },
-  // routeRules: {
-  //   '/': { prerender: false }
-  // },
-  // appConfig: {},
-  // runtimeConfig: {},
   vite: {
-    // optimizeDeps: { include: [] },
-    ssr: { noExternal: ['vue-echarts'] },
+    optimizeDeps: {
+      include: ['@material/material-color-utilities']
+    },
+    ssr: {
+      noExternal: ['vue-echarts', '@material/material-color-utilities']
+    },
+    server: {
+      fs: {
+        // 允许 Vite 访问更上级的 node_modules
+        allow: ['..']
+      }
+    },
     define: {
       __APP_TITLE__: JSON.stringify(env.VITE_APP_TITLE),
       __DYNAMIC_MENU__: env.VITE_DYNAMIC_MENU
@@ -76,6 +85,9 @@ export default defineNuxtConfig({
         // }
       }
     }
+  },
+  future: {
+    compatibilityVersion: 4
   },
   postcss: {
     plugins: {

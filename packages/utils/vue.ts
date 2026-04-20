@@ -16,16 +16,3 @@ export function onbeforeunload(e: any) {
 
   return confirmationMessage
 }
-
-// 判断是否 nuxt环境
-export const isNuxt = () => {
-  console.log(
-    'isNuxt',
-    typeof globalThis !== 'undefined' &&
-      (!!(globalThis as any).__NUXT__ || !!(globalThis as any).useNuxtApp)
-  )
-  return (
-    typeof globalThis !== 'undefined' &&
-    (!!(globalThis as any).__NUXT__ || !!(globalThis as any).useNuxtApp)
-  )
-}

@@ -39,13 +39,13 @@
           <Breadcrumb />
         </div>
         <div class="layout-content">
-          <router-view />
+          <NuxtPage />
         </div>
       </t-content>
     </t-layout>
     <Setting v-if="isDev" />
   </t-layout>
-  <router-view v-else />
+  <NuxtPage v-else />
 </template>
 
 <script setup lang="ts">
@@ -61,7 +61,13 @@ import Siderbar from './Siderbar.vue'
 const isDev = ['development', 'github'].includes(import.meta.env.MODE)
 const router = useRouter()
 const theme = useTheme()
-const layout = computed(() => window.self === window.top && !window.__POWERED_BY_WUJIE__)
+const layout = computed(() => {
+  // if (import.meta.client) {
+  //   // @ts-ignore
+  //   return window.self === window.top && !window.__POWERED_BY_WUJIE__
+  // }
+  return true
+})
 </script>
 
 <style lang="less" scoped>

@@ -93,8 +93,8 @@ export const useMenuStore = defineStore('menu', {
 
 // generateRouteMenus
 const layouts = {
-  layout: () => import('@layout/index.vue'),
-  routerView: () => import('@layout/Router.vue')
+  layout: () => import('@/components/layout/index.vue'),
+  routerView: () => import('@/components/layout/Router.vue')
 }
 
 function _import(path: string) {

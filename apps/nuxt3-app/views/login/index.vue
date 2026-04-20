@@ -88,7 +88,7 @@ const menuStore = useMenuStore()
 const userStore = useUserStore()
 
 // ====================== Components ======================
-const title = import.meta.env.VITE_LOGIN_TITLE
+const title = import.meta.env.VITE_APP_TITLE
 const checked = ref(true)
 const loading = ref(false)
 

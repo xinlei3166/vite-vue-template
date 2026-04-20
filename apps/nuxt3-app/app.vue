@@ -37,6 +37,7 @@ onMounted(async () => {
   if (!token) return
   await userStore.setUserinfo()
   await userStore.setPermissions()
+  // @ts-ignore
   if (window.__POWERED_BY_WUJIE__) {
     // @ts-ignore
     window.$wujie?.bus.$on('vue3-app-router-change', (name: string, path: string) => {
@@ -56,7 +57,7 @@ const layout = computed(() => {
 </script>
 
 <template>
-  <t-config-provider :global-config="globalConfig" :theme="theme">
+  <t-config-provider :global-config="globalConfig">
     <NuxtLoadingIndicator color="var(--td-primary-color)" />
     <NuxtLayout :name="layout">
       <NuxtPage />

@@ -54,6 +54,6 @@ export const useUserStore = defineStore('user', {
   },
   persist: {
     key: storageKeyPrefix + 'User',
-    storage: localStorage
+    storage: typeof window !== 'undefined' ? window.localStorage : undefined
   }
 })
