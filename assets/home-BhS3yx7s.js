@@ -1,0 +1,1 @@
+import{J as e,R as t,m as n,mt as r,p as i,ut as a,x as o}from"./vue.esm-bundler-W13P2Cn6.js";import{t as s}from"./card-NieEMfnl.js";var c={class:`title`},l=o({__name:`index`,setup(o){return(o,l)=>{let u=s;return t(),n(u,{bordered:!1,class:`card`},{default:e(()=>[i(`div`,c,r(a(`Vue App`)),1)]),_:1})}}});export{l as default};

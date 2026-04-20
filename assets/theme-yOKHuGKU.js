@@ -1,0 +1,1 @@
+import{it as e}from"./vue.esm-bundler-W13P2Cn6.js";var t=e({theme:`light`,layout:`mix`,expandType:`normal`,width:`240px`,height:`56px`,collapsed:!1,collapsedWidth:`64px`,headerTheme:!1,showBreadcrumb:!0,themeColor:`#0077fa`}),n=function(){return t};export{n as t};

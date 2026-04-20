@@ -1,0 +1,1 @@
+var e=`/vite-vue-template/assets/logo-CPmPqqKk.png`;export{e as t};

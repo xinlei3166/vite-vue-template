@@ -1,0 +1,1 @@
+import{b as e,y as t}from"./vue.esm-bundler-W13P2Cn6.js";import{t as n}from"./button-DEGCOcfW.js";import{i as r}from"./vue-router-GPKqW3PR.js";function i(){let i=r();return e(n,{theme:`primary`,onClick:()=>{i.push(`/`)}},{default:()=>[t(`回到首页`)]})}export{i as t};
