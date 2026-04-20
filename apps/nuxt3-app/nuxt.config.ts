@@ -6,21 +6,21 @@ import { loadEnv } from 'vite'
 const isBuildCommand = (command: any) => ['build', 'generate'].includes(command)
 // @ts-ignore
 const command = process.env.npm_lifecycle_script.match(/nuxi\s(\S+)/)?.[1]
-console.log('command', process.env)
-// const defaultMode = isBuildCommand(command) ? 'production' : 'development'
-// // @ts-ignore
+const defaultMode = isBuildCommand(command) ? 'production' : 'development'
+// @ts-ignore
 // const mode = process.env.npm_lifecycle_script.match(/--mode\s(.*)/)?.[1] || defaultMode
-// const env = loadEnv(mode, path.resolve(process.cwd(), 'env'))
-// const baseURL = env.VITE_APP_BASE || '/'
-// Object.assign(process.env, env, {
-//   MODE: mode,
-//   BASE_URL: baseURL,
-//   PROD: isBuildCommand(command),
-//   DEV: command === 'dev'
-//   // SSR: false
-// })
-// console.log('mode', mode)
-// console.log('env', env)
+const mode = process.env.npm_lifecycle_script?.match(/NUXT_ENV=(\S+)/)?.[1] || defaultMode
+const env = loadEnv(mode, path.resolve(process.cwd(), 'env'))
+const baseURL = env.VITE_APP_BASE || '/'
+Object.assign(process.env, env, {
+  MODE: mode,
+  BASE_URL: baseURL,
+  PROD: isBuildCommand(command),
+  DEV: command === 'dev'
+  // SSR: false
+})
+console.log('mode', mode)
+console.log('env', env)
 
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
@@ -54,10 +54,10 @@ export default defineNuxtConfig({
   },
   vite: {
     optimizeDeps: {
-      include: ['@material/material-color-utilities']
+      include: ['@material/material-color-utilities', 'ts-ignore']
     },
     ssr: {
-      noExternal: ['vue-echarts', '@material/material-color-utilities']
+      noExternal: ['vue-echarts']
     },
     server: {
       fs: {

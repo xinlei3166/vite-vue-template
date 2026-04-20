@@ -13,9 +13,9 @@
   "scripts": {
     "preinstall": "npx only-allow pnpm",
     "postinstall": "nuxi prepare",
-    "dev": "NUXT_ENV=github nuxi dev",
-    "build:qa": "nuxi build --mode qa",
-    "build:github": "NUXT_ENV=github nuxi generate --mode github",
+    "dev": "nuxi dev",
+    "build:qa": "NUXT_ENV=qa nuxi build",
+    "build:github": "NUXT_ENV=github nuxi generate",
     "build": "nuxi build",
     "generate": "nuxi generate",
     "preview": "nuxi preview",

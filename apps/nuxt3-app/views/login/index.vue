@@ -62,9 +62,9 @@
       </div>
       <div class="footer">
         <div class="links">
-          <a class="link" href="_self">帮助</a>
-          <a class="link" href="_self">隐私</a>
-          <a class="link" href="_self">条款</a>
+          <a class="link" href="#">帮助</a>
+          <a class="link" href="#">隐私</a>
+          <a class="link" href="#">条款</a>
         </div>
         <div class="copyright">Copyright © 2023 君惜 (xinlei3166)</div>
       </div>

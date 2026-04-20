@@ -95,10 +95,9 @@
 </template>
 
 <script lang="ts">
-import { Color } from 'tvision-color'
 import { defineComponent, ref, onMounted } from 'vue'
 import { useTheme } from '@packages/hooks'
-import { generateColorMap, insertThemeStylesheet } from '@packages/utils'
+import { generateColorMap, insertThemeStylesheet } from '@/utils'
 
 const theme = useTheme()
 const colors = [
@@ -121,6 +120,7 @@ export default defineComponent({
 
     onMounted(() => {
       setLocalTheme()
+      getColor()
     })
 
     const setLocalTheme = () => {
@@ -134,6 +134,16 @@ export default defineComponent({
       setLocalTheme()
     }
 
+    let Color: any = null
+    const getColor = async () => {
+      if (Color) return Color
+      if (import.meta.server) return null
+
+      const mod = await import('tvision-color')
+      Color = mod.Color
+      return Color
+    }
+
     const onChangeThemeColor = () => {
       const mode = theme.value.theme
       const hex = theme.value.themeColor
@@ -142,7 +152,8 @@ export default defineComponent({
         step: 10,
         remainInput: false // 是否保留输入 不保留会矫正不合适的主题色
       })[0]
-      const newColorMap = generateColorMap(hex!, newPalette, mode, brandColorIndex)
+      const newColorMap = generateColorMap(Color, hex!, newPalette, mode, brandColorIndex)
+      // @ts-ignore
       insertThemeStylesheet(hex!, newColorMap, mode)
 
       document.documentElement.setAttribute('theme-color', hex || '')
