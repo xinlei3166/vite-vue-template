@@ -4,7 +4,7 @@ Look at the [Nuxt 3 documentation](https://nuxt.com/docs/getting-started/introdu
 
 ## Framework packages
 
-Vite5 + Nuxt3 + Pinia + Vue Router + TypeScript + Ant Design Vue
+Vite + Nuxt + Pinia + Vue Router + TypeScript + TDesign Vue Next
 
 ## Package Manager
 
