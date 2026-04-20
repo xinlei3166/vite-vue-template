@@ -2,8 +2,11 @@ import type { UploadProps, UploadFile, RequestMethodResponse } from 'tdesign-vue
 import { MessagePlugin } from 'tdesign-vue-next'
 import { ref } from 'vue'
 import { ContentTypeEnum } from '@packages/types/enums'
-// @ts-ignore
-import { uploadFile } from '@/api'
+
+const uploadFile = async (...args: any[]) => {
+  console.log('args', args)
+  return { code: 0, msg: '', data: {} } as Record<string, any>
+}
 
 export interface UploadConfig {
   upload?: boolean

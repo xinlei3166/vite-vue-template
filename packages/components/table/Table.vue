@@ -31,7 +31,8 @@
         :class="['search-table', '!min-h-0', 'flex-1', tableProps.tableClass]"
         :max-height="tableProps.maxHeight ?? (fixedPagination ? '100%' : undefined)"
         :rowKey="rowKey"
-        :resizable="tableProps.resizable !== false"
+        :resizable="tableProps.resizable ?? true"
+        :hover="tableProps.hover ?? true"
         :loading="loading"
         :columns="tableColumns"
         :pagination="fixedPagination ? undefined : pagination"
@@ -59,6 +60,7 @@ export default { inheritAttrs: false }
 <script lang="ts" setup>
 import type { TableProps, TableChangeData, SortInfo } from 'tdesign-vue-next'
 import type { PropType, CSSProperties, ComputedRef } from 'vue'
+import { useDebounceFn } from '@vueuse/core'
 import { ref, computed, unref, toRefs, onBeforeMount, useAttrs } from 'vue'
 import { useData } from '@packages/hooks'
 import { deepClone } from '@packages/utils'
@@ -230,11 +232,11 @@ const init = async () => {
   emit('init')
 }
 
-const onSearchChange = async () => {
+const onSearchChange = useDebounceFn(async () => {
   if (props.requestOnChange) {
     await initMethod()
   }
-}
+}, 300)
 
 const onSearch = async () => {
   await onSearchMethod()

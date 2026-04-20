@@ -15,7 +15,7 @@
           :data="form"
           :rules="rules"
           :colon="false"
-          labelWidth="50px"
+          :labelWidth="0"
           label-align="right"
         >
           <t-form-item class="login-form-item" label="" name="account">
@@ -74,7 +74,7 @@
 
 <script setup lang="ts">
 // @ts-ignore
-import { MessagePlugin } from 'tdesign-vue'
+import { MessagePlugin } from 'tdesign-vue-next'
 import { ref, reactive } from 'vue'
 import { useRoute } from 'vue-router'
 import { setToken } from '@packages/utils'
@@ -94,7 +94,7 @@ const loading = ref(false)
 
 const formRef = ref()
 const form = reactive<Record<string, any>>({ userAccount: '', password: '' })
-const rules = {
+const rules: Record<string, any> = {
   account: [{ required: true, message: '请输入账号', trigger: 'blur' }],
   password: [{ required: true, message: '请输入密码', trigger: 'blur' }]
 }

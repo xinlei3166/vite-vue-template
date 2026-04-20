@@ -1,5 +1,5 @@
 <template>
-  <t-breadcrumb :routes="routes">
+  <t-breadcrumb>
     <t-breadcrumb-item
       v-for="route in routes"
       :key="route.path"

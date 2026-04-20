@@ -1,5 +1,5 @@
 <template>
-  <t-card class="card" style="padding-left: 64px">
+  <t-card :bordered="false" class="card" style="padding-left: 64px">
     <div>
       <img alt="Vue logo" src="../assets/logo.png" />
     </div>

@@ -1,4 +1,4 @@
-import { Icon } from 'tdesign-icons-vue'
+import { Icon } from 'tdesign-icons-vue-next'
 import './index.less'
 import Buttons from '@/components/exception/Buttons'
 

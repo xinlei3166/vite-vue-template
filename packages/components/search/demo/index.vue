@@ -16,7 +16,7 @@
         </t-select>
       </template>
     </Search>
-    <t-card :bordered="false" class="card">
+    <t-card :bordered="false" class="card" :body-style="{ padding: '16px 16px 0' }">
       <t-table
         resizable
         maxHeight="none"

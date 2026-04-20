@@ -1,9 +1,9 @@
-import type { TablePaginationConfig } from 'tdesign-vue-next'
+import type { PaginationProps } from 'tdesign-vue-next'
 import type { Ref } from 'vue'
 
 export * from './requests'
 
-export interface Pagination extends TablePaginationConfig {
+export interface Pagination extends PaginationProps {
   [key: string]: any
 }
 

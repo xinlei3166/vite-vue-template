@@ -48,6 +48,6 @@ export default defineComponent({
   // vertical-align: -0.2em !important;
   width: 16px !important;
   height: 16px !important;
-  color: theme('colors.textPrimary') !important;
+  color: theme('colors.textPrimary');
 }
 </style>

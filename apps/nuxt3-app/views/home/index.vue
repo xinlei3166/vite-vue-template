@@ -1,5 +1,5 @@
 <template>
-  <t-card class="card">
+  <t-card :bordered="false" class="card">
     <div class="title">{{ title }}</div>
   </t-card>
 </template>

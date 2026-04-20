@@ -28,7 +28,7 @@
 
 <script setup lang="ts">
 // @ts-ignore
-import { MessagePlugin } from 'tdesign-vue'
+import { MessagePlugin } from 'tdesign-vue-next'
 import { computed } from 'vue'
 import { useRouter } from 'vue-router'
 import { useTheme } from '@packages/hooks'
