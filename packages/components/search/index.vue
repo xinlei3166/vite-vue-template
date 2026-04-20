@@ -1,242 +1,206 @@
 <template>
-  <component
-    :is="wrapper"
-    v-bind="cardProps"
-    :class="['search-wrap', { 'search-card': card }, $attrs.class]"
-  >
-    <a-row :gutter="[16, 16]" :class="['search', searchClass]" :style="searchStyle">
-      <a-col
-        :span="column.span || span"
-        v-for="(column, index) in columns"
-        :key="column.key || index"
-        :class="['search-item', 'flex', 'items-center', column.class]"
-      >
-        <span
-          v-if="showLabel && column.label"
-          :class="[
-            'search-item-label',
-            'flex-shrink-0',
-            'mr-2',
-            { 'label-required': column.required }
-          ]"
-          :style="{ textAlign: labelAlign, width: column.labelWidth || labelWidth }"
+  <div :class="['search-wrap', $attrs.class]" :style="$attrs.style">
+    <MaybeWrap :wrapper="wrapper" :wrapperProps="wrapperProps">
+      <t-row type="flex" :gutter="[16, 16]" :class="['search', searchClass]" :style="searchStyle">
+        <t-col
+          :span="column.span || span"
+          v-for="(column, index) in columns"
+          :key="`column_${index}_${column.key}`"
+          :class="['search-item', '!flex', '!items-center', column.class]"
         >
-          {{ column.label }}
-        </span>
-        <slot v-if="column.slot" :name="column.slot" />
-        <a-input
-          v-else-if="column.searchType === 'input'"
-          v-model:value.trim="model[column.key]"
-          :style="mergeColumnStyle(column.style)"
-          class="search-item-input search-item-component w-full"
-          :allow-clear="column.allowClear"
-          :type="column.type"
-          :maxlength="column.maxLength"
-          :placeholder="column.placeholder"
-          @keyup.enter="(e: any) => onEnter(e, column.key)"
-        />
-        <a-input-number
-          v-else-if="column.searchType === 'input-number'"
-          v-model:value.trim="model[column.key]"
-          :style="mergeColumnStyle(column.style)"
-          class="search-item-input-number search-item-component w-full"
-          :allow-clear="column.allowClear"
-          :min="column.min"
-          :max="column.max"
-          :precision="column.precision"
-          :decimal-separator="column.decimalSeparator"
-          :step="column.step"
-          :placeholder="column.placeholder"
-          @keyup.enter="(e: any) => onEnter(e, column.key)"
-        />
-        <a-select
-          v-else-if="column.searchType === 'select'"
-          v-model:value="model[column.key]"
-          :style="mergeColumnStyle(column.style)"
-          class="search-item-select search-item-component w-full"
-          :allow-clear="column.allowClear"
-          :mode="column.mode"
-          :show-search="column.showSearch"
-          :label-in-value="column.labelInValue || false"
-          :placeholder="column.placeholder"
-          :get-popup-container="(triggerNode: any) => triggerNode.parentNode"
-        >
-          <template v-if="typeOf(column.options) === 'array'">
-            <a-select-option
-              v-for="(option, optionIndex) in column.options"
-              :key="optionIndex"
-              :value="option[column.valueKey || 'value']"
-            >
-              {{ option[column.labelKey || 'label'] }}
-            </a-select-option>
-          </template>
-          <template v-else-if="typeOf(column.options) === 'object'">
-            <a-select-option
-              v-for="(label, value) in column.options"
-              :key="value"
-              :value="parseValue(value, column.int || true)"
-            >
-              {{ label }}
-            </a-select-option>
-          </template>
-        </a-select>
-        <a-tree-select
-          v-else-if="column.searchType === 'tree-select'"
-          v-model:value="model[column.key]"
-          :style="mergeColumnStyle(column.style)"
-          class="search-item-tree-select search-item-component w-full"
-          :placeholder="column.placeholder"
-          :search-placeholder="column.searchPlaceholder"
-          :field-names="
-            column.fieldNames || {
-              children: 'children',
-              title: 'title',
-              key: 'key',
-              value: 'value'
-            }
-          "
-          :tree-data="column.treeData"
-          :tree-checkable="column.treeCheckable"
-          :multiple="column.multiple"
-          :allow-clear="column.allowClear"
-          :show-search="column.showSearch"
-          :show-checked-strategy="column.showCheckedStrategy"
-          :tree-default-expand-all="column.treeDefaultExpandAll"
-          :get-popup-container="(triggerNode: any) => triggerNode.parentNode"
-        />
-        <a-cascader
-          v-else-if="column.searchType === 'cascader'"
-          v-model:value="model[column.key]"
-          :style="mergeColumnStyle(column.style)"
-          class="search-item-cascader search-item-component w-full"
-          :allow-clear="column.allowClear"
-          :field-names="
-            column.fieldNames || { label: 'label', value: 'value', children: 'children' }
-          "
-          :options="column.options"
-          :placeholder="column.placeholder"
-          :get-popup-container="(triggerNode: any) => triggerNode.parentNode"
-        />
-        <a-date-picker
-          v-else-if="column.searchType === 'date-picker'"
-          v-model:value="model[column.key]"
-          :style="mergeColumnStyle(column.style)"
-          class="search-item-date-picker search-item-component w-full"
-          :allow-clear="column.allowClear"
-          :format="column.format || 'YYYY-MM-DD'"
-          :value-format="column.valueFormat || 'YYYY-MM-DD HH:mm:ss'"
-          :show-time="column.showTime"
-          :placeholder="column.placeholder"
-        />
-        <a-range-picker
-          v-else-if="column.searchType === 'range-picker'"
-          v-model:value="model[column.key]"
-          :style="mergeColumnStyle(column.style)"
-          class="search-item-range-picker search-item-component w-full"
-          :allow-clear="column.allowClear"
-          :format="column.format || 'YYYY-MM-DD'"
-          :value-format="column.valueFormat || 'YYYY-MM-DD HH:mm:ss'"
-          :show-time="column.showTime"
-          :placeholder="column.placeholder"
-        />
-      </a-col>
-      <a-col flex="1" v-if="showBtn" :class="['search-btn', btnClass]" :style="btnStyle">
-        <span
-          v-if="showLabel && showBtnPlaceholder"
-          :class="['search-item-label', 'flex-shrink-0', 'mr-2']"
-          :style="{ width: btnPlaceholderWidth || labelWidth }"
-        ></span>
-        <div
-          :class="['search-btn-inner', 'flex', 'items-center', 'gap-4', `justify-${btnAlign}`]"
-          :style="btnInnerStyle"
-        >
-          <a-button v-if="showSearchBtn" class="search-btn-btn" type="primary" @click="onSearch">
-            {{ searchBtnLabel }}
-          </a-button>
-          <a-button v-if="showResetBtn" class="search-btn-btn" @click="onReset">
-            {{ resetBtnLabel }}
-          </a-button>
-          <slot name="extra-btn" />
-        </div>
-      </a-col>
-    </a-row>
-  </component>
+          <span
+            v-if="showLabel && column.label"
+            :class="[
+              'search-item-label',
+              'flex-shrink-0',
+              'mr-2',
+              { 'label-required': column.required }
+            ]"
+            :style="{ textAlign: labelAlign, width: column.labelWidth || labelWidth }"
+          >
+            {{ column.label }}
+          </span>
+          <slot
+            v-if="column.slot"
+            :name="column.slot"
+            :column="column"
+            :model="model"
+            class="search-item-component !w-full"
+          />
+          <t-input
+            v-else-if="column.searchType === 'input'"
+            v-model.trim="model[column.key]"
+            class="search-item-input search-item-component !w-full"
+            :style="mergeColumnStyle(column.style)"
+            :show-limit-number="column.props.showLimitNumber !== false"
+            :clearable="column.props.clearable !== false"
+            v-bind="column.props"
+            @change="(value: any, context: any) => onChange(column.key, value, context)"
+            @enter="(value: any, context: any) => onEnter(column.key, value, context)"
+          />
+          <t-input-number
+            v-else-if="column.searchType === 'input-number'"
+            v-model.trim="model[column.key]"
+            class="search-item-input-number search-item-component !w-full"
+            :style="mergeColumnStyle(column.style)"
+            :clearable="column.props.clearable !== false"
+            :theme="column.props.theme || 'normal'"
+            v-bind="column.props"
+            @change="(value: any, context: any) => onChange(column.key, value, context)"
+            @enter="(value: any, context: any) => onEnter(column.key, value, context)"
+          />
+          <t-select
+            v-else-if="column.searchType === 'select'"
+            v-model="model[column.key]"
+            class="search-item-select search-item-component !w-full"
+            :style="mergeColumnStyle(column.style)"
+            :clearable="column.props.clearable !== false"
+            v-bind="column.props"
+            @change="(value: any, context: any) => onChange(column.key, value, context)"
+            @enter="(context: any) => onEnter(column.key, null, context)"
+          />
+          <t-tree-select
+            v-else-if="column.searchType === 'tree-select'"
+            v-model="model[column.key]"
+            class="search-item-tree-select search-item-component !w-full"
+            :style="mergeColumnStyle(column.style)"
+            :clearable="column.props.clearable !== false"
+            v-bind="column.props"
+            @change="(value: any, context: any) => onChange(column.key, value, context)"
+            @enter="(context: any) => onEnter(column.key, null, context)"
+          />
+          <t-cascader
+            v-else-if="column.searchType === 'cascader'"
+            v-model="model[column.key]"
+            class="search-item-cascader search-item-component !w-full"
+            :style="mergeColumnStyle(column.style)"
+            :clearable="column.props.clearable !== false"
+            v-bind="column.props"
+            @change="(value: any, context: any) => onChange(column.key, value, context)"
+          />
+          <t-date-picker
+            v-else-if="column.searchType === 'date-picker'"
+            v-model="model[column.key]"
+            class="search-item-date-picker search-item-component !w-full"
+            :style="mergeColumnStyle(column.style)"
+            :clearable="column.props.clearable !== false"
+            v-bind="column.props"
+            @change="(value: any, context: any) => onChange(column.key, value, context)"
+          />
+          <t-date-range-picker
+            v-else-if="column.searchType === 'range-picker'"
+            v-model="model[column.key]"
+            class="search-item-range-picker search-item-component !w-full"
+            :style="mergeColumnStyle(column.style)"
+            :clearable="column.props.clearable !== false"
+            v-bind="column.props"
+            @change="(value: any, context: any) => onChange(column.key, value, context)"
+          />
+        </t-col>
+        <t-col v-bind="btnProps" v-if="showBtn" :class="['search-btn', btnClass]" :style="btnStyle">
+          <span
+            v-if="showLabel && showBtnPlaceholder"
+            :class="['search-item-label', 'flex-shrink-0', 'mr-2']"
+            :style="{ width: btnPlaceholderWidth || labelWidth }"
+          ></span>
+          <div
+            :class="['search-btn-inner', 'flex', '!items-center', 'gap-4', `!justify-${btnAlign}`]"
+            :style="btnInnerStyle"
+          >
+            <t-button v-if="showSearchBtn" class="search-btn-btn" theme="primary" @click="onSearch">
+              {{ searchBtnLabel }}
+            </t-button>
+            <t-button v-if="showResetBtn" class="search-btn-btn" theme="default" @click="onReset">
+              {{ resetBtnLabel }}
+            </t-button>
+            <slot name="extra-btn" />
+          </div>
+        </t-col>
+      </t-row>
+    </MaybeWrap>
+  </div>
 </template>
 
-<script lang="ts">
-import type { PropType } from 'vue'
-import { Card } from 'ant-design-vue'
-import { defineComponent } from 'vue'
+<script lang="ts" setup>
+import type { PropType, CSSProperties } from 'vue'
 import { computed } from 'vue'
 import { typeOf } from '@packages/utils'
+import MaybeWrap from '../wrap/MaybeWrap.vue'
 
-type SearchType =
-  | 'input'
-  | 'input-number'
-  | 'select'
-  | 'tree-select'
-  | 'cascader'
-  | 'date-picker'
-  | 'range-picker'
+const props = defineProps({
+  // search
+  card: { type: Boolean, default: true },
+  cardBordered: { type: Boolean, default: false },
+  cardBodyStyle: { type: Object as PropType<CSSProperties>, default: () => ({}) },
+  span: { type: Number, default: 3 },
+  searchClass: { type: String, default: '' },
+  searchStyle: { type: Object as PropType<CSSProperties>, default: () => ({}) },
+  columns: { type: Array as PropType<Array<Record<string, any>>>, default: () => [] },
+  model: { type: Object as PropType<Record<string, any>>, default: () => ({}) },
 
-export default defineComponent({
-  props: {
-    card: { type: Boolean, default: true },
-    span: { type: Number, default: 6 },
-    searchClass: { type: String, default: '' },
-    searchStyle: { type: Object, default: () => ({}) },
-    columns: { type: Array as PropType<Array<Record<string, any>>>, default: () => [] },
-    model: { type: Object as PropType<Record<string, any>>, default: () => ({}) },
-    labelAlign: { type: String as PropType<any>, default: 'right' }, // left | right
-    labelWidth: { type: [String, Number], default: 'auto' },
-    showLabel: { type: Boolean, default: true }, // 显示label
-    componetStyle: { type: Object, default: () => ({}) },
-    showSearchBtn: { type: Boolean, default: true },
-    showResetBtn: { type: Boolean, default: true },
-    showBtn: { type: Boolean, default: true },
-    searchBtnLabel: { type: String, default: '查询' }, // 查询, 搜索
-    resetBtnLabel: { type: String, default: '重置' },
-    showBtnPlaceholder: { type: Boolean, default: false }, // 显示按钮placeholder
-    btnPlaceholderWidth: { type: [String, Number], default: undefined },
-    btnAlign: { type: String, default: 'start' }, // start/end
-    btnSpan: { type: Number, default: undefined },
-    btnClass: { type: String, default: '' },
-    btnStyle: { type: Object, default: () => ({}) },
-    btnInnerStyle: { type: Object, default: () => ({}) }
-  },
-  emits: ['search', 'reset', 'enter'],
-  setup(props, { emit }) {
-    const wrapper = computed(() => {
-      return props.card ? Card : 'div'
-    })
+  // label
+  labelAlign: { type: String as PropType<any>, default: 'right' }, // left | right
+  labelWidth: { type: [String, Number], default: 'auto' },
+  showLabel: { type: Boolean, default: true }, // 显示label
 
-    const cardProps = computed(() => {
-      return props.card ? { bodyStyle: { padding: '20px' } } : {}
-    })
+  // component
+  componentStyle: { type: Object as PropType<CSSProperties>, default: () => ({}) },
 
-    const mergeColumnStyle = (...styles: any[]) => {
-      return Object.assign({}, props.componetStyle, ...styles.filter(Boolean))
-    }
-
-    const parseValue = (value: any, number: true) => {
-      return number ? parseInt(value) : value
-    }
-
-    const onSearch = () => {
-      emit('search')
-    }
-
-    const onReset = () => {
-      emit('reset')
-    }
-
-    const onEnter = (e: any, key: string) => {
-      emit('enter', key, e.target.value, { [key]: e.target.value })
-    }
-
-    return { wrapper, cardProps, mergeColumnStyle, onSearch, onReset, typeOf, parseValue, onEnter }
-  }
+  // btn
+  showSearchBtn: { type: Boolean, default: true },
+  showResetBtn: { type: Boolean, default: true },
+  showBtn: { type: Boolean, default: true },
+  searchBtnLabel: { type: String, default: '查询' }, // 查询, 搜索
+  resetBtnLabel: { type: String, default: '重置' },
+  showBtnPlaceholder: { type: Boolean, default: false }, // 显示按钮placeholder
+  btnPlaceholderWidth: { type: [String, Number], default: undefined },
+  btnAlign: { type: String, default: 'start' }, // start/end
+  btnSpan: { type: Number, default: undefined },
+  btnClass: { type: String, default: '' },
+  btnStyle: { type: Object as PropType<CSSProperties>, default: () => ({}) },
+  btnInnerStyle: { type: Object as PropType<CSSProperties>, default: () => ({}) }
 })
+
+const emit = defineEmits(['change', 'search', 'reset', 'enter'])
+
+const columns = computed<Record<string, any>>(() =>
+  (props.columns || []).map(column => ({ ...column, props: column.props || {} }))
+)
+
+const wrapper = computed(() => (props.card ? 'card' : undefined))
+const wrapperProps = computed(() => {
+  if (props.card) {
+    return {
+      class: 'search-card',
+      bordered: props.cardBordered,
+      bodyStyle: { padding: '16px', ...props.cardBodyStyle }
+    }
+  }
+  return {}
+})
+const btnProps = computed(() => {
+  return props.btnSpan ? { span: props.btnSpan } : { flex: '1' }
+})
+
+const mergeColumnStyle = (...styles: any[]) => {
+  return Object.assign({}, props.componentStyle, ...styles.filter(Boolean))
+}
+
+const onChange = (key: string, value: any, context: any) => {
+  emit('change', key, value, { ...props.model, [key]: value }, context)
+}
+
+const onSearch = () => {
+  emit('search')
+}
+
+const onReset = () => {
+  emit('reset')
+}
+
+const onEnter = (key: string, value: any, context: any) => {
+  emit('enter', key, value, { ...props.model, [key]: value }, context)
+}
 </script>
 
 <style lang="less" scoped></style>

@@ -1,5 +1,7 @@
 import { defineStore } from 'pinia'
 
+const storageKeyPrefix = import.meta.env.VITE_APP_STORAGE_KEY_PREFIX
+
 export interface StoreState {
   userinfo: {
     name: string
@@ -19,12 +21,7 @@ export const useStore = defineStore('store', {
     }
   },
   persist: {
-    enabled: true,
-    strategies: [
-      {
-        key: 'store',
-        storage: persistedState.localStorage
-      }
-    ]
+    key: storageKeyPrefix + 'Store',
+    storage: localStorage
   }
 })

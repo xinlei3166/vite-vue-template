@@ -1,4 +1,5 @@
-import { message } from 'ant-design-vue'
+import { MessagePlugin } from 'tdesign-vue-next'
+// @ts-ignore
 import { useCosStore } from '@/store/cos'
 
 export interface UploadRes {
@@ -37,7 +38,7 @@ export function useCosUpload(type: string) {
           if (err) {
             if (err.statusCode === 403) {
               store.getTmpKeys()
-              message.error('Access Key失效，请重新上传')
+              MessagePlugin.error('Access Key失效，请重新上传')
             } else {
               console.log(err)
             }

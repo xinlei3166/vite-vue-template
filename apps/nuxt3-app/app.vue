@@ -1,22 +1,16 @@
 <script setup lang="ts">
-import { reactive, computed, onMounted } from 'vue'
-import zhCN from 'ant-design-vue/es/locale/zh_CN'
-import { useUserStore } from '@/store/user'
+import type { GlobalConfigProvider } from 'tdesign-vue-next'
+import dayjs from 'dayjs'
+import zhConfig from 'tdesign-vue-next/es/locale/zh_CN'
+import { computed, onMounted } from 'vue'
 import { useTheme } from '@packages/hooks'
-import TokenContextHolder from '@packages/token/TokenContextHolder.vue'
 import { getToken } from '@packages/utils'
 import { checkExternalWhiteRoute, whiteList } from '@/router'
-// import { theme as antdTheme } from 'ant-design-vue'
-// import { token } from '../config/theme'
-
-// style
 import '@packages/styles/index.less'
 import '@packages/styles/reset.less'
 import '@/styles/index.less'
 import 'animate.css'
-
-// dayjs
-import dayjs from 'dayjs'
+import { useUserStore } from '@/store/user'
 import 'dayjs/locale/zh-cn'
 dayjs.locale('zh-cn')
 
@@ -51,12 +45,7 @@ onMounted(async () => {
   }
 })
 
-const configProvider = computed(() => ({
-  locale: zhCN,
-  // @ts-ignore
-  // theme: { token: theme.value.token, algorithm: antdTheme[theme.value.algorithm] }
-  theme: { token: theme.value.token }
-}))
+const globalConfig: GlobalConfigProvider = zhConfig as any
 
 const layout = computed(() => {
   if (whiteList.includes(router.currentRoute.value.path)) {
@@ -67,13 +56,12 @@ const layout = computed(() => {
 </script>
 
 <template>
-  <a-config-provider v-bind="configProvider">
-    <TokenContextHolder />
-    <NuxtLoadingIndicator color="#1677ff" />
+  <t-config-provider :global-config="globalConfig" :theme="theme">
+    <NuxtLoadingIndicator color="var(--td-primary-color)" />
     <NuxtLayout :name="layout">
       <NuxtPage />
     </NuxtLayout>
-  </a-config-provider>
+  </t-config-provider>
 </template>
 
 <style lang="ts" scoped></style>

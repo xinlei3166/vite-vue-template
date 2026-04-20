@@ -12,7 +12,7 @@
 import { computed } from 'vue'
 
 // <btn-group v-model:selected-row-keys="selectedRowKeys">
-//   <a-button type="primary">分班</a-button>
+//   <t-button theme="primary">分班</t-button>
 // </btn-group>
 
 const props = defineProps({
@@ -37,18 +37,16 @@ function onClean() {
 </script>
 
 <style lang="less" scoped>
-@box-shadow-batch: 0 0 10px 0 rgba(0, 0, 0, 0.3);
-
 .batch-btn-group {
   position: fixed;
   bottom: 100px;
   left: 50%;
   transform: translateX(-50%);
   padding: 15px 20px;
-  box-shadow: @box-shadow-batch;
+  box-shadow: theme('colors.bgSecondaryComponent');
   border-radius: 8px;
   background: #fff;
-  border: 1px solid @border-color;
+  border: 1px solid theme('colors.borderLevel2');
   z-index: 100;
 
   .clean {
@@ -56,13 +54,13 @@ function onClean() {
     right: -16px;
     top: -16px;
     padding: 4px 6px;
-    background: #f5222d;
+    background: theme('colors.errorLight');
     color: #fff;
     font-size: 12px;
     border-radius: 4px;
     display: flex;
     align-items: center;
-    box-shadow: @box-shadow-batch;
+    box-shadow: theme('colors.bgSecondaryComponent');
   }
 
   .clean-text {

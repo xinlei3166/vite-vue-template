@@ -1,49 +1,50 @@
 <template>
-  <Row :gutter="8">
-    <Col span="8">
-      <FormItem :prop="provinceKey">
-        <Select v-model="model[provinceKey]" placeholder="请选择省">
-          <Option
-            v-for="province in provinces.province"
+  <t-row :gutter="8">
+    <t-col :span="3">
+      <t-form-item :name="provinceKey">
+        <t-select v-model="model[provinceKey]" placeholder="请选择省">
+          <t-option
+            v-for="province in provinces"
             :key="province.dicValue"
             :value="province.dicValue"
             @click.prevent="onClickPCA(province.id, 'city')"
           >
             {{ province.dicName }}
-          </Option>
-        </Select>
-      </FormItem>
-    </Col>
-    <Col span="8">
-      <FormItem :prop="cityKey">
-        <Select v-model="model[cityKey]" placeholder="请选择市">
-          <Option
-            v-for="city in cities.city"
+          </t-option>
+        </t-select>
+      </t-form-item>
+    </t-col>
+    <t-col :span="3">
+      <t-form-item :name="cityKey">
+        <t-select v-model="model[cityKey]" placeholder="请选择市">
+          <t-option
+            v-for="city in cities"
             :key="city.dicValue"
             :value="city.dicValue"
             @click.prevent="onClickPCA(city.id, 'area')"
           >
             {{ city.dicName }}
-          </Option>
-        </Select>
-      </FormItem>
-    </Col>
-    <Col span="8">
-      <FormItem :prop="areaKey">
-        <Select v-model="model[areaKey]" placeholder="请选择区">
-          <Option v-for="area in areas.area" :key="area.dicValue" :value="area.dicValue">
+          </t-option>
+        </t-select>
+      </t-form-item>
+    </t-col>
+    <t-col :span="3">
+      <t-form-item :name="areaKey">
+        <t-select v-model="model[areaKey]" placeholder="请选择区">
+          <t-option v-for="area in areas" :key="area.dicValue" :value="area.dicValue">
             {{ area.dicName }}
-          </Option>
-        </Select>
-      </FormItem>
-    </Col>
-  </Row>
+          </t-option>
+        </t-select>
+      </t-form-item>
+    </t-col>
+  </t-row>
 </template>
 
 <script lang="ts" setup>
 import { ref, computed, watch, toRefs } from 'vue'
-import { getProvinceCityAreaList } from '@/api'
 import { useSelectSearch } from '@packages/hooks'
+// @ts-ignore
+import { getProvinceCityAreaList } from '@/api'
 
 const props = defineProps({
   model: { type: Object, default: () => ({}) },
@@ -68,9 +69,10 @@ const props = defineProps({
 })
 
 // ====================== Hooks ======================
-const { options: provinces, onTrigger: onSearchProvince } = useSelectSearch(getProvinceCityAreaList)
-const { options: cities, onTrigger: onSearchCity } = useSelectSearch(getProvinceCityAreaList)
-const { options: areas, onTrigger: onSearchArea } = useSelectSearch(getProvinceCityAreaList)
+const { options: provinces, onTrigger: onSearchProvince } =
+  useSelectSearch<any>(getProvinceCityAreaList)
+const { options: cities, onTrigger: onSearchCity } = useSelectSearch<any>(getProvinceCityAreaList)
+const { options: areas, onTrigger: onSearchArea } = useSelectSearch<any>(getProvinceCityAreaList)
 
 // ====================== Lifecycle ======================
 const visible = computed(() => props.visible)
@@ -118,4 +120,4 @@ const onClickPCA = async (parentId: number, key: string) => {
 }
 </script>
 
-<style scoped lang="less"></style>
+<style scoped lang="scss"></style>

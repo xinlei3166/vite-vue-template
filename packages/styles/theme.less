@@ -1,3 +1,25 @@
-:root {
-  --dark-layout-header-background: #001529;
+:root,
+:root[theme-mode='light'] {
+  --dark-layout-header-background: var(--td-gray-color-13);
+
+  // tdesign
+  --td-brand-color-1: #f0f3ff;
+  --td-brand-color-2: #d6e2ff;
+  --td-brand-color-3: #afc9ff;
+  --td-brand-color-4: #82adff;
+  --td-brand-color-5: #4b90ff;
+  --td-brand-color-6: #0077fa;
+  --td-brand-color-7: #0059c3;
+  --td-brand-color-8: #004396;
+  --td-brand-color-9: #002f6c;
+  --td-brand-color-10: #001e4b;
+
+  // 基础颜色
+  --td-brand-color: var(--td-brand-color-6);
+  --td-brand-color-hover: var(--td-brand-color-5);
+  --td-brand-color-focus: var(--td-brand-color-2);
+  --td-brand-color-active: var(--td-brand-color-7);
+  --td-brand-color-disabled: var(--td-brand-color-3);
+  --td-brand-color-light: var(--td-brand-color-1);
+  --td-brand-color-light-hover: var(--td-brand-color-2);
 }

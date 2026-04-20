@@ -1,9 +1,27 @@
 import type { App } from 'vue'
-import { createFromIconfontCN } from '@ant-design/icons-vue'
+import { Icon as IconFont } from 'tdesign-icons-vue-next'
+import { defineComponent, h } from 'vue'
 
-const Icon = createFromIconfontCN({
-  // 如果在iconfont.cn里新增了icon，记得更新项目public中的iconfont.js文件
-  scriptUrl: `${import.meta.env.VITE_APP_BASE || '/'}iconfont.js`
+const Icon = defineComponent({
+  name: 'Icon',
+  inheritAttrs: false,
+  components: { IconFont },
+  props: {
+    url: {
+      type: String,
+      // 如果在iconfont.cn里新增了icon，记得更新下面的链接
+      default: `${import.meta.env.VITE_APP_BASE || '/'}iconfont.js`
+    }
+  },
+  setup(props, { attrs }) {
+    return () =>
+      h(IconFont, {
+        ...attrs,
+        class: ['iconfont-icon', attrs.class],
+        url: props.url,
+        loadDefaultIcons: false
+      })
+  }
 })
 
 export default {

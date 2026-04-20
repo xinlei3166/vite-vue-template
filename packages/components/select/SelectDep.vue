@@ -1,26 +1,27 @@
 <template>
-  <a-tree-select
-    v-model:value="model[prop]"
-    class="w-full ivu--style"
-    dropdown-class-name="ivu--style"
-    :field-names="{ children: 'children', label: 'deptName', value: 'deptTreeNo' }"
-    :tree-data="deps"
-    :load-data="loadData"
-    allow-clear
+  <t-tree-select
+    v-model="model[prop]"
+    class="w-full"
+    :keys="{ children: 'children', label: 'name', value: 'id' }"
+    :data="deps"
+    :treeProps="{
+      load: loadData
+    }"
+    clearable
     placeholder="请选择所属单位"
-    :get-popup-container="triggerNode => triggerNode.parentNode"
-    @change="onChangeDeptId"
+    @change="onChange"
   >
     <template #suffixIcon>
-      <Icon class="text-3.5 text-text2" type="ios-arrow-down" />
+      <Icon class="text-14px text-light" type="ios-arrow-down" />
     </template>
-  </a-tree-select>
+  </t-tree-select>
 </template>
 
 <script lang="ts" setup>
 import { ref, onBeforeMount } from 'vue'
-import { getDepartmentList } from '@/api'
 import { useSelectSearch } from '@packages/hooks'
+// @ts-ignore
+import { getDepartmentList } from '@/api'
 
 defineProps({
   model: { type: Object, default: () => ({}) },
@@ -29,7 +30,7 @@ defineProps({
 const emit = defineEmits(['change'])
 
 // ====================== Hooks ======================
-const { options: singleDeps, onTrigger: onSearchDep } = useSelectSearch(getDepartmentList)
+const { options: singleDeps, onTrigger: onSearchDep } = useSelectSearch<any>(getDepartmentList)
 
 // ====================== Lifecycle ======================
 onBeforeMount(async () => {
@@ -41,26 +42,17 @@ onBeforeMount(async () => {
 // TreeData
 const deps = ref<any[]>([])
 
-const loadData = async (treeNode: Record<string, any>) => {
-  await onSearchDep({
-    parentDeptId: treeNode.deptId,
-    completeUserCount: true
-  })
-  if (treeNode.dataRef.children) return
-  treeNode.dataRef.children = singleDeps.value.map(
-    ({ deptId, deptName, deptTreeNo, userCount }) => ({
-      deptId,
-      deptTreeNo,
-      deptName,
-      userCount
-    })
-  )
-  deps.value = [...deps.value]
+const loadData = async (node: Record<string, any>) => {
+  await onSearchDep({ parentId: node.id })
+  return singleDeps.value.map(node => ({
+    ...node,
+    children: node.childrenCount
+  }))
 }
 
-const onChangeDeptId = (value: any) => {
+const onChange = (value: any) => {
   emit('change', value)
 }
 </script>
 
-<style scoped lang="less"></style>
+<style scoped lang="scss"></style>

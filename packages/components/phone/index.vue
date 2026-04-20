@@ -1,11 +1,11 @@
 <template>
   <div class="column-wrap-phone flex items-center">
     <div :class="['phone-wrap', { loading }]" :style="{ minWidth: minWidth }">
-      <a-spin v-if="loading" />
+      <t-loading v-if="loading" />
       <span v-else>{{ computedPhone }}</span>
     </div>
     <slot v-if="phone" name="extra"></slot>
-    <EyeOutlined v-if="phone && btnStyle === 'icon'" class="phone-icon" @click="onShow" />
+    <t-icon name="browse" v-if="phone && btnStyle === 'icon'" class="phone-icon" @click="onShow" />
     <span v-if="phone && btnStyle === 'text'" class="text-btn ml-4" @click="onShow">
       {{ btnText }}
     </span>
@@ -14,7 +14,6 @@
 
 <script setup lang="ts">
 import { ref, computed } from 'vue'
-import { EyeOutlined } from '@ant-design/icons-vue'
 import { getPhone } from './api'
 
 const props = defineProps({

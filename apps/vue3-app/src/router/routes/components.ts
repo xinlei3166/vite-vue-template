@@ -17,8 +17,7 @@ const routes: RouteRecordRaw[] = [
         path: 'router',
         name: 'router',
         meta: {
-          title: 'router',
-          icon: 'icon-reloadtime'
+          title: 'router'
         },
         component: () => import('features/components/router/index.vue')
       },
@@ -26,8 +25,7 @@ const routes: RouteRecordRaw[] = [
         path: 'store',
         name: 'store',
         meta: {
-          title: 'store',
-          icon: 'icon-unorderedlist'
+          title: 'store'
         },
         component: () => import('features/components/store/index.vue')
       },
@@ -35,8 +33,7 @@ const routes: RouteRecordRaw[] = [
         path: 'provide-inject',
         name: 'provide-inject',
         meta: {
-          title: 'provide',
-          icon: 'icon-appstoreadd'
+          title: 'provide'
         },
         component: () => import('features/components/provide/index.vue')
       },
@@ -44,35 +41,31 @@ const routes: RouteRecordRaw[] = [
         path: 'bus',
         name: 'bus',
         meta: {
-          title: 'bus',
-          icon: 'icon-user'
+          title: 'bus'
         },
         component: () => import('features/components/bus/index.vue')
+      },
+      {
+        path: 'search',
+        name: 'search',
+        meta: {
+          title: 'search'
+        },
+        component: () => import('@packages/components/search/demo/index.vue')
       },
       {
         path: 'table',
         name: 'table',
         meta: {
-          title: 'table',
-          icon: 'icon-appstore'
+          title: 'table'
         },
-        component: () => import('features/components/table/index.vue')
-      },
-      {
-        path: 'fixed-table',
-        name: 'fixed-table',
-        meta: {
-          title: 'fixed-table',
-          icon: 'icon-appstore'
-        },
-        component: () => import('features/components/table/fixed.vue')
+        component: () => import('@packages/components/table/demo/index.vue')
       },
       {
         path: 'sortable',
         name: 'sortable',
         meta: {
-          title: 'sortable',
-          icon: 'icon-setting'
+          title: 'sortable'
         },
         component: () => import('features/components/sortable/index.vue')
       }

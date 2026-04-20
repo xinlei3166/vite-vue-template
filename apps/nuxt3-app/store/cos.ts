@@ -1,16 +1,16 @@
 import COS from 'cos-js-sdk-v5'
 import { defineStore } from 'pinia'
-import { getQcloudTmpkeys } from '@/api'
 import type { Response } from '@packages/types'
+import { getQcloudTmpkeys } from '@/api'
 
 export interface CosState {
   cosKeys: object
   cos: object
-  expires: number | string
+  expires: number
 }
 
 export const useCosStore = defineStore('cos', {
-  state: (): CosState => ({ cosKeys: {}, cos: {}, expires: '' }),
+  state: (): CosState => ({ cosKeys: {}, cos: {}, expires: 0 }),
   getters: {
     COS_KEYS(state: CosState) {
       return state.cosKeys

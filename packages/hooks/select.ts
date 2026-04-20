@@ -18,6 +18,7 @@ interface Config {
  */
 export function useSelectSearch<T>(api: Function, dataKey?: any, config?: Config) {
   const options = ref<T[]>([])
+  const loading = ref(false)
 
   /**
    * select 主动搜索方法, 参数可为空。
@@ -26,14 +27,18 @@ export function useSelectSearch<T>(api: Function, dataKey?: any, config?: Config
    * @param params 参数
    */
   const onTrigger = async (...params: any[]) => {
+    loading.value = true
     const res = await api(...params)
+    loading.value = false
     if (!res || res.code !== 0) return (options.value = [])
+    let value: any[] = []
     if (dataKey) {
-      options.value = res.data?.[dataKey] || []
+      value = res.data?.[dataKey] || []
     } else {
-      options.value = res.data || []
+      value = res.data || []
     }
-    return options.value
+    options.value = value
+    return value
   }
 
   // 本地搜索

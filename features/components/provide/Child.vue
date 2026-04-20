@@ -1,6 +1,8 @@
 <template>
-  <div class="title">子组件</div>
-  <div class="title">当前结果：{{ number }}</div>
+  <div>
+    <div class="title">子组件</div>
+    <div class="title">当前结果：{{ number }}</div>
+  </div>
 </template>
 
 <script lang="ts">

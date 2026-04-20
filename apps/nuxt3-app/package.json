@@ -2,14 +2,14 @@
   "name": "nuxt3-app",
   "version": "1.0.0",
   "private": true,
-  "type": "module",
+  "license": "MIT",
+  "author": "君惜",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/xinlei3166/vite-vue-template.git",
     "directory": "apps/nuxt3-app"
   },
-  "author": "君惜",
-  "license": "MIT",
+  "type": "module",
   "scripts": {
     "preinstall": "npx only-allow pnpm",
     "postinstall": "nuxi prepare",
@@ -24,22 +24,21 @@
     "test": "pnpm run build:qa && pnpm run upload"
   },
   "dependencies": {
-    "nuxt": "^3.11.2",
-    "@ant-design-vue/nuxt": "^1.4.1",
-    "@unocss/nuxt": "^0.59.0",
-    "@pinia/nuxt": "^0.5.1",
-    "@pinia-plugin-persistedstate/nuxt": "^1.2.0",
-    "vue": "^3.4.21",
-    "vue-router": "^4.3.0",
-    "exceljs": "^4.4.0",
     "@packages/components": "workspace:*",
     "@packages/hooks": "workspace:*",
     "@packages/lib": "workspace:*",
     "@packages/plugins": "workspace:*",
     "@packages/styles": "workspace:*",
-    "@packages/token": "workspace:*",
     "@packages/types": "workspace:*",
-    "@packages/utils": "workspace:*"
+    "@packages/utils": "workspace:*",
+    "exceljs": "^4.4.0",
+    "nuxt": "^4.4.2",
+    "vue": "^3.5.32",
+    "vue-router": "^5.0.4"
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "@pinia/nuxt": "^0.11.3",
+    "@tdesign-vue-next/nuxt": "^0.1.5",
+    "@unocss/nuxt": "^66.6.8"
+  }
 }

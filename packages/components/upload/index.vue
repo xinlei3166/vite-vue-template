@@ -1,42 +1,28 @@
 <template>
-  <div :class="['upload-wrap', { 'show-tip': !!tip }]">
-    <div v-if="tip" class="tip">{{ tip }}</div>
-    <a-upload
+  <div :class="['upload-wrap']">
+    <t-upload
+      :theme="theme"
       :multiple="multiple"
       :disabled="disabled"
       :accept="accept"
-      :list-type="listType"
+      :tips="tips"
       :file-list="fileList"
-      :show-upload-list="showUploadList"
       :before-upload="beforeUpload"
-      :custom-request="cosUpload"
-      :remove="handleRemove"
+      :requestMethod="cosUpload"
+      @remove="handleRemove"
       @preview="handlePreview"
       @download="handleDownload"
-    >
-      <slot>
-        <div v-if="listType === 'picture-card' && fileList.length < limit">
-          <PlusOutlined />
-          <div class="ant-upload-text">{{ buttonText }}</div>
-        </div>
-        <a-button
-          v-else-if="(listType === 'picture' || listType === 'text') && fileList.length < limit"
-        >
-          <UploadOutlined />
-          {{ buttonText }}
-        </a-button>
-      </slot>
-    </a-upload>
-    <preview v-model:open="previewVisible" :src="previewImage"></preview>
+    ></t-upload>
+    <preview v-model:visible="previewVisible" :src="previewImage"></preview>
   </div>
 </template>
 
 <script lang="ts">
+import { MessagePlugin } from 'tdesign-vue-next'
 import { defineComponent, ref, onBeforeMount } from 'vue'
+// @ts-ignore
 import { useCosStore } from '@/store/cos'
 import Preview from './Preview.vue'
-import { message } from 'ant-design-vue'
-import { PlusOutlined, UploadOutlined } from '@ant-design/icons-vue'
 
 export type UploadResList = {
   uid: any
@@ -47,19 +33,17 @@ export type UploadResList = {
 }[]
 
 export default defineComponent({
-  components: { Preview, PlusOutlined, UploadOutlined },
+  components: { Preview },
   props: {
     accept: { type: String, default: '.png,.jpg,.jpeg' }, // 文件类型
-    listType: { type: String, default: 'picture-card' }, // 展示类型
+    theme: { type: String, default: 'image' }, // 组件风格
     multiple: { type: Boolean, default: false }, // 是否支持多文件
     disabled: { type: Boolean, default: false }, // 是否禁用
     limit: { type: Number, default: 1 }, // 上传数量
     fileList: { required: true, type: Array, default: () => [] }, // 已上传文件列表
-    // { showPreviewIcon?: boolean, showRemoveIcon?: boolean, showDownloadIcon?: boolean }
-    showUploadList: { type: [Boolean, Object], default: () => ({ showDownloadIcon: true }) }, // 规则提示
-    tip: { type: String, default: '' }, // 规则提示
+    tips: { type: String, default: '' }, // 规则提示
     size: { type: String, default: '' }, // 文件大小
-    buttonText: { type: String, default: '请上传' }
+    buttonText: { type: String, default: '上传' }
   },
   emits: ['handleSuccess', 'handleBeforeUpload'],
   setup(props, { emit }) {
@@ -91,7 +75,7 @@ export default defineComponent({
           if (err) {
             if (err.statusCode === 403) {
               store.getTmpKeys()
-              message.error('Access Key失效，请重新上传！')
+              MessagePlugin.error('Access Key失效，请重新上传！')
             } else {
               console.log(err)
             }
@@ -119,7 +103,7 @@ export default defineComponent({
           const size = +props.size.split('M')[0]
           const isLt = file.size / 1024 / 1024 <= size
           if (!isLt) {
-            message.error(`上传文件大小不能超过 ${size}M!`)
+            MessagePlugin.error(`上传文件大小不能超过 ${size}M!`)
             return reject(isLt)
           }
           return resolve(true)
@@ -190,26 +174,4 @@ export default defineComponent({
 })
 </script>
 
-<style lang="less" scoped>
-.upload-wrap {
-  .tip {
-    font-size: 12px;
-    color: theme('colors.gray.6');
-  }
-  &.show-tip {
-    :deep(.ant-upload-picture-card-wrapper),
-    :deep(.ant-upload-select-picture),
-    :deep(.ant-upload-select-text) {
-      margin-top: 8px;
-    }
-  }
-  :deep(.ant-upload-select-picture-card svg) {
-    font-size: 20px;
-    color: theme('colors.gray.7');
-  }
-  :deep(.ant-upload-select-picture-card .ant-upload-text) {
-    margin-top: 8px;
-    color: theme('colors.gray.7');
-  }
-}
-</style>
+<style lang="less" scoped></style>

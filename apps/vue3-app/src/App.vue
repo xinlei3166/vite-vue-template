@@ -1,26 +1,22 @@
 <template>
-  <a-config-provider v-bind="configProvider">
-    <TokenContextHolder />
+  <t-config-provider :global-config="globalConfig" :theme="theme">
     <router-view />
-  </a-config-provider>
+  </t-config-provider>
 </template>
 
 <script lang="ts" setup>
-import { reactive, computed, onMounted } from 'vue'
+import type { GlobalConfigProvider } from 'tdesign-vue-next'
+import dayjs from 'dayjs'
+import zhConfig from 'tdesign-vue-next/es/locale/zh_CN'
+import { computed, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
-import zhCN from 'ant-design-vue/es/locale/zh_CN'
-import { useUserStore } from '@/store/user'
 import { useTheme } from '@packages/hooks'
-// import { theme as antdTheme } from 'ant-design-vue'
-import TokenContextHolder from '@packages/token/TokenContextHolder.vue'
 import { getToken } from '@packages/utils'
 import { checkExternalWhiteRoute } from '@/router'
-import dayjs from 'dayjs'
+import { useUserStore } from '@/store/user'
 import 'dayjs/locale/zh-cn'
 
 dayjs.locale('zh-cn')
-
-// import { token } from '../config/theme'
 
 const router = useRouter()
 const userStore = useUserStore()
@@ -44,12 +40,7 @@ onMounted(async () => {
   }
 })
 
-const configProvider = computed(() => ({
-  locale: zhCN,
-  // @ts-ignore
-  // theme: { token: theme.value.token, algorithm: antdTheme[theme.value.algorithm] }
-  theme: { token: theme.value.token }
-}))
+const globalConfig: GlobalConfigProvider = zhConfig as any
 </script>
 
 <style></style>

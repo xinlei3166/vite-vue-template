@@ -1,5 +1,5 @@
 <template>
-  <a-card class="card" style="padding-left: 64px">
+  <t-card class="card" style="padding-left: 64px">
     <div>
       <img alt="Vue logo" src="../assets/logo.png" />
     </div>
@@ -37,7 +37,7 @@
       <code>components/HelloWorld.vue</code>
       to test hot module replacement.
     </p>
-  </a-card>
+  </t-card>
 </template>
 
 <script lang="ts">

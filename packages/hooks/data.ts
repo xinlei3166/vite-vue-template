@@ -1,16 +1,15 @@
 import type { Ref, ComputedRef } from 'vue'
-import { ref } from 'vue'
-import { message } from 'ant-design-vue'
-import { usePagination } from './table'
-import { useExcel } from './excel'
+import { MessagePlugin } from 'tdesign-vue-next'
+import { ref, unref } from 'vue'
 import type { Pagination } from '@packages/types'
 import type { ExcelColumn } from '@packages/utils'
+import { useExcel } from './excel'
+import { usePagination } from './table'
 
 interface DataOptions {
   params?: ComputedRef<Record<string, any>> | Record<string, any>
   pagination?: Pagination | false
-  cb?: ({ sourceData, data }: { sourceData: Ref<any>; data: Ref<any> }) => void
-  onTableChange?: Function
+  callback?: ({ sourceData, data }: { sourceData: any; data: any }) => void
   dataKey?: any
   method?: string
   codeKey?: string
@@ -25,7 +24,6 @@ interface DataOptions {
  * @param pagination table pagination 分页器参数, false 表示不分页
  * @param dataKey 数据key
  * @param cb callback
- * @param onTableChange table change
  * @param codeKey 请求响应 codeKey
  * @param successCode 请求响应成功 code
  */
@@ -34,9 +32,8 @@ export function useData(
   {
     params,
     pagination = {},
-    dataKey = 'list',
-    cb,
-    onTableChange: _onTableChange,
+    dataKey = 'records',
+    callback,
     method = 'get',
     codeKey = 'code',
     successCode = 0
@@ -48,12 +45,14 @@ export function useData(
 
   const init = async (_params: Record<string, any> = {}) => {
     loading.value = true
+    const page = pagination ? pag.current : undefined
     const pageSize = pagination ? pag.pageSize : undefined
-    const pageNo = pagination ? pag.current : undefined
-    let mergedParams = { pageSize, pageNo, ...params?.value, ..._params }
+    const rawParams = unref(params)
+    let mergedParams: Record<string, any> = { page_size: pageSize, page, ...rawParams, ..._params }
     if (method === 'get') {
       mergedParams = { params: mergedParams }
     }
+    console.log('mergedParams', mergedParams)
     const res = await api(mergedParams)
     loading.value = false
     if (!res || res[codeKey] !== successCode) return
@@ -64,7 +63,7 @@ export function useData(
       data.value = res.data
     }
     pag.total = res.data?.total || 0
-    cb?.({ sourceData, data })
+    callback?.({ sourceData, data })
   }
 
   const onSearch = async (_params: Record<string, any> = {}) => {
@@ -72,23 +71,21 @@ export function useData(
     await init(_params)
   }
 
-  async function onTableChange(
-    pagination: Pagination,
-    filters: any,
-    sorter: any,
-    { currentDataSource }: any
-  ) {
-    pag.current = pagination.current
-    pag.pageSize = pagination.pageSize
-    await init()
-    _onTableChange?.(pagination, filters, sorter, { currentDataSource })
+  async function onTableChange(data: any, context: any, _params: Record<string, any> = {}) {
+    console.log('onTableChange', { data, context, _params })
+    const { pagination } = data
+    if (pagination) {
+      pag.current = pagination.current
+      pag.pageSize = pagination.pageSize
+    }
+    await init({ ..._params })
   }
 
   return {
     loading,
     sourceData,
     data,
-    pagination: pag,
+    pagination: pagination === false ? undefined : pag,
     init,
     onSearch,
     onTableChange
@@ -123,14 +120,15 @@ export function useExport(
     excelFields,
     filename = 'excel.xlsx',
     msg = '导出成功',
-    dataKey = 'list',
+    dataKey = 'records',
     codeKey = 'code',
     successCode = 0
   }: ExportOptions
 ) {
   const getExcelData = async (downloadLoading: Ref<boolean>) => {
     downloadLoading.value = true
-    const res = await api({ params: params?.value })
+    const rawParams = unref(params)
+    const res = await api({ params: rawParams })
     downloadLoading.value = false
     if (!res || res[codeKey] !== successCode) return
     const data = ref([])
@@ -147,7 +145,7 @@ export function useExport(
   const onExport = async () => {
     const res = await exportExcel(filename)
     if (!res) return
-    message.success(msg)
+    MessagePlugin.success(msg)
   }
 
   return { downloadLoading, onExport }

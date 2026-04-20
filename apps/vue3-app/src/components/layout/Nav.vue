@@ -1,35 +1,41 @@
 <template>
   <div class="layout-nav">
-    <BellOutlined class="layout-header-icon" />
-    <a-dropdown>
+    <t-icon name="notification" class="layout-header-icon" />
+    <t-dropdown maxColumnWidth="150px">
       <span class="dropdown-link">
         <span class="dropdown-img-wrap">
-          <img class="dropdown-img" src="~@/assets/avatar.png" />
+          <img class="dropdown-img" src="@/assets/avatar.png" />
         </span>
         <span class="dropdown-text">{{ userinfo.name }}</span>
       </span>
-      <template #overlay>
-        <a-menu>
-          <a-menu-item @click="onLogout">
-            <LoginOutlined class="menu-item-icon" />
-            退出登录
-          </a-menu-item>
-        </a-menu>
-      </template>
-    </a-dropdown>
+      <t-dropdown-menu>
+        <t-dropdown-item>
+          <t-icon name="user" class="menu-item-icon" />
+          <span>个人中心</span>
+        </t-dropdown-item>
+        <t-dropdown-item>
+          <t-icon name="setting-1" class="menu-item-icon" />
+          <span>个人设置</span>
+        </t-dropdown-item>
+        <t-dropdown-item @click="onLogout">
+          <t-icon name="logout" class="menu-item-icon" />
+          <span>退出登录</span>
+        </t-dropdown-item>
+      </t-dropdown-menu>
+    </t-dropdown>
   </div>
 </template>
 
 <script setup lang="ts">
+// @ts-ignore
+import { MessagePlugin } from 'tdesign-vue'
 import { computed } from 'vue'
-import { message } from 'ant-design-vue'
 import { useRouter } from 'vue-router'
-import { BellOutlined, UserOutlined, LoginOutlined, SettingOutlined } from '@ant-design/icons-vue'
 import { useTheme } from '@packages/hooks'
 import { removeToken } from '@packages/utils'
 import { logout } from '@/api'
-import { useUserStore } from '@/store/user'
 import { useMenuStore } from '@/store/menu'
+import { useUserStore } from '@/store/user'
 
 // ====================== Hooks ======================
 const theme = useTheme()
@@ -43,14 +49,14 @@ const userinfo = computed(() => userStore.Userinfo)
 const onLogout = async () => {
   const res = await logout()
   if (!res || res.code !== 0) return
-  message.success({
+  MessagePlugin.success({
     content: '退出登录成功',
     duration: 1,
     onClose: () => {
       removeToken()
-      router.push('/login')
       userStore.cleanup()
       menuStore.cleanup()
+      router.push('/login').catch(() => {})
     }
   })
 }
@@ -64,7 +70,7 @@ const onLogout = async () => {
 }
 
 .layout-header-icon {
-  font-size: 18px;
+  font-size: 16px;
   cursor: pointer;
   margin: 0 8px;
 }
@@ -93,6 +99,8 @@ const onLogout = async () => {
 }
 
 .menu-item-icon {
+  font-size: 16px;
+  vertical-align: -0.15em !important;
   margin-right: 8px;
 }
 

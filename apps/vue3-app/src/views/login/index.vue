@@ -6,59 +6,59 @@
           <img class="login-title-img" src="@/assets/logo.png" />
           <span class="login-title-text">{{ title }}</span>
         </div>
-        <div class="text-text2 text-center mt-4 mb-12">
+        <div class="text-textSecondary text-center mt-4 mb-12">
           Vue 是一款非常流行的 JavaScript 前端框架
         </div>
-        <a-form
+        <t-form
           ref="formRef"
           class="login-form"
-          :model="form"
+          :data="form"
           :rules="rules"
           :colon="false"
-          :label-col="{ flex: '50px' }"
+          labelWidth="50px"
           label-align="right"
         >
-          <a-form-item class="login-form-item" label="" name="account">
-            <a-input
-              v-model:value.trim="form.account"
+          <t-form-item class="login-form-item" label="" name="account">
+            <t-input
+              v-model.trim="form.account"
               size="large"
-              :allow-clear="false"
+              :clearable="false"
               placeholder="账号：admin"
             >
-              <template #prefix>
-                <UserOutlined class="text-primary text-3.5" type="user" />
+              <template #prefix-icon>
+                <t-icon name="user" />
               </template>
-            </a-input>
-          </a-form-item>
-          <a-form-item class="login-form-item" label="" name="password">
-            <a-input-password
-              v-model:value.trim="form.password"
-              size="large"
+            </t-input>
+          </t-form-item>
+          <t-form-item class="login-form-item" label="" name="password">
+            <t-input
               type="password"
-              :allow-clear="false"
+              v-model.trim="form.password"
+              size="large"
+              :clearable="false"
               placeholder="密码：123456"
             >
-              <template #prefix>
-                <LockOutlined class="text-primary text-3.5" type="user" />
+              <template #prefix-icon>
+                <t-icon name="lock-on" />
               </template>
-            </a-input-password>
-          </a-form-item>
-          <a-form-item label="">
-            <a-checkbox v-model:checked="checked">自动登录</a-checkbox>
-            <a class="float-right text-btn" href="#">忘记密码</a>
-          </a-form-item>
-          <a-form-item class="login-form-btn-wrap" label="">
-            <a-button
+            </t-input>
+          </t-form-item>
+          <t-form-item label="">
+            <t-checkbox v-model="checked">自动登录</t-checkbox>
+            <a class="text-btn ml-auto" href="#">忘记密码</a>
+          </t-form-item>
+          <t-form-item class="login-form-btn-wrap" label="">
+            <t-button
               class="login-btn"
               size="large"
-              type="primary"
+              theme="primary"
               :loading="loading"
               @click="onSubmit"
             >
               登 录
-            </a-button>
-          </a-form-item>
-        </a-form>
+            </t-button>
+          </t-form-item>
+        </t-form>
       </div>
       <div class="footer">
         <div class="links">
@@ -66,20 +66,20 @@
           <a class="link" href="_self">隐私</a>
           <a class="link" href="_self">条款</a>
         </div>
-        <div class="copyright">Copyright © 2023-present 君惜 (xinlei3166)</div>
+        <div class="copyright">Copyright © 2023 君惜 (xinlei3166)</div>
       </div>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
+// @ts-ignore
+import { MessagePlugin } from 'tdesign-vue'
 import { ref, reactive } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
-import { message } from 'ant-design-vue'
-import { UserOutlined, LockOutlined } from '@ant-design/icons-vue'
-import { login } from '@/api'
-import { setToken } from '@packages/utils'
 import { useTheme } from '@packages/hooks/theme'
+import { setToken } from '@packages/utils'
+import { login } from '@/api'
 import { useMenuStore } from '@/store/menu'
 import { useUserStore } from '@/store/user'
 
@@ -123,27 +123,26 @@ const doLogin = async () => {
   }
   await userStore.setUserinfo()
   await userStore.setPermissions()
-  message.success({
+  MessagePlugin.success({
     content: '登录成功',
-    duration: 1,
+    duration: 1000,
     onClose: () => {
-      router.push({
-        path
-        // query: {
-        //   ...route.query
-        // }
-      })
+      router
+        .push({
+          path
+          // query: {
+          //   ...route.query
+          // }
+        })
+        .catch(() => {})
     }
   })
 }
 
-const onSubmit = () => {
-  formRef.value
-    .validate()
-    .then(async () => {
-      await doLogin()
-    })
-    .catch(() => {})
+const onSubmit = async () => {
+  const validateResult = await formRef.value.validate()
+  if (validateResult !== true) return
+  await doLogin()
 }
 </script>
 
@@ -217,7 +216,7 @@ const onSubmit = () => {
   }
 
   .link {
-    color: theme('colors.text2');
+    color: theme('colors.textSecondary');
     transition: all 0.3s;
     &:not(:last-of-type) {
       margin-right: 40px;
@@ -225,7 +224,7 @@ const onSubmit = () => {
   }
 
   .copyright {
-    color: theme('colors.text2');
+    color: theme('colors.textSecondary');
   }
 }
 </style>

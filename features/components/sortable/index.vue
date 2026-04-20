@@ -1,14 +1,14 @@
 <template>
-  <a-card class="card">
+  <t-card :bordered="false" class="card">
     <div class="title">Sortable</div>
     <div class="sortable-wrap">
-      <transition-group name="flip-list">
+      <transition-group tag="div" class="sortable-list" name="flip-list">
         <div v-for="item in list" :key="item.id" class="row sortable-draggable sortable-handle">
           {{ item.name }}
         </div>
       </transition-group>
     </div>
-  </a-card>
+  </t-card>
 </template>
 
 <script lang="ts" setup>
@@ -28,7 +28,7 @@ const list = ref<Fruit[]>([
   { name: 'peach', id: '5' }
 ])
 
-useSortable(list, '.sortable-wrap')
+useSortable(list, '.sortable-wrap .sortable-list')
 </script>
 
 <style lang="less" scoped>

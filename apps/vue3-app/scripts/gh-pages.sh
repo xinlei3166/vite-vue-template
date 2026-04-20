@@ -12,6 +12,9 @@ pnpm run build:github
 # 进入生成的文件夹
 cd dist
 
+# 绕过 Jekyll (不绕过会忽略以 _ 开头的文件)
+touch .nojekyll
+
 # 如果是发布到自定义域名
 # echo 'www.example.com' > CNAME
 

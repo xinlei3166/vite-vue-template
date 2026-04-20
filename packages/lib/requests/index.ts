@@ -1,5 +1,5 @@
-import { message } from 'ant-design-vue'
 import axios from 'axios'
+import { MessagePlugin } from 'tdesign-vue-next'
 import type { Config, RequestsConfig, Method } from '@packages/types'
 import { ContentTypeEnum } from '@packages/types/enums'
 import { getToken, writeFile, writeBase64File } from '@packages/utils'
@@ -71,8 +71,8 @@ const createRequests = (requestsConfig: RequestsConfig = {}) => {
       //   return handleRefreshed(service, response.config)
       // }
       if (code && code !== successCode) {
-        message.destroy()
-        message.error(msg)
+        MessagePlugin.closeAll()
+        MessagePlugin.error(msg)
       }
       return response?.data
     },
@@ -81,8 +81,8 @@ const createRequests = (requestsConfig: RequestsConfig = {}) => {
       //   error.message = httpMsg[error.response.status] || httpMsg.errorMsg
       // }
       if (error.message) {
-        message.destroy()
-        message.error(error.message)
+        MessagePlugin.closeAll()
+        MessagePlugin.error(error.message)
       }
       return Promise.reject(error)
     }

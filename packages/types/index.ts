@@ -1,4 +1,4 @@
-import type { TablePaginationConfig } from 'ant-design-vue'
+import type { TablePaginationConfig } from 'tdesign-vue-next'
 import type { Ref } from 'vue'
 
 export * from './requests'

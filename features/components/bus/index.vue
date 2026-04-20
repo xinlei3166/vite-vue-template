@@ -1,11 +1,11 @@
 <template>
-  <a-card class="card">
+  <t-card :bordered="false" class="card">
     <div class="title">Bus-相邻组件传值</div>
     <div class="title">可以通过点击A组件中的增加按钮，观察B组件的结果显示</div>
     <A />
     <div class="title">---------------------------------------------------</div>
     <B />
-  </a-card>
+  </t-card>
 </template>
 
 <script lang="ts">

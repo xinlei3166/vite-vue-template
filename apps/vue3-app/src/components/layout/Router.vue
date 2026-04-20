@@ -1,7 +1,9 @@
 <template>
-  <router-view />
+  <component :is="isNuxt() ? 'NuxtPage' : 'RouterView'" />
 </template>
 
-<script></script>
+<script>
+import { isNuxt } from '@packages/utils'
+</script>
 
 <style scoped></style>
