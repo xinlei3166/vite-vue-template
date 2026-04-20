@@ -6,20 +6,21 @@ import { loadEnv } from 'vite'
 const isBuildCommand = (command: any) => ['build', 'generate'].includes(command)
 // @ts-ignore
 const command = process.env.npm_lifecycle_script.match(/nuxi\s(\S+)/)?.[1]
-const defaultMode = isBuildCommand(command) ? 'production' : 'development'
-// @ts-ignore
-const mode = process.env.npm_lifecycle_script.match(/--mode\s(.*)/)?.[1] || defaultMode
-const env = loadEnv(mode, path.resolve(process.cwd(), 'env'))
-const baseURL = env.VITE_APP_BASE || '/'
-Object.assign(process.env, env, {
-  MODE: mode,
-  BASE_URL: baseURL,
-  PROD: isBuildCommand(command),
-  DEV: command === 'dev'
-  // SSR: false
-})
-console.log('mode', mode)
-console.log('env', env)
+console.log('command', process.env)
+// const defaultMode = isBuildCommand(command) ? 'production' : 'development'
+// // @ts-ignore
+// const mode = process.env.npm_lifecycle_script.match(/--mode\s(.*)/)?.[1] || defaultMode
+// const env = loadEnv(mode, path.resolve(process.cwd(), 'env'))
+// const baseURL = env.VITE_APP_BASE || '/'
+// Object.assign(process.env, env, {
+//   MODE: mode,
+//   BASE_URL: baseURL,
+//   PROD: isBuildCommand(command),
+//   DEV: command === 'dev'
+//   // SSR: false
+// })
+// console.log('mode', mode)
+// console.log('env', env)
 
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
@@ -30,7 +31,7 @@ export default defineNuxtConfig({
     features: fileURLToPath(new URL('../../features', import.meta.url))
   },
   app: {
-    baseURL: process.env.VITE_APP_BASE || '/'
+    baseURL: env.VITE_APP_BASE || '/'
   },
   devtools: { enabled: true },
   // extensions: ['.js', '.jsx', '.ts', '.tsx', '.mjs', '.vue', '.json', '.less', '.scss', '.css'],
@@ -40,12 +41,6 @@ export default defineNuxtConfig({
     '@pinia/nuxt',
     'pinia-plugin-persistedstate/nuxt'
   ],
-  runtimeConfig: {
-    public: {
-      appTitle: process.env.VITE_APP_TITLE,
-      dynamicMenu: process.env.VITE_DYNAMIC_MENU === 'true'
-    }
-  },
   nitro: {
     // @ts-ignore
     devProxy: {

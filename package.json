@@ -107,6 +107,9 @@
   "pnpm": {
     "peerDependencyRules": {
       "ignoreMissing": []
+    },
+    "overrides": {
+      "@material/material-color-utilities": "0.4.0"
     }
   }
 }

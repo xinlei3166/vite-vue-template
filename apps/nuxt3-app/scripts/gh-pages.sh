@@ -10,7 +10,7 @@ pwd
 pnpm run build:github
 
 # 进入生成的文件夹
-cd dist
+cd .output/public
 
 # 绕过 Jekyll (不绕过会忽略以 _ 开头的文件)
 touch .nojekyll
