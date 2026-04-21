@@ -28,11 +28,11 @@
         :pagination="pagination"
         @change="onTableChange"
       >
-        <template #operation="{ record }">
-          <t-link theme="primary" hover="color" class="t-text-btn" @click="onEdit(record)">
+        <template #operation="{ row }">
+          <t-link theme="primary" hover="color" class="t-text-btn" @click="onEdit(row)">
             编辑
           </t-link>
-          <t-link theme="primary" hover="color" class="t-text-btn" @click="onPreview(record)">
+          <t-link theme="primary" hover="color" class="t-text-btn" @click="onPreview(row)">
             预览
           </t-link>
         </template>
@@ -106,11 +106,11 @@ const onReset = async () => {
   await init()
 }
 
-const onEdit = (record: Record<string, any>) => {
+const onEdit = (row: Record<string, any>) => {
   window.open('https://baidu.com')
 }
 
-const onPreview = (record: Record<string, any>) => {
+const onPreview = (row: Record<string, any>) => {
   window.open('https://baidu.com')
 }
 </script>

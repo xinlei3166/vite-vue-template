@@ -52,16 +52,16 @@ export function useCustomRow({ rowKey = 'id' }: { rowKey: string }) {
   const lastRowKey = ref(-1)
   const rowKeys = ref<any>([])
 
-  const rowAttributes = (record: Record<string, any>) => ({
+  const rowAttributes = (row: Record<string, any>) => ({
     onClick() {
       lastRowKey.value = currentRowKey.value
-      currentRowKey.value = record[rowKey]
-      rowKeys.value.push(record[rowKey])
+      currentRowKey.value = row[rowKey]
+      rowKeys.value.push(row[rowKey])
     }
   })
 
-  const rowClassName = (record: Record<string, any>) => {
-    return rowKeys.value.includes(record[rowKey]) ? 'clicked' : ''
+  const rowClassName = (row: Record<string, any>) => {
+    return rowKeys.value.includes(row[rowKey]) ? 'clicked' : ''
   }
 
   return { currentRowKey, lastRowKey, rowKeys, rowAttributes, rowClassName }

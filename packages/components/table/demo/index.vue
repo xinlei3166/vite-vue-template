@@ -20,11 +20,9 @@
         <t-option value="female">女</t-option>
       </t-select>
     </template>
-    <template #operation="{ record }">
-      <t-link theme="primary" hover="color" class="t-text-btn" @click="onEdit(record)">编辑</t-link>
-      <t-link theme="primary" hover="color" class="t-text-btn" @click="onPreview(record)">
-        预览
-      </t-link>
+    <template #operation="{ row }">
+      <t-link theme="primary" hover="color" class="t-text-btn" @click="onEdit(row)">编辑</t-link>
+      <t-link theme="primary" hover="color" class="t-text-btn" @click="onPreview(row)">预览</t-link>
     </template>
   </SearchTable>
 </template>
@@ -58,11 +56,11 @@ const onReset = () => {
   console.log('onReset')
 }
 
-const onEdit = (record: Record<string, any>) => {
+const onEdit = (row: Record<string, any>) => {
   window.open('https://baidu.com')
 }
 
-const onPreview = (record: Record<string, any>) => {
+const onPreview = (row: Record<string, any>) => {
   window.open('https://baidu.com')
 }
 </script>
