@@ -83,6 +83,7 @@ const props = defineProps({
   fixedPagination: { type: Boolean, default: true },
   rowKey: { type: [String, Function] as PropType<TableProps['rowKey']>, default: 'id' },
   tableColumns: { type: Array as PropType<TableProps['columns']>, default: () => [] },
+  tableEllipsis: { type: Boolean, default: false },
   pagination: { type: Object as PropType<TableProps['pagination'] | false>, default: undefined },
 
   // search
@@ -164,6 +165,14 @@ const wrapperProps = computed(() => {
 const tableProps = computed(() => {
   const { class: _class, style: _style, ...rest } = attrs
   return rest
+})
+const tableColumns = computed(() => {
+  return props.tableColumns.map((col: any) => {
+    if (props.tableEllipsis && col.ellipsis === undefined) {
+      return { ...col, ellipsis: true }
+    }
+    return col
+  })
 })
 
 // sorter, filter

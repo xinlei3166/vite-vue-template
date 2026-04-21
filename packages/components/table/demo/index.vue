@@ -10,6 +10,7 @@
     search-label-width="42px"
     :search-show-reset-btn="true"
     :tableColumns="tableColumns"
+    :tableEllipsis="true"
     :requestApi="getList"
     :extraParams="extraParams"
     @reset="onReset"
