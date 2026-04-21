@@ -13,7 +13,7 @@
       :style="{ width: theme.collapsed ? theme.collapsedWidth : theme.width }"
     ></div>
     <Siderbar />
-    <t-layout>
+    <t-layout style="min-width: 0">
       <header
         v-if="theme.layout === 'mix'"
         :class="['layout-header-mix', { dark: !theme.headerTheme }]"
