@@ -8,6 +8,7 @@
       style="margin-bottom: 16px"
       @search="onSearch"
       @reset="onReset"
+      @trigger-search="onTriggerSearch"
     >
       <template #name6>
         <t-select v-model="search.name6" class="w-full" :clearable="true" placeholder="请选择性别">
@@ -59,6 +60,7 @@ const {
   pagination,
   init,
   onSearch,
+  onTriggerSearch,
   onTableChange: _onTableChange
 } = useData(getList, {
   params

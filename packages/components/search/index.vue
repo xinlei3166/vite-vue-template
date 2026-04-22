@@ -32,11 +32,10 @@
             v-model.trim="model[column.key]"
             class="search-item-input search-item-component !w-full"
             :style="mergeColumnStyle(column.style)"
-            :show-limit-number="column.props.showLimitNumber !== false"
             :clearable="column.props.clearable !== false"
             v-bind="column.props"
-            @change="(value: any, context: any) => onChange(column.key, value, context)"
-            @enter="(value: any, context: any) => onEnter(column.key, value, context)"
+            @change="(value: any, context: any) => onChange(column, value, context)"
+            @enter="(value: any, context: any) => onEnter(column, value, context)"
           />
           <t-input-number
             v-else-if="column.searchType === 'input-number'"
@@ -46,8 +45,8 @@
             :clearable="column.props.clearable !== false"
             :theme="column.props.theme || 'normal'"
             v-bind="column.props"
-            @change="(value: any, context: any) => onChange(column.key, value, context)"
-            @enter="(value: any, context: any) => onEnter(column.key, value, context)"
+            @change="(value: any, context: any) => onChange(column, value, context)"
+            @enter="(value: any, context: any) => onEnter(column, value, context)"
           />
           <t-select
             v-else-if="column.searchType === 'select'"
@@ -56,8 +55,7 @@
             :style="mergeColumnStyle(column.style)"
             :clearable="column.props.clearable !== false"
             v-bind="column.props"
-            @change="(value: any, context: any) => onChange(column.key, value, context)"
-            @enter="(context: any) => onEnter(column.key, null, context)"
+            @change="(value: any, context: any) => onChange(column, value, context)"
           />
           <t-tree-select
             v-else-if="column.searchType === 'tree-select'"
@@ -66,8 +64,7 @@
             :style="mergeColumnStyle(column.style)"
             :clearable="column.props.clearable !== false"
             v-bind="column.props"
-            @change="(value: any, context: any) => onChange(column.key, value, context)"
-            @enter="(context: any) => onEnter(column.key, null, context)"
+            @change="(value: any, context: any) => onChange(column, value, context)"
           />
           <t-cascader
             v-else-if="column.searchType === 'cascader'"
@@ -76,7 +73,7 @@
             :style="mergeColumnStyle(column.style)"
             :clearable="column.props.clearable !== false"
             v-bind="column.props"
-            @change="(value: any, context: any) => onChange(column.key, value, context)"
+            @change="(value: any, context: any) => onChange(column, value, context)"
           />
           <t-date-picker
             v-else-if="column.searchType === 'date-picker'"
@@ -85,7 +82,7 @@
             :style="mergeColumnStyle(column.style)"
             :clearable="column.props.clearable !== false"
             v-bind="column.props"
-            @change="(value: any, context: any) => onChange(column.key, value, context)"
+            @change="(value: any, context: any) => onChange(column, value, context)"
           />
           <t-date-range-picker
             v-else-if="column.searchType === 'range-picker'"
@@ -94,7 +91,7 @@
             :style="mergeColumnStyle(column.style)"
             :clearable="column.props.clearable !== false"
             v-bind="column.props"
-            @change="(value: any, context: any) => onChange(column.key, value, context)"
+            @change="(value: any, context: any) => onChange(column, value, context)"
           />
         </t-col>
         <t-col v-bind="btnProps" v-if="showBtn" :class="['search-btn', btnClass]" :style="btnStyle">
@@ -161,7 +158,7 @@ const props = defineProps({
   btnInnerStyle: { type: Object as PropType<CSSProperties>, default: () => ({}) }
 })
 
-const emit = defineEmits(['change', 'search', 'reset', 'enter'])
+const emit = defineEmits(['search', 'reset', 'enter', 'change', 'trigger-search'])
 
 const columns = computed<Record<string, any>>(() =>
   (props.columns || []).map(column => ({ ...column, props: column.props || {} }))
@@ -186,10 +183,6 @@ const mergeColumnStyle = (...styles: any[]) => {
   return Object.assign({}, props.componentStyle, ...styles.filter(Boolean))
 }
 
-const onChange = (key: string, value: any, context: any) => {
-  emit('change', key, value, { ...props.model, [key]: value }, context)
-}
-
 const onSearch = () => {
   emit('search')
 }
@@ -198,8 +191,30 @@ const onReset = () => {
   emit('reset')
 }
 
-const onEnter = (key: string, value: any, context: any) => {
-  emit('enter', key, value, { ...props.model, [key]: value }, context)
+const buildVal = (column: Record<string, any>, value: any, context: any) => {
+  return { key: column.key, value, model: { ...props.model, [column.key]: value }, context }
+}
+
+const ignoreSearchTypes = ['input', 'input-number']
+const onTriggerSearch = (column: Record<string, any>, value: any, context: any) => {
+  if (column.triggerSearch === false) {
+    return
+  }
+  emit('trigger-search', buildVal(column, value, context))
+}
+
+const onEnter = (column: Record<string, any>, value: any, context: any) => {
+  const val = buildVal(column, value, context)
+  emit('enter', val)
+  onTriggerSearch(column, value, context)
+}
+
+const onChange = (column: Record<string, any>, value: any, context: any) => {
+  emit('change', buildVal(column, value, context))
+  if (ignoreSearchTypes.includes(column.searchType)) {
+    return
+  }
+  onTriggerSearch(column, value, context)
 }
 </script>
 

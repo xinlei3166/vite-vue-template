@@ -71,7 +71,7 @@ export const portPattern =
   /^([0-9]|[1-9]\d|[1-9]\d{2}|[1-9]\d{3}|[1-5]\d{4}|6[0-4]\d{3}|65[0-4]\d{2}|655[0-2]\d|6553[0-5])$/
 
 // 表单验证：空格校验
-export const validateEmpty = (_rule: any, value: any) => {
+export const validateEmpty = (value: any) => {
   let errMsg = '不能为空字符'
   if (value === '') {
     return { result: false, message: errMsg, type: 'error' }
@@ -86,7 +86,7 @@ export const validateEmpty = (_rule: any, value: any) => {
 }
 
 // 校验ip段
-export function testIpList(_rule: any, value: any) {
+export function testIpList(value: any) {
   const errMsg = new Error('ip格式错误')
   if (!value) {
     return { result: false, message: errMsg, type: 'error' }
