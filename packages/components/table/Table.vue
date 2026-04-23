@@ -187,7 +187,7 @@ const tableProps = computed(() => {
   const { class: _class, style: _style, ...rest } = attrs
   return rest
 })
-const actionColKeys = ['row-select']
+const actionColKeys = ['row-select', 'operation']
 const tableColumns = computed(() => {
   return props.tableColumns.map((col: any) => {
     if (props.tableEllipsis && col.ellipsis === undefined && !actionColKeys.includes(col.colKey)) {
