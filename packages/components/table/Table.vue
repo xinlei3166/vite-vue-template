@@ -27,6 +27,12 @@
           <slot :name="name" v-bind="slotProps" />
         </template>
       </Search>
+      <div
+        v-if="$slots.toolbar"
+        class="search-table-toolbar flex items-center justify-between gap-4 mb-4"
+      >
+        <slot name="toolbar" />
+      </div>
       <t-table
         v-bind="tableProps"
         :class="['search-table', '!min-h-0', 'flex-1', tableProps.tableClass]"
@@ -89,6 +95,8 @@ const props = defineProps({
   // search
   showSearch: { type: Boolean, default: true },
   searchProps: { type: Object as PropType<SearchProps>, default: () => ({}) },
+  searchSpan: { type: [String, Number] as PropType<SearchProps['span']>, default: 3 },
+  searchBtnSpan: { type: [String, Number] as PropType<SearchProps['btnSpan']>, default: undefined },
   searchColumns: { type: Array as PropType<Array<Record<string, any>>>, default: () => [] },
   searchModel: { type: Object as PropType<Record<string, any>>, default: () => ({}) },
   searchLabelWidth: {
@@ -148,6 +156,8 @@ const {
   useDataParams: _useDataParams
 } = toRefs(props)
 const searchProps = computed(() => ({
+  span: props.searchSpan,
+  btnSpan: props.searchBtnSpan,
   labelWidth: props.searchLabelWidth,
   showResetBtn: props.searchShowResetBtn,
   ...props.searchProps
