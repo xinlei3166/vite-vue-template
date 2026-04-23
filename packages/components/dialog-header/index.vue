@@ -1,11 +1,3 @@
-<!--
- * @Description: 支持全屏的标题组件
- * @Author: zhengxinlei
- * @Date: 2025-07-03 20:12:18
- * @LastEditTime: 2025-07-07 18:41:49
- * @LastEditors: zhengxinlei
- * @FilePath: /jjlcm-admin/src/pages/chongming/components/dialog-header/index.vue
--->
 <template>
   <div class="dialog-header-title">
     <span>{{ title }}</span>
