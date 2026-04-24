@@ -57,6 +57,7 @@ declare module 'vue' {
     TSubmenu: typeof import('tdesign-vue-next')['Submenu']
     TSwitch: typeof import('tdesign-vue-next')['Switch']
     TTable: typeof import('tdesign-vue-next')['Table']
+    TTooltip: typeof import('tdesign-vue-next')['Tooltip']
     TTreeSelect: typeof import('tdesign-vue-next')['TreeSelect']
   }
 }
@@ -108,5 +109,6 @@ declare global {
   const TSubmenu: typeof import('tdesign-vue-next')['Submenu']
   const TSwitch: typeof import('tdesign-vue-next')['Switch']
   const TTable: typeof import('tdesign-vue-next')['Table']
+  const TTooltip: typeof import('tdesign-vue-next')['Tooltip']
   const TTreeSelect: typeof import('tdesign-vue-next')['TreeSelect']
 }

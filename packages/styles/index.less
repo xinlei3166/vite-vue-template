@@ -55,12 +55,6 @@
   text-overflow: ellipsis;
 }
 
-// dropdown-icon
-.dropdown-icon {
-  font-size: 12px;
-  vertical-align: baseline;
-}
-
 // nprogress style
 #nprogress .bar {
   background: theme('colors.brand');
@@ -108,9 +102,20 @@
 
 .hover-btn {
   cursor: pointer;
-
   &:hover {
     color: theme('colors.brand') !important;
+  }
+}
+.hover-bg-btn {
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 32px;
+  padding: 0 16px;
+  &:hover {
+    border-color: var(--td-bg-color-container-hover);
+    background-color: var(--td-bg-color-container-hover);
   }
 }
 
@@ -130,7 +135,7 @@
 
 // tree
 .tree-card {
-  height: calc(100vh - 64px - 32px);
+  height: 100%;
 }
 .tree-left {
   border-right: 1px solid theme('colors.borderLevel2');

@@ -10,15 +10,15 @@
       </span>
       <t-dropdown-menu>
         <t-dropdown-item>
-          <t-icon name="user" class="menu-item-icon" />
+          <t-icon name="user" class="text-4 mr-2" />
           <span>个人中心</span>
         </t-dropdown-item>
         <t-dropdown-item>
-          <t-icon name="setting-1" class="menu-item-icon" />
+          <t-icon name="setting-1" class="text-4 mr-2" />
           <span>个人设置</span>
         </t-dropdown-item>
         <t-dropdown-item @click="onLogout">
-          <t-icon name="logout" class="menu-item-icon" />
+          <t-icon name="logout" class="text-4 mr-2" />
           <span>退出登录</span>
         </t-dropdown-item>
       </t-dropdown-menu>
@@ -96,12 +96,6 @@ const onLogout = async () => {
   .dropdown-text {
     font-size: 14px;
   }
-}
-
-.menu-item-icon {
-  font-size: 16px;
-  vertical-align: -0.15em !important;
-  margin-right: 8px;
 }
 
 // theme

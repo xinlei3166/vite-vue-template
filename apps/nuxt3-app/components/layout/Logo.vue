@@ -41,7 +41,6 @@ const mix = computed(() => theme.value.layout === 'mix')
   .logo-text {
     display: inline-block;
     height: 32px;
-    vertical-align: middle;
   }
 
   .logo-img {

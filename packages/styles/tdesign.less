@@ -2,6 +2,116 @@
 a {
   color: var(--td-brand-color);
 }
+.ellipsis-more-icon {
+  cursor: pointer;
+  vertical-align: -0.23em;
+  font-size: 24px;
+}
+.caretdown-more-icon {
+  font-size: 18px !important;
+}
+
+// icon
+.t-icon {
+  vertical-align: -0.15em !important;
+}
+
+// image
+.t-image-viewer__trigger-icon {
+  font-size: 14px !important;
+}
+
+// form
+.t-form {
+  .t-form__item {
+    &.t-form__item-with-extra {
+      margin-bottom: 4px;
+    }
+    .t-input__extra {
+      position: initial;
+    }
+  }
+  .t-form__label {
+    padding-right: 12px;
+  }
+}
+
+// dialog style
+.t-dialog--default {
+  padding: 16px !important;
+  .t-dialog__body {
+    padding: 16px 0 !important;
+  }
+  .t-dialog__footer {
+    padding: 0 !important;
+  }
+}
+
+.t-dialog__fullscreen {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+
+  .t-dialog__header {
+    padding: 0 16px 0;
+    background-color: initial;
+    border-bottom: 1px solid var(--td-border-level-1-color);
+    .t-dialog__header-content {
+      justify-content: flex-start;
+    }
+  }
+
+  .t-dialog__body {
+    padding: 16px;
+    flex: 1;
+    height: unset;
+  }
+
+  .t-dialog__footer {
+    padding: 16px;
+    &.t-dialog__footer--fullscreen {
+      border-top: 1px solid var(--td-border-level-1-color);
+    }
+  }
+}
+
+.t-dialog__close {
+  box-sizing: initial !important;
+}
+.my-detail-dialog.t-dialog--default {
+  .t-dialog__body {
+    padding-bottom: 8px !important;
+  }
+  .t-form .t-form__label {
+    padding-right: 4px;
+  }
+  .form-item {
+    margin-bottom: 8px;
+    &:last-of-type {
+      margin-bottom: 0;
+    }
+  }
+}
+
+// drawer style
+.t-drawer {
+  // .t-drawer__close-btn {
+  //   box-sizing: initial !important;
+  //   .t-icon {
+  //     font-size: calc(var(--td-font-size-body-large) + 4px);
+  //     color: var(--td-text-color-secondary);
+  //   }
+  // }
+
+  .t-drawer__footer {
+    text-align: right;
+  }
+}
+
+// table style
+.t-table__header:not(.t-table__header--multiple) > tr > th {
+  background-color: var(--td-bg-color-secondarycontainer);
+}
 
 // text btn style
 .t-text-btn {

@@ -34,11 +34,19 @@ const emit = defineEmits(['dialog-fullscreen'])
 const state = reactive<Record<string, any>>({
   fullscreen: false
 })
+const resetState = () => {
+  state.fullscreen = false
+}
 
 const onClickFullscreen = (val: boolean) => {
   state.fullscreen = val
   emit('dialog-fullscreen', state.fullscreen)
 }
+
+defineExpose({
+  state,
+  resetState
+})
 </script>
 <style lang="less" scoped>
 .dialog-header-title {

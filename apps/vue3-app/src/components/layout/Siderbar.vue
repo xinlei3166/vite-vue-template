@@ -141,13 +141,6 @@ html.dark {
   height: 100%;
 }
 
-// scroll bar
-.layout-sider :deep(.sider-menu.t-is-collapsed .menu-item-icon) {
-  // font-size: 18px !important;
-  width: 18px !important;
-  height: 18px !important;
-}
-
 .layout-sider-side {
   :deep(.sider-menu) {
     .t-menu__logo {

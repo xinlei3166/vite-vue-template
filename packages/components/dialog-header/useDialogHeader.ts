@@ -1,11 +1,16 @@
 import { computed, ref } from 'vue'
 
 export const useDialogHeader = () => {
+  const dialogHeaderRef = ref()
+
   const mode = computed(() => {
     return dialogFullscreen.value ? 'full-screen' : 'modal'
   })
   const resetMode = () => {
-    dialogFullscreen.value = false
+    setTimeout(() => {
+      dialogFullscreen.value = false
+      dialogHeaderRef.value?.resetState()
+    }, 200)
   }
   const dialogFullscreen = ref(false)
   const handleDialogFullscreen = (val: boolean) => {
@@ -13,6 +18,7 @@ export const useDialogHeader = () => {
   }
 
   return {
+    dialogHeaderRef,
     mode,
     resetMode,
     dialogFullscreen,

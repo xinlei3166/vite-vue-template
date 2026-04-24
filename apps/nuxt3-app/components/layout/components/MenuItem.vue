@@ -44,9 +44,7 @@ export default defineComponent({
 </script>
 <style lang="less" scoped>
 .menu-item-icon {
-  // font-size: 18px !important;
-  // vertical-align: -0.2em !important;
-  width: 16px !important;
-  height: 16px !important;
+  width: 18px !important;
+  height: 18px !important;
 }
 </style>
