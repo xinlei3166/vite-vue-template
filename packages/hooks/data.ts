@@ -31,7 +31,7 @@ export function useData(
   api: Function,
   {
     params,
-    pagination,
+    pagination = {},
     dataKey = 'records',
     callback,
     method = 'get',
