@@ -8,11 +8,12 @@
       style="margin-bottom: 16px"
       @search="onSearch"
     >
-      <template #name6>
+      <template #name6="{ model, column, onChange }">
         <t-select
-          v-model="searchModel.name6"
+          v-model="model.name6"
           class="w-full"
           :clearable="true"
+          @change="(value: any, context: any) => onChange(column, value, context)"
           placeholder="请选择性别"
         >
           <t-option value="male" label="男" />

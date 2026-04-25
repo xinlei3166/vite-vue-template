@@ -25,6 +25,7 @@
             :name="column.slot"
             :column="column"
             :model="model"
+            :onChange="onChange"
             class="search-item-component !w-full"
           />
           <t-input
