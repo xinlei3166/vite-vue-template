@@ -2,11 +2,12 @@
   <SearchTable
     :card="true"
     :fixedPagination="true"
-    requestOnChange
+    searchOnChange
+    :transformSearchParams="transformSearchParams"
     transformTableParams
     ref="tableRef"
     :searchColumns="searchColumns"
-    :searchModel="search"
+    :search-model="searchModel"
     search-label-width="42px"
     :search-show-reset-btn="true"
     :tableColumns="tableColumns"
@@ -16,9 +17,14 @@
     @reset="onReset"
   >
     <template #name6>
-      <t-select v-model="search.name6" class="w-full" :clearable="true" placeholder="请选择课性别">
-        <t-option value="male">男</t-option>
-        <t-option value="female">女</t-option>
+      <t-select
+        v-model="searchModel.name6"
+        class="w-full"
+        :clearable="true"
+        placeholder="请选择课性别"
+      >
+        <t-option value="male" label="男" />
+        <t-option value="female" label="女" />
       </t-select>
     </template>
     <template #operation="{ row }">
@@ -36,7 +42,7 @@ import { searchColumns, tableColumns } from './columns'
 
 onBeforeMount(async () => {})
 
-const search = reactive<Record<string, any>>({
+const searchModel = reactive<Record<string, any>>({
   name1: undefined,
   name2: undefined,
   name3: undefined,
@@ -52,6 +58,10 @@ const search = reactive<Record<string, any>>({
 const extraParams = computed(() => ({
   extraParams1: 'test'
 }))
+
+const transformSearchParams = (params: Record<string, any>) => {
+  return { ...params, name1: params.name1 ? `transformed-${params.name1}` : undefined }
+}
 
 const onReset = () => {
   console.log('onReset')

@@ -104,7 +104,7 @@
             :class="['search-btn-inner', 'flex', '!items-center', 'gap-4', `!justify-${btnAlign}`]"
             :style="btnInnerStyle"
           >
-            <t-button v-if="showSearchBtn" class="search-btn-btn" theme="primary" @click="onSearch">
+            <t-button v-if="showSearchBtn" class="search-btn-btn" theme="primary" @click="onQuery">
               {{ searchBtnLabel }}
             </t-button>
             <t-button v-if="showResetBtn" class="search-btn-btn" theme="default" @click="onReset">
@@ -121,7 +121,6 @@
 <script lang="ts" setup>
 import type { PropType, CSSProperties } from 'vue'
 import { computed } from 'vue'
-import { typeOf } from '@packages/utils'
 import MaybeWrap from '../wrap/MaybeWrap.vue'
 
 const props = defineProps({
@@ -134,6 +133,7 @@ const props = defineProps({
   searchStyle: { type: Object as PropType<CSSProperties>, default: () => ({}) },
   columns: { type: Array as PropType<Array<Record<string, any>>>, default: () => [] },
   model: { type: Object as PropType<Record<string, any>>, default: () => ({}) },
+  searchOnChange: { type: Boolean, default: true },
 
   // label
   labelAlign: { type: String as PropType<any>, default: 'right' }, // left | right
@@ -158,10 +158,17 @@ const props = defineProps({
   btnInnerStyle: { type: Object as PropType<CSSProperties>, default: () => ({}) }
 })
 
-const emit = defineEmits(['search', 'reset', 'enter', 'change', 'trigger-search'])
+const emit = defineEmits(['search', 'query', 'reset', 'enter', 'change'])
 
 const columns = computed<Record<string, any>>(() =>
-  (props.columns || []).map(column => ({ ...column, props: column.props || {} }))
+  (props.columns || []).map(column => {
+    const col = {
+      ...column,
+      props: column.props || {},
+      searchOnChange: column.searchOnChange ?? props.searchOnChange
+    }
+    return col
+  })
 )
 
 const wrapper = computed(() => (props.card ? 'card' : undefined))
@@ -183,38 +190,43 @@ const mergeColumnStyle = (...styles: any[]) => {
   return Object.assign({}, props.componentStyle, ...styles.filter(Boolean))
 }
 
-const onSearch = () => {
-  emit('search')
+const onQuery = () => {
+  const payload = { model: props.model }
+  emit('query', payload)
+  onSearch('query', payload)
 }
 
 const onReset = () => {
-  emit('reset')
+  const payload = { model: props.model }
+  emit('reset', payload)
+  onSearch('reset', payload)
 }
 
-const buildVal = (column: Record<string, any>, value: any, context: any) => {
-  return { key: column.key, value, model: { ...props.model, [column.key]: value }, context }
-}
-
-const ignoreSearchTypes = ['input', 'input-number']
-const onTriggerSearch = (column: Record<string, any>, value: any, context: any) => {
-  if (column.triggerSearch === false) {
+const ignoreSearchOnChangeKeys = ['input', 'input-number']
+const onSearch = (trigger: string, payload: Record<string, any>, column?: Record<string, any>) => {
+  if (column?.searchOnChange === false) {
     return
   }
-  emit('trigger-search', buildVal(column, value, context))
+  emit('search', trigger, payload)
+}
+
+const buildPayload = (column: Record<string, any>, value: any, context: any) => {
+  return { key: column.key, value, model: props.model }
 }
 
 const onEnter = (column: Record<string, any>, value: any, context: any) => {
-  const val = buildVal(column, value, context)
-  emit('enter', val)
-  onTriggerSearch(column, value, context)
+  const payload = buildPayload(column, value, context)
+  emit('enter', payload)
+  onSearch('enter', payload, column)
 }
 
 const onChange = (column: Record<string, any>, value: any, context: any) => {
-  emit('change', buildVal(column, value, context))
-  if (ignoreSearchTypes.includes(column.searchType)) {
+  const payload = buildPayload(column, value, context)
+  emit('change', payload)
+  if (ignoreSearchOnChangeKeys.includes(column.searchType)) {
     return
   }
-  onTriggerSearch(column, value, context)
+  onSearch('change', payload, column)
 }
 </script>
 

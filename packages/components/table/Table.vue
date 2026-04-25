@@ -17,11 +17,12 @@
         :style="{ marginBottom: '16px', ...searchProps.style }"
         :columns="searchColumns"
         :model="searchModel"
-        @search="onSearch"
+        :searchOnChange="searchOnChange"
+        @query="onQuery"
         @reset="onReset"
         @enter="onSearchEnter"
         @change="onSearchChange"
-        @trigger-search="onTriggerSearch"
+        @search="onSearch"
       >
         <template v-for="name in searchSlotNames" #[name]="slotProps">
           <slot :name="name" v-bind="slotProps" />
@@ -41,6 +42,7 @@
         :resizable="tableProps.resizable ?? true"
         :hover="tableProps.hover ?? true"
         :loading="loading"
+        :loadingProps="tableProps.loadingProps ?? { size: '32px' }"
         :columns="tableColumns"
         :pagination="fixedPagination ? undefined : pagination"
         :data="data"
@@ -94,6 +96,7 @@ const props = defineProps({
 
   // search
   showSearch: { type: Boolean, default: true },
+  searchOnChange: { type: Boolean, default: true },
   searchProps: { type: Object as PropType<SearchProps>, default: () => ({}) },
   searchSpan: { type: [String, Number] as PropType<SearchProps['span']>, default: 3 },
   searchBtnSpan: { type: [String, Number] as PropType<SearchProps['btnSpan']>, default: undefined },
@@ -114,19 +117,21 @@ const props = defineProps({
     type: [Function, Boolean] as PropType<((...args: any[]) => Record<string, any>) | true>,
     default: () => {}
   },
+  transformSearchParams: {
+    type: [Function, Boolean] as PropType<(...args: any[]) => Record<string, any>>,
+    default: () => {}
+  },
   useDataParams: { type: Object as PropType<Record<string, any>>, default: () => ({}) },
   requestApi: { type: Function as PropType<(...args: any[]) => Promise<any>>, required: true },
-  requestOnMount: { type: Boolean, default: true }, // 是否在组件挂载后自动请求数据，默认为 true
-  requestOnChange: { type: Boolean, default: false } // 是否在搜索条件改变时自动请求数据，默认为 false
+  requestOnMount: { type: Boolean, default: true } // 是否在组件挂载后自动请求数据，默认为 true
 })
 
 const emit = defineEmits([
-  'init',
   'search',
-  'reset',
+  'search-query',
+  'search-reset',
   'search-enter',
   'search-change',
-  'trigger-search',
   'table-change'
 ])
 const attrs = useAttrs()
@@ -226,7 +231,13 @@ const tableParams = computed(() => {
 
 // useData
 const params = computed(() => {
-  return { ...searchModel.value, ...extraParams.value, ...tableParams.value }
+  const _params: Record<string, any> = {
+    ...searchModel.value,
+    ...extraParams.value,
+    ...tableParams.value
+  }
+  if (!props.transformSearchParams) return _params
+  return props.transformSearchParams(_params)
 })
 
 const useDataParams = computed(() => {
@@ -237,39 +248,41 @@ const useDataParams = computed(() => {
   return { ...mergedParams, params }
 })
 
-const {
-  loading,
-  data,
-  pagination,
-  init: initMethod,
-  onSearch: onSearchMethod,
-  onTriggerSearch: _onTriggerSearch,
-  onTableChange: onTableChangeMethod
-} = useData(props.requestApi, useDataParams.value)
+const { loading, data, pagination, init, search } = useData(props.requestApi, useDataParams.value)
 
-const onTableChange = (data: any, context: any) => {
+const onTableChange = async (data: any, context: any) => {
+  console.log('onTableChange', data, context)
   sorter.value = data.sorter
   filter.value = data.filter
-  onTableChangeMethod(data, context)
+  await handlePaginationChange(data, context)
+}
+
+const handlePaginationChange = async (data: any, context: any) => {
+  const { pagination: pag } = data
+  if (pagination && pag) {
+    pagination.current = pag.current
+    pagination.pageSize = pag.pageSize
+  }
+  await init()
   emit('table-change', data, context)
 }
 
 const onPaginationChange = (pageInfo: any) => {
-  onTableChangeMethod({ pagination: pageInfo }, { trigger: 'pagination', currentData: [] })
+  handlePaginationChange({ pagination: pageInfo }, { trigger: 'pagination', currentData: [] })
 }
 
 // 方法回调
-const init = async () => {
-  await initMethod()
-  emit('init')
+const createSearchEvent = (event: any) => {
+  return (payload: Record<string, any>) => {
+    emit(event, payload)
+  }
 }
+const onQuery = createSearchEvent('search-query')
+const onReset = createSearchEvent('search-reset')
+const onSearchEnter = createSearchEvent('search-enter')
+const onSearchChange = createSearchEvent('search-change')
 
-const onSearch = async () => {
-  await onSearchMethod()
-  emit('search')
-}
-
-const onReset = async () => {
+const reset = async () => {
   Object.keys(searchModel.value).forEach(key => {
     const col = props.searchColumns.find((item: any) => item.key === key)
     if (col && col.defaultValue !== undefined) {
@@ -280,23 +293,17 @@ const onReset = async () => {
       searchModel.value[key] = undefined
     }
   })
-  await onSearchMethod()
-  emit('reset')
+  await search()
 }
 
-const onSearchEnter = (...args: any[]) => {
-  emit('search-enter', ...args)
-}
-
-const onSearchChange = (...args: any[]) => {
-  emit('search-change', ...args)
-}
-
-const onTriggerSearch = async () => {
-  if (props.requestOnChange) {
-    await _onTriggerSearch()
+const onSearch = async (trigger: string, payload: Record<string, any>) => {
+  console.log('onSearch', trigger, payload)
+  if (trigger === 'reset') {
+    await reset()
+  } else {
+    await search()
   }
-  emit('trigger-search')
+  emit('search', trigger, payload)
 }
 
 // 初始化
@@ -308,9 +315,9 @@ onBeforeMount(() => {
 
 // 将方法暴露给外部
 defineExpose({
-  init,
-  onSearch,
-  onReset,
+  init: init,
+  onSearch: search,
+  onReset: reset,
   searchModel,
   pagination,
   sorter,

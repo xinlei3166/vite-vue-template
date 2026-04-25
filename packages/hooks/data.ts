@@ -31,7 +31,7 @@ export function useData(
   api: Function,
   {
     params,
-    pagination = {},
+    pagination,
     dataKey = 'records',
     callback,
     method = 'get',
@@ -66,24 +66,9 @@ export function useData(
     callback?.({ sourceData, data })
   }
 
-  const onSearch = async (_params: Record<string, any> = {}) => {
+  const search = async (_params: Record<string, any> = {}) => {
     pag.current = 1
     await init(_params)
-  }
-
-  const onTriggerSearch = async (val: Record<string, any> = {}) => {
-    const _params = val?.key ? { [val.key]: val.value } : {}
-    await init(_params)
-  }
-
-  async function onTableChange(data: any, context: any, _params: Record<string, any> = {}) {
-    console.log('onTableChange', { data, context, _params })
-    const { pagination } = data
-    if (pagination) {
-      pag.current = pagination.current
-      pag.pageSize = pagination.pageSize
-    }
-    await init({ ..._params })
   }
 
   return {
@@ -92,9 +77,7 @@ export function useData(
     data,
     pagination: pagination === false ? undefined : pag,
     init,
-    onSearch,
-    onTriggerSearch,
-    onTableChange
+    search
   }
 }
 
