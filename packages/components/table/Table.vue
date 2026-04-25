@@ -92,7 +92,7 @@ const props = defineProps({
   rowKey: { type: [String, Function] as PropType<TableProps['rowKey']>, default: 'id' },
   tableColumns: { type: Array as PropType<TableProps['columns']>, default: () => [] },
   tableEllipsis: { type: Boolean, default: false },
-  pagination: { type: Object as PropType<TableProps['pagination'] | false>, default: undefined },
+  pagination: { type: Object as PropType<TableProps['pagination'] | boolean>, default: undefined },
 
   // search
   showSearch: { type: Boolean, default: true },
@@ -114,12 +114,12 @@ const props = defineProps({
     default: () => ({})
   },
   transformTableParams: {
-    type: [Function, Boolean] as PropType<((...args: any[]) => Record<string, any>) | true>,
-    default: () => {}
+    type: [Function, Boolean] as PropType<((...args: any[]) => Record<string, any>) | boolean>,
+    default: undefined
   },
   transformSearchParams: {
     type: [Function, Boolean] as PropType<(...args: any[]) => Record<string, any>>,
-    default: () => {}
+    default: undefined
   },
   useDataParams: { type: Object as PropType<Record<string, any>>, default: () => ({}) },
   requestApi: { type: Function as PropType<(...args: any[]) => Promise<any>>, required: true },

@@ -8,7 +8,7 @@ import { usePagination } from './table'
 
 interface DataOptions {
   params?: ComputedRef<Record<string, any>> | Record<string, any>
-  pagination?: Pagination | false
+  pagination?: Pagination | boolean
   callback?: ({ sourceData, data }: { sourceData: any; data: any }) => void
   dataKey?: any
   method?: string
