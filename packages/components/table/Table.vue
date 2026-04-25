@@ -96,7 +96,7 @@ const props = defineProps({
 
   // search
   showSearch: { type: Boolean, default: true },
-  searchOnChange: { type: Boolean, default: true },
+  searchOnChange: { type: Boolean as PropType<SearchProps['searchOnChange']>, default: true },
   searchProps: { type: Object as PropType<SearchProps>, default: () => ({}) },
   searchSpan: { type: [String, Number] as PropType<SearchProps['span']>, default: 3 },
   searchBtnSpan: { type: [String, Number] as PropType<SearchProps['btnSpan']>, default: undefined },
