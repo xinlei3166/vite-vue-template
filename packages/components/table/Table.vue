@@ -18,8 +18,8 @@
         :columns="searchColumns"
         :model="searchModel"
         :searchOnChange="searchOnChange"
-        @query="onQuery"
-        @reset="onReset"
+        @query="onSearchQuery"
+        @reset="onSearchReset"
         @enter="onSearchEnter"
         @change="onSearchChange"
         @search="onSearch"
@@ -271,18 +271,18 @@ const onPaginationChange = (pageInfo: any) => {
   handlePaginationChange({ pagination: pageInfo }, { trigger: 'pagination', currentData: [] })
 }
 
-// 方法回调
+// event
 const createSearchEvent = (event: any) => {
   return (payload: Record<string, any>) => {
     emit(event, payload)
   }
 }
-const onQuery = createSearchEvent('search-query')
-const onReset = createSearchEvent('search-reset')
+const onSearchQuery = createSearchEvent('search-query')
+const onSearchReset = createSearchEvent('search-reset')
 const onSearchEnter = createSearchEvent('search-enter')
 const onSearchChange = createSearchEvent('search-change')
 
-const reset = async () => {
+const reset = async (params?: Record<string, any>) => {
   Object.keys(searchModel.value).forEach(key => {
     const col = props.searchColumns.find((item: any) => item.key === key)
     if (col && col.defaultValue !== undefined) {
@@ -293,7 +293,7 @@ const reset = async () => {
       searchModel.value[key] = undefined
     }
   })
-  await search()
+  await search(params)
 }
 
 const onSearch = async (trigger: string, payload: Record<string, any>) => {
@@ -304,6 +304,23 @@ const onSearch = async (trigger: string, payload: Record<string, any>) => {
     await search()
   }
   emit('search', trigger, payload)
+}
+
+// method
+interface RefreshOptions {
+  action?: string
+  params?: Record<string, any>
+  callback?: () => void
+}
+const refresh = async ({ action, params, callback }: RefreshOptions = {}) => {
+  if (['add', 'search'].includes(action || '')) {
+    await search(params)
+  } else if (action === 'reset') {
+    await reset(params)
+  } else {
+    await init(params)
+  }
+  callback?.()
 }
 
 // 初始化
@@ -318,6 +335,7 @@ defineExpose({
   init: init,
   onSearch: search,
   onReset: reset,
+  onRefresh: refresh,
   searchModel,
   pagination,
   sorter,

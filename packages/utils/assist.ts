@@ -30,7 +30,7 @@ export function validateFields(form: Record<string, any>, messages: Record<strin
   return true
 }
 
-export function validateSelectedRowKeys(arr: Array<any>, msg = '请选择一条数据') {
+export function validateSelectedRowKeys(arr: Array<any>, msg = '请选择要操作的数据') {
   if (!arr.length) {
     MessagePlugin.error(msg)
     return
@@ -41,7 +41,7 @@ export function validateSelectedRowKeys(arr: Array<any>, msg = '请选择一条�
 export function validateSelectedRowKeysWithRowCount(
   arr: Array<any>,
   rowCount = 1,
-  msg1 = '请选择一条数据',
+  msg1 = '请选择要操作的数据',
   msg2 = '只能同时编辑一条数据'
 ) {
   if (!arr.length) {
