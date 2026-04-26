@@ -1,6 +1,6 @@
 <template>
   <t-layout
-    v-if="layout"
+    v-if="showLayout"
     id="layout"
     :style="{
       flexDirection: 'row',
@@ -61,7 +61,7 @@ import Siderbar from './Siderbar.vue'
 const isDev = ['development', 'github'].includes(import.meta.env.MODE)
 const router = useRouter()
 const theme = useTheme()
-const layout = computed(() => {
+const showLayout = computed(() => {
   // if (import.meta.client) {
   //   // @ts-ignore
   //   return window.self === window.top && !window.__POWERED_BY_WUJIE__

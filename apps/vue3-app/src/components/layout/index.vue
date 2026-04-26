@@ -1,6 +1,6 @@
 <template>
   <t-layout
-    v-if="layout"
+    v-if="showLayout"
     id="layout"
     :style="{
       flexDirection: 'row',
@@ -61,7 +61,7 @@ import Siderbar from './Siderbar.vue'
 const isDev = ['development', 'github'].includes(import.meta.env.MODE)
 const router = useRouter()
 const theme = useTheme()
-const layout = computed(() => window.self === window.top && !window.__POWERED_BY_WUJIE__)
+const showLayout = computed(() => window.self === window.top && !window.__POWERED_BY_WUJIE__)
 </script>
 
 <style lang="less" scoped>
