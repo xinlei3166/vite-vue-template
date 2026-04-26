@@ -176,3 +176,35 @@
   font-size: var(--td-font-size-body-large, 16px);
   color: theme('colors.error');
 }
+
+// alert
+.my-alert {
+  padding: 10px 16px;
+  &.alert-center .t-alert__message {
+    justify-content: center;
+  }
+  &.alert-error .t-alert__description {
+    color: var(--td-error-color);
+  }
+  &.alert-nowrap .t-alert__description {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .t-alert__icon {
+    font-size: 20px;
+    margin-top: 1px;
+  }
+  &.t-alert--info {
+    background-color: var(--td-brand-color-1);
+  }
+  &.t-alert--warning {
+    background-color: var(--td-warning-color-1);
+  }
+  &.t-alert--error {
+    background-color: var(--td-error-color-1);
+  }
+  &.t-alert--success {
+    background-color: var(--td-success-color-1);
+  }
+}
