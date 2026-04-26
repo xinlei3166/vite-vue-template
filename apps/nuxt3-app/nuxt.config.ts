@@ -54,7 +54,25 @@ export default defineNuxtConfig({
   },
   vite: {
     optimizeDeps: {
-      include: ['@material/material-color-utilities', 'ts-ignore']
+      include: [
+        '@material/material-color-utilities',
+        'ts-ignore',
+        'dayjs', // CJS
+        'dayjs/locale/zh-cn', // CJS
+        'mockjs', // CJS
+        'qs', // CJS
+        'nprogress', // CJS
+        'mitt',
+        'sortablejs',
+        'dayjs/plugin/weekday', // CJS
+        'exceljs', // CJS
+        'js-cookie',
+        'nanoid',
+        'vue-echarts',
+        '@ant-design/colors',
+        'cos-js-sdk-v5', // CJS
+        'axios'
+      ]
     },
     ssr: {
       noExternal: ['vue-echarts']

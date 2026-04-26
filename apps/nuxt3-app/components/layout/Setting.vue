@@ -97,7 +97,7 @@
 <script lang="ts">
 import { defineComponent, ref, onMounted } from 'vue'
 import { useTheme } from '@packages/hooks'
-import { generateColorMap, insertThemeStylesheet } from '@/utils'
+import { changeThemeColor } from '@packages/utils'
 
 const theme = useTheme()
 const colors = [
@@ -147,16 +147,8 @@ export default defineComponent({
     const onChangeThemeColor = () => {
       const mode = theme.value.theme
       const hex = theme.value.themeColor
-      const { colors: newPalette, primary: brandColorIndex } = Color.getColorGradations({
-        colors: [hex],
-        step: 10,
-        remainInput: false // 是否保留输入 不保留会矫正不合适的主题色
-      })[0]
-      const newColorMap = generateColorMap(Color, hex!, newPalette, mode, brandColorIndex)
-      // @ts-ignore
-      insertThemeStylesheet(hex!, newColorMap, mode)
-
-      document.documentElement.setAttribute('theme-color', hex || '')
+      if (!hex) return
+      changeThemeColor(hex, mode)
     }
 
     return { visible, theme, colors, onChangeTheme, onChangeThemeColor }

@@ -27,6 +27,7 @@
     "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s -r 0"
   },
   "dependencies": {
+    "@ant-design/colors": "^8.0.1",
     "@packages/components": "workspace:*",
     "@packages/hooks": "workspace:*",
     "@packages/lib": "workspace:*",

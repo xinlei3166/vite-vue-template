@@ -1,5 +1,19 @@
-export async function generateColorMap(
-  Color: any,
+import { Color } from 'tvision-color'
+import { insertThemeStylesheet } from './utils'
+
+export function changeThemeColor(theme: string, mode: 'light' | 'dark') {
+  const { colors: newPalette, primary: brandColorIndex } = Color.getColorGradations({
+    colors: [theme],
+    step: 10,
+    remainInput: false // 是否保留输入 不保留会矫正不合适的主题色
+  })[0]
+  const newColorMap = generateColorMap(theme!, newPalette, mode, brandColorIndex)
+  insertThemeStylesheet(theme!, newColorMap, mode)
+
+  document.documentElement.setAttribute('theme-color', theme || '')
+}
+
+export function generateColorMap(
   theme: string,
   colorPalette: Array<string>,
   mode: 'light' | 'dark',
@@ -32,33 +46,4 @@ export async function generateColorMap(
     '--td-brand-color-10': colorPalette[9]
   }
   return colorMap
-}
-
-export function insertThemeStylesheet(
-  theme: string,
-  colorMap: Record<string, string>,
-  mode: 'light' | 'dark'
-) {
-  const isDarkMode = mode === 'dark'
-  const root = !isDarkMode
-    ? `:root[theme-color='${theme}']`
-    : `:root[theme-color='${theme}'][theme-mode='dark']`
-
-  const styleSheet = document.createElement('style')
-  styleSheet.type = 'text/css'
-  styleSheet.innerText = `${root}{
-    --td-brand-color: ${colorMap['--td-brand-color']};
-    --td-brand-color-1: ${colorMap['--td-brand-color-1']};
-    --td-brand-color-2: ${colorMap['--td-brand-color-2']};
-    --td-brand-color-3: ${colorMap['--td-brand-color-3']};
-    --td-brand-color-4: ${colorMap['--td-brand-color-4']};
-    --td-brand-color-5: ${colorMap['--td-brand-color-5']};
-    --td-brand-color-6: ${colorMap['--td-brand-color-6']};
-    --td-brand-color-7: ${colorMap['--td-brand-color-7']};
-    --td-brand-color-8: ${colorMap['--td-brand-color-8']};
-    --td-brand-color-9: ${colorMap['--td-brand-color-9']};
-    --td-brand-color-10: ${colorMap['--td-brand-color-10']};
-  }`
-
-  document.head.appendChild(styleSheet)
 }
