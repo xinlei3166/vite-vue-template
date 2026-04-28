@@ -199,4 +199,63 @@
   &.t-alert--success {
     background-color: var(--td-success-color-1);
   }
+
+  &.my-alert-announcement.t-alert--info {
+    padding: 12px 20px;
+    position: relative;
+    background: linear-gradient(135deg, #0077fa 0%, #4da3ff 100%);
+    box-shadow: 0 4px 20px rgba(0, 119, 250, 0.25);
+    &::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      transform: translateX(-120%);
+      background: linear-gradient(
+        120deg,
+        transparent,
+        rgba(255, 255, 255, 0.12),
+        rgba(255, 255, 255, 0.18),
+        rgba(255, 255, 255, 0.12),
+        transparent
+      );
+      animation: shimmer 4s ease-in-out infinite;
+      pointer-events: none;
+    }
+    @keyframes shimmer {
+      0% {
+        transform: translateX(-120%);
+      }
+      40% {
+        transform: translateX(120%);
+      }
+      100% {
+        transform: translateX(120%);
+      }
+    }
+
+    .t-alert__icon {
+      color: #fff;
+      animation: ring 2s ease-in-out infinite;
+    }
+    @keyframes ring {
+      0%,
+      100% {
+        transform: rotate(0);
+      }
+      10%,
+      30% {
+        transform: rotate(-12deg);
+      }
+      20%,
+      40% {
+        transform: rotate(12deg);
+      }
+      50% {
+        transform: rotate(0);
+      }
+    }
+  }
+  &.my-alert-blue.t-alert--info {
+    background-color: #e6f6ff;
+  }
 }
