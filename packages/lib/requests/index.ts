@@ -4,6 +4,7 @@ import type { Config, RequestsConfig, Method } from '@packages/types'
 import { ContentTypeEnum } from '@packages/types/enums'
 import { getToken, writeFile, writeBase64File } from '@packages/utils'
 // import { useTokenRefresh } from './useTokenRefresh'
+import { parseBlobError } from './utils'
 
 const createRequests = (requestsConfig: RequestsConfig = {}) => {
   const baseURL = requestsConfig.baseURL || import.meta.env.VITE_API_URL
@@ -57,10 +58,21 @@ const createRequests = (requestsConfig: RequestsConfig = {}) => {
 
   // response 拦截器
   service.interceptors.response.use(
-    (response: any) => {
-      const { responseType } = response?.config?.requestOptions || {}
+    async (response: any) => {
+      const { responseType, useHeaderFileName } = response?.config?.requestOptions || {}
       if (responseType === 'raw') return response
-      if (responseType === 'blob') return response.data
+      if (responseType === 'blob') {
+        const contentType = response.headers?.['content-type']
+        if (contentType.includes('application/json')) {
+          const blobError = await parseBlobError(response.data, messageKey)
+          MessagePlugin.error(blobError.message || '下载失败')
+          return
+        }
+        if (useHeaderFileName) {
+          return response
+        }
+        return response.data
+      }
       const { [codeKey]: code, [messageKey]: msg } = response?.data || {}
       if (code && errorCodes.includes(code)) {
         errorHandler?.(msg)
@@ -132,13 +144,35 @@ const createRequests = (requestsConfig: RequestsConfig = {}) => {
     } else {
       api = service[method](url, data, config)
     }
-    const { fileName, responseType, stringify, cb, blobOptions } = config.requestOptions || {}
+    const { fileName, responseType, stringify, cb, blobOptions, useHeaderFileName } =
+      config.requestOptions || {}
+    let headerFileName = ''
     return api
       .then(async (res: any) => {
         cb?.(res)
         let data
         if (responseType === 'blob') {
-          data = res
+          if (!res) return false
+          if (useHeaderFileName) {
+            data = res.data
+            // 从response的headers中获取filename, "Content-disposition", "attachment; filename=xxxx.docx"
+            // 1.获取 Header，注意大小写兼容
+            const contentDisposition =
+              res.headers['content-disposition'] || res.headers['Content-Disposition']
+            if (contentDisposition) {
+              // 2.匹配 filename 或 filename*
+              const fileNameMatch = contentDisposition.match(
+                /filename\*?=['"]?(?:UTF-8'')?([^;'\n]*)['"]?/i
+              )
+              if (fileNameMatch && fileNameMatch[1]) {
+                // 3.解码
+                headerFileName = decodeURIComponent(fileNameMatch[1])
+              }
+            }
+            console.log('headerFileName:', headerFileName)
+          } else {
+            data = res
+          }
         } else {
           const { code, data: _data } = res
           if (code && code !== successCode) return

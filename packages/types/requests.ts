@@ -22,6 +22,7 @@ export interface RequestOptions {
   fileKey?: string
   fileName?: string
   blobOptions?: Record<string, any>
+  useHeaderFileName?: boolean
 }
 
 export interface RequestConfig {

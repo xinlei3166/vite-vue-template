@@ -1,5 +1,5 @@
 // 带http[s]前缀的标准url
-export const urlPattern = /^(https?:\/\/)([\da-z.-]+)\.([a-z.]{2,6})([/\w.-]*)*\/?$/
+export const urlPattern = /^https?:\/\/[^\s]+$/
 
 // 手机号
 export const phonePattern = /^1[23456789]\d{9}$/
