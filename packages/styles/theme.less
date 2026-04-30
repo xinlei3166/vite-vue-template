@@ -1,6 +1,20 @@
+@steps: 10, 15, 20, 25, 30, 35, 40, 45, 50, 55, 60, 65, 70, 75, 80, 85, 90, 95;
+.generate-alpha(@list, @prefix, @color-var) {
+  .loop(length(@list));
+  .loop(@i) when (@i > 0) {
+    @val: extract(@list, @i);
+    @alpha: (@val / 100);
+    --@{prefix}-alpha-@{val}: ~'rgba(var(@{color-var}), @{alpha})';
+    .loop(@i - 1);
+  }
+}
+
 :root,
 :root[theme-mode='light'] {
+  // custom
   --dark-layout-header-background: var(--td-gray-color-13);
+  --brand-color-rgb: 0, 119, 250; // 品牌色 RGB
+  .generate-alpha(@steps, brand-color, --brand-color-rgb);
 
   // tdesign
   --td-brand-color-1: #f0f3ff;

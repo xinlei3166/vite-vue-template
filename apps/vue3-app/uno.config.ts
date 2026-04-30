@@ -15,6 +15,14 @@ export default defineConfig({
   // rules: [[/^opacity-brand-(\w+)$/, ([, d]) => ({ opacity: `var(--${d}-opacity)` })]],
   theme: {
     colors: {
+      // 自定义品牌透明色
+      ...Object.fromEntries(
+        [10, ...Array.from({ length: 17 }, (_, i) => 15 + i * 5)].map(alpha => [
+          `brandAlpha${alpha}`,
+          `var(--brand-color-alpha-${alpha})`
+        ])
+      ),
+
       // 文字 & 图标 颜色
       fontWhite1: 'var(--td-font-white-1)',
       fontWhite2: 'var(--td-font-white-2)',
