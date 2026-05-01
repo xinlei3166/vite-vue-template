@@ -85,7 +85,7 @@ export default defineNuxtConfig({
     },
     define: {
       __APP_TITLE__: JSON.stringify(env.VITE_APP_TITLE),
-      __DYNAMIC_MENU__: env.VITE_DYNAMIC_MENU
+      __DYNAMIC_MENU__: env.VITE_ENABLE_DYNAMIC_MENU
     },
     css: {
       preprocessorOptions: {
