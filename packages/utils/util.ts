@@ -1,8 +1,9 @@
-import qs from 'qs'
-import { isObject, isArray } from './is'
-import sm3 from './sm3'
 import { customAlphabet } from 'nanoid'
+import qs from 'qs'
+import { formatDatetime, unifiedTimeStamp } from './datetime'
+import { isObject, isArray } from './is'
 import { foreignPhonePattern, phonePattern } from './patterns'
+import sm3 from './sm3'
 
 /**
  * 获取url 参数的方法
@@ -37,6 +38,48 @@ export function calculatePercentageInt(num1: number, num2: number) {
   if (num1 === null || num2 === null) return ''
   const num = num1 / num2
   return num >= 1 ? '100%' : Math.floor(num * 100) + '%'
+}
+
+/**
+ * 由生日计算年龄  精确到月份
+ * @param birthday
+ * @param sMonth
+ */
+export const getAge = (birthday: number | string, sMonth = true): string => {
+  let _birthday
+  if (Object.prototype.toString.call(birthday) === '[object Number]') {
+    _birthday = unifiedTimeStamp(birthday, 'YYYY-MM-DD')
+  } else if (Object.prototype.toString.call(birthday) === '[object String]') {
+    const b = birthday as string
+    _birthday = b.split(' ')[0]
+  }
+  if (!_birthday) return ''
+  const reg = /^(\d{1,4})(-|\/)(\d{1,2})\2(\d{1,2})$/
+  const birthdayArr = _birthday.match(reg)
+  const today = formatDatetime(new Date(), 'YYYY-MM-DD')
+  const todayArr = today.match(reg)
+  const T1 = (todayArr && Number(todayArr[1])) || 0
+  const B1 = (birthdayArr && Number(birthdayArr[1])) || 0
+  const T3 = (todayArr && Number(todayArr[3])) || 0
+  const B3 = (birthdayArr && Number(birthdayArr[3])) || 0
+  const T4 = (todayArr && Number(todayArr[4])) || 0
+  const B4 = (birthdayArr && Number(birthdayArr[4])) || 0
+  let days = 0
+  let month = 0
+  let year = 0
+  days = T4 - B4
+  if (days < 0) {
+    month = -1
+  }
+  month += T3 - B3
+  if (month < 0) {
+    year = -1
+    month = 12 + month
+  }
+  year += T1 - B1
+  const yearStr = year > 0 ? year + '岁' : ''
+  const mnthStr = month > 0 ? month + '个月' : ''
+  return sMonth ? `${yearStr} ${mnthStr}` : `${yearStr}`
 }
 
 export const isMobile = () => {
@@ -96,10 +139,10 @@ export function uniqueObjArr(
 }
 
 // 唯一Id
-export function uniqueId(size = 12) {
-  const alphabet = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz'
-  const nanoid = customAlphabet(alphabet, size)
-  return nanoid().toLowerCase()
+export function uniqueId(size = 21, alphabet?: string) {
+  const _alphabet = alphabet || '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz'
+  const nanoid = customAlphabet(_alphabet, size)
+  return nanoid()
 }
 
 // 扁平化对象数组
@@ -116,11 +159,11 @@ export const flattenDeepObjArr = (arr: any[], deepKey = 'children') => {
 // 名称拼接 a/b/c
 export const joinStr = (arr: string[], separator = '/') => arr.join(separator)
 
-export function doSM3(text: String): String {
+export function doSM3(text: string): string {
   return sm3(text)
 }
 
-export const randomString = (len: number): String => {
+export const randomString = (len: number): string => {
   len = len || 32
   const $chars = 'ABCDEFGHJKMNPQRSTWXYZabcdefhijkmnprstwxyz2345678'
   /** **默认去掉了容易混淆的字符oOLl,9gq,Vv,Uu,I1****/
@@ -206,7 +249,7 @@ export function isJSON(str: any) {
       } else {
         return false
       }
-    } catch (e) {
+    } catch {
       return false
     }
   } else {
@@ -220,4 +263,9 @@ export const convertStringToBoolean = (value: string) => {
 
 export const kebabCase = (str: string) => {
   return str.replace(/[A-Z]/g, match => `-${match.toLowerCase()}`)
+}
+
+export const formatTreeName = (str: string) => {
+  if (!str) return ''
+  return str.replaceAll('/', ' / ')
 }
