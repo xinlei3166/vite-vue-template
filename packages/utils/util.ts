@@ -1,3 +1,4 @@
+import dayjs from 'dayjs'
 import { customAlphabet } from 'nanoid'
 import qs from 'qs'
 import { formatDatetime, unifiedTimeStamp } from './datetime'
@@ -138,11 +139,17 @@ export function uniqueObjArr(
   }, [])
 }
 
-// 唯一Id
-export function uniqueId(size = 21, alphabet?: string) {
-  const _alphabet = alphabet || '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz'
-  const nanoid = customAlphabet(_alphabet, size)
-  return nanoid()
+// 生成唯一 ID
+export function generateUniqueId(size = 21, alphabet?: string, upperCase = false) {
+  const _alphabet = alphabet || '0123456789abcdefghijklmnopqrstuvwxyz'
+  const customNanoid = customAlphabet(_alphabet, size)
+  const id = customNanoid()
+  return upperCase ? id.toUpperCase() : id
+}
+
+// 生成任务 ID
+export function generateTaskId(size?: number, format = 'YYYYMMDDHHmmss') {
+  return `${dayjs().format(format)}_${generateUniqueId(size)}`
 }
 
 // 扁平化对象数组
@@ -239,6 +246,25 @@ export function getParameter(name: string) {
   return null
 }
 
+// 从 Content-Disposition 中获取文件名
+export function getFileNameFromContentDisposition(contentDisposition?: string): string {
+  if (!contentDisposition) return ''
+
+  // 1. 优先 filename*=UTF-8''xxx
+  const filenameStarMatch = contentDisposition.match(/filename\*=UTF-8''([^;]+)/i)
+  if (filenameStarMatch?.[1]) {
+    return decodeURIComponent(filenameStarMatch[1].trim())
+  }
+
+  // 2. fallback: filename="xxx"
+  const filenameMatch = contentDisposition.match(/filename="?([^";]+)"?/i)
+  if (filenameMatch?.[1]) {
+    return decodeURIComponent(filenameMatch[1].trim())
+  }
+
+  return ''
+}
+
 // json
 export function isJSON(str: any) {
   if (typeof str == 'string') {
@@ -257,15 +283,93 @@ export function isJSON(str: any) {
   }
 }
 
+// 字符串转为布尔值
 export const convertStringToBoolean = (value: string) => {
   return value === 'true' ? true : value === 'false' ? false : value
 }
 
+// 将字符串转换为 kebab-case
 export const kebabCase = (str: string) => {
   return str.replace(/[A-Z]/g, match => `-${match.toLowerCase()}`)
 }
 
+// tree name format
 export const formatTreeName = (str: string) => {
   if (!str) return ''
   return str.replaceAll('/', ' / ')
+}
+
+// 根据路径设置对象值
+export function setByPath(obj: Record<string, any>, path: string, value: any) {
+  const keys = path.split('.')
+  let cur = obj
+
+  keys.forEach((key, index) => {
+    if (index === keys.length - 1) {
+      cur[key] = value
+    } else {
+      cur[key] ||= {}
+      cur = cur[key]
+    }
+  })
+}
+
+// 提取对象剩余属性
+export function extractRest<T extends Record<string, any>, K extends readonly (keyof T)[]>(
+  item: T,
+  excludeKeys: K
+) {
+  const rest = { ...item }
+
+  excludeKeys.forEach(key => {
+    delete rest[key]
+  })
+
+  return rest as Omit<T, K[number]>
+}
+
+// 更优雅的拼接url片段
+export function joinUrl(...paths: string[]): string {
+  return paths
+    .filter(Boolean)
+    .map((part, index) => {
+      if (index === 0) {
+        // 第一个保留协议头（https://）
+        return part.replace(/\/+$/, '')
+      }
+      return part.replace(/^\/+|\/+$/g, '')
+    })
+    .join('/')
+}
+
+// 优雅地拼接路径片段，并可控制是否移除开头的 '/'
+export function joinPath(segments: string[], removeLeadingSlash = false) {
+  let result = segments
+    .filter(segment => segment) // 过滤掉空字符串
+    .join('/') // 用 '/' 连接所有片段
+  if (removeLeadingSlash) {
+    result = result.replace(/^\/+/, '') // 移除开头所有的 '/'
+  }
+  return result
+}
+
+// 去掉字符串首尾引号 "\"c2d0daeb2bf7bd62c1a7972db4be9098\""
+export function stripQuotes(value?: string): string {
+  return value?.replace(/^['"]+|['"]+$/g, '') || ''
+}
+
+// 格式化时长，显示为 mm:ss 或 hh:mm:ss
+export function formatDuration(ms: number): string {
+  if (!ms || ms < 0) return '00:00'
+
+  const totalSeconds = Math.max(1, Math.floor(ms / 1000))
+
+  const h = Math.floor(totalSeconds / 3600)
+  const m = Math.floor((totalSeconds % 3600) / 60)
+  const s = totalSeconds % 60
+
+  const pad = (n: number) => String(n).padStart(2, '0')
+
+  if (h > 0) return `${pad(h)}:${pad(m)}:${pad(s)}`
+  return `${pad(m)}:${pad(s)}`
 }

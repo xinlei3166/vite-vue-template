@@ -33,6 +33,7 @@ export const useTokenRefresh = (options: UseTokenRefreshOptions = {}) => {
           const currentQueue = [...requestsQueue]
           currentQueue.forEach(cb => cb(access_token))
           requestsQueue = []
+          config.headers = config.headers || {}
           config.headers[authorizationKey!] = `Bearer ${access_token}`
           // 重新执行当前请求
           return service.request(config)
@@ -51,6 +52,7 @@ export const useTokenRefresh = (options: UseTokenRefreshOptions = {}) => {
       // 正在刷新中，挂起当前请求
       return new Promise(resolve => {
         requestsQueue.push((token: string) => {
+          config.headers = config.headers || {}
           config.headers[authorizationKey] = `Bearer ${token}`
           resolve(service.request(config))
         })
