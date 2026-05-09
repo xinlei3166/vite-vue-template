@@ -1,6 +1,7 @@
 import type { RouteRecordRaw } from 'vue-router'
 
 const Layout = () => import('@/components/layout/index.vue')
+const LayoutRouter = () => import('@/components/layout/Router.vue')
 
 const routes: RouteRecordRaw[] = [
   {
@@ -8,20 +9,30 @@ const routes: RouteRecordRaw[] = [
     name: 'others',
     meta: {
       title: '其他组件',
-      link: true,
+      // link: true,
       icon: 'icon-appstore'
     },
     component: Layout,
-    redirect: { name: 'vue' },
+    redirect: { name: 'framework' },
     children: [
       {
-        path: '',
-        name: 'vue',
+        path: 'framework',
+        name: '前端框架',
         meta: {
-          title: 'vue',
+          title: 'framework',
           icon: 'icon-setting'
         },
-        component: () => import('@/components/HelloWorld.vue')
+        component: LayoutRouter,
+        children: [
+          {
+            path: 'vue',
+            name: 'vue',
+            meta: {
+              title: 'vue'
+            },
+            component: () => import('@/components/HelloWorld.vue')
+          }
+        ]
       }
     ]
   }

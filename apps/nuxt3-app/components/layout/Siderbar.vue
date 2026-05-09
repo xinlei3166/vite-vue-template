@@ -87,10 +87,18 @@ const onExpand = (value: any[]) => {
 
 const changeRoute = (route: RouteLocationNormalized) => {
   const level = route.matched.length
-  const routeName = level > 2 ? route.matched[1]?.name : route.name
-  const selectedRouteName = route.matched[0]?.meta?.link
-    ? (route.matched[0]?.name as string)
-    : (routeName as string)
+  let selectedRouteName
+
+  if (route.matched[0]?.meta?.link) {
+    // 如果一级菜单没有子级
+    selectedRouteName = route.matched[0]?.name as string
+  } else if (level > 2 && route.meta?.hidden) {
+    // 如果当前路由大于 2 级，并且是隐藏页，比如详情页，高亮它的上一级
+    selectedRouteName = route.matched.at(-2)?.name as string
+  } else {
+    selectedRouteName = route.name as string
+  }
+
   if (menuState.selectedValue !== selectedRouteName) {
     menuState.selectedValue = selectedRouteName
   }
@@ -105,13 +113,16 @@ const changeRoute = (route: RouteLocationNormalized) => {
   //     menuState.expanded = [...new Set([...menuState.expanded, ...parentNames])]
   //   }, 100)
   // }
+
   // 展开单个父级菜单
-  const parentRoute = route.matched[0]
-  if (parentRoute && !parentRoute.meta?.link) {
-    setTimeout(() => {
-      menuState.expanded = [parentRoute.name as string]
-    }, 100)
-  }
+  const expandedNames = route.matched
+    .slice(0, -1)
+    .filter(item => !item.meta?.link)
+    .map(item => item.name as string)
+    .filter(Boolean)
+  setTimeout(() => {
+    menuState.expanded = expandedNames
+  }, 100)
 }
 
 watch(route, changeRoute, { immediate: true })

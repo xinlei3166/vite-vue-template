@@ -62,10 +62,6 @@
   </div>
 </template>
 
-<script lang="ts">
-export default { inheritAttrs: false }
-</script>
-
 <script lang="ts" setup>
 import type { TableProps, TableChangeData, SortInfo } from 'tdesign-vue-next'
 import type { PropType, CSSProperties } from 'vue'
@@ -81,7 +77,7 @@ export type SearchProps = InstanceType<typeof SearchType>['$props'] & {
   style?: CSSProperties
 }
 
-// defineOptions({ inheritAttrs: false })
+defineOptions({ inheritAttrs: false })
 
 const props = defineProps({
   // table
@@ -217,9 +213,9 @@ const defaultTransformTableParams = (data: TableChangeData) => {
 }
 const transformTableParams = (data: any) => {
   // console.log('transformTableParams', typeof _transformTableParams.value, data)
-  if (_transformTableParams.value === true) {
+  if (_transformTableParams?.value === true) {
     return defaultTransformTableParams(data)
-  } else if (typeof _transformTableParams.value === 'function') {
+  } else if (typeof _transformTableParams?.value === 'function') {
     return _transformTableParams.value(data)
   } else {
     return {}
