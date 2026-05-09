@@ -74,7 +74,7 @@ const showLayout = computed(() => {
 .layout-fixed-stuff {
   flex-shrink: 0;
   overflow: hidden;
-  transition: width 0.2s;
+  transition: all 0.3s;
 }
 
 .layout-header {

@@ -30,17 +30,17 @@
           <Logo v-if="theme.layout !== 'mix'" />
         </template>
         <template #operations>
-          <div
-            class="sider-trigger-wrap"
+          <button
+            class="sider-trigger"
             @click="
               () => {
                 theme.collapsed = !theme.collapsed
               }
             "
           >
-            <icon v-if="theme.collapsed" name="icon-indent" class="sider-trigger" />
-            <icon v-else name="icon-outdent" class="sider-trigger" />
-          </div>
+            <icon v-if="theme.collapsed" name="icon-indent" class="sider-trigger-icon" />
+            <icon v-else name="icon-outdent" class="sider-trigger-icon" />
+          </button>
         </template>
         <MenuItem :routes="routes" />
       </t-menu>
@@ -96,6 +96,7 @@ const changeRoute = (route: RouteLocationNormalized) => {
     // 如果当前路由大于 2 级，并且是隐藏页，比如详情页，高亮它的上一级
     selectedRouteName = route.matched.at(-2)?.name as string
   } else {
+    // 正常菜单，高亮当前路由
     selectedRouteName = route.name as string
   }
 
@@ -130,17 +131,42 @@ watch(route, changeRoute, { immediate: true })
 
 <style lang="less" scoped>
 html.dark {
-  .sider-trigger:hover {
-    color: #fff;
+  .sider-trigger {
+    &:hover {
+      .sider-trigger-icon {
+        color: var(--td-text-color-primary);
+      }
+    }
+
+    .sider-trigger-icon {
+      color: var(--td-text-color-secondary);
+    }
+  }
+}
+.sider-menu.t-is-collapsed {
+  .sider-trigger {
+    padding: 15px;
   }
 }
 .sider-trigger {
-  font-size: 18px;
-  margin: 0 16px;
+  width: 100%;
+  border: none;
+  background: none;
   cursor: pointer;
-  transition: color 0.3s;
+  border-radius: 8px;
+  display: inline-flex;
+  align-items: center;
+  height: 40px;
+  padding: 0 16px;
   &:hover {
-    color: theme('colors.brand');
+    border-color: var(--td-bg-color-container-hover);
+    background-color: var(--td-bg-color-container-hover);
+  }
+
+  .sider-trigger-icon {
+    font-size: 18px;
+    cursor: pointer;
+    transition: color 0.3s;
   }
 }
 
@@ -167,22 +193,14 @@ html.dark {
   overflow: hidden auto;
   :deep(.sider-menu) {
     height: 100%;
+    transition: all 0.3s !important;
     .t-menu__logo {
       height: v-bind('theme.height');
     }
     .t-menu__operations {
-      height: 48px;
-    }
-    .sider-trigger-wrap {
-      position: absolute;
-      top: 0;
-      right: 0;
-      bottom: 0;
-      left: 0;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
+      height: 45px;
+      padding: 0 8px 5px !important;
+      border-top: none !important;
     }
   }
 }

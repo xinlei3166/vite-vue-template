@@ -97,7 +97,7 @@
 <script lang="ts">
 import { defineComponent, ref, onMounted } from 'vue'
 import { useTheme } from '@packages/hooks'
-import { changeThemeColor } from '@packages/utils'
+import { changeThemeColor } from '@/utils'
 
 const theme = useTheme()
 const colors = [
@@ -148,7 +148,7 @@ export default defineComponent({
       const mode = theme.value.theme
       const hex = theme.value.themeColor
       if (!hex) return
-      changeThemeColor(hex, mode)
+      changeThemeColor(Color, hex, mode)
     }
 
     return { visible, theme, colors, onChangeTheme, onChangeThemeColor }

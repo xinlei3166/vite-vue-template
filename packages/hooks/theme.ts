@@ -17,11 +17,11 @@ const theme = ref<Theme>({
   theme: 'light', // light, dark
   layout: 'mix', // side, mix
   expandType: 'normal',
-  width: '240px',
+  width: '232px',
   height: '56px',
   collapsed: false,
   collapsedWidth: '64px',
-  headerTheme: false,
+  headerTheme: true,
   showBreadcrumb: true, // 是否显示面包屑
   themeColor: '#0077fa'
 })
