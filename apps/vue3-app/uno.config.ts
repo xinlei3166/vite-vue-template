@@ -22,6 +22,10 @@ export default defineConfig({
           `var(--brand-color-alpha-${alpha})`
         ])
       ),
+      mySuccess: 'var(--success-color)',
+      mySuccessHover: 'var(--success-color-hover)',
+      mySuccessActive: 'var(--success-color-active)',
+      mySuccessDisabled: 'var(--success-color-disabled)',
 
       // 文字 & 图标 颜色
       fontWhite1: 'var(--td-font-white-1)',

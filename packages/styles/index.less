@@ -211,7 +211,11 @@
   &.my-alert-announcement.t-alert--info {
     padding: 12px 20px;
     position: relative;
-    background: linear-gradient(135deg, var(--td-brand-color) 0%, #4da3ff 100%);
+    background: linear-gradient(
+      135deg,
+      rgba(var(--brand-color-rgb), 1) 0%,
+      rgba(var(--brand-color-rgb), 0.7) 100%
+    );
     box-shadow: 0 4px 20px var(--brand-color-alpha-25);
     overflow: hidden;
     &::before {
