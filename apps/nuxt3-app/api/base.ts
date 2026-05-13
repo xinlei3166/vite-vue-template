@@ -1,22 +1,9 @@
-import { MessagePlugin } from 'tdesign-vue-next'
 import { useRequests } from '@packages/lib'
 import type { Request } from '@packages/types'
-import { removeToken } from '@packages/utils'
-import router from '@/router'
-import { useMenuStore } from '@/store/menu'
-import { useUserStore } from '@/store/user'
+import { logoutCleanup } from '@packages/utils'
 
 const errorHandler = (msg: string) => {
-  const userStore = useUserStore()
-  const menuStore = useMenuStore()
-  removeToken()
-  userStore.cleanup()
-  menuStore.cleanup()
-  MessagePlugin.closeAll()
-  MessagePlugin.error(msg)
-  setTimeout(() => {
-    router.push('/login')
-  }, 50)
+  logoutCleanup({ msg })
 }
 
 const baseURL = import.meta.env.VITE_API_URL

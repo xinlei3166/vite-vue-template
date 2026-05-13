@@ -1,4 +1,5 @@
 import Cookies from 'js-cookie'
+import { MessagePlugin } from 'tdesign-vue-next'
 // @ts-ignore
 import router from '@/router'
 // @ts-ignore
@@ -39,11 +40,27 @@ export const removeLocalValue = (key: string) => {
 }
 
 // logout
-export const logoutCleanup = () => {
+interface LogoutCleanupOptions {
+  msg?: string
+  destroy?: boolean
+  [key: string]: any
+}
+export const logoutCleanup = ({ msg, destroy = false }: LogoutCleanupOptions = {}) => {
   const userStore = useUserStore()
   const menuStore = useMenuStore()
+
   removeToken()
-  router.push('/login')
   userStore.cleanup()
   menuStore.cleanup()
+
+  if (destroy) {
+    MessagePlugin.closeAll()
+  }
+  if (msg) {
+    MessagePlugin.error(msg)
+  }
+
+  setTimeout(() => {
+    router.push('/login')
+  }, 50)
 }

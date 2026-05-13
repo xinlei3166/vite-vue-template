@@ -44,7 +44,7 @@
             </t-input>
           </t-form-item>
           <t-form-item label="">
-            <t-checkbox v-model="checked">自动登录</t-checkbox>
+            <t-checkbox v-model="checked">记住账号</t-checkbox>
             <a class="text-btn ml-auto" href="#">忘记密码</a>
           </t-form-item>
           <t-form-item class="login-form-btn-wrap" label="">

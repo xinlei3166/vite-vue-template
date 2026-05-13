@@ -32,16 +32,14 @@ import { MessagePlugin } from 'tdesign-vue-next'
 import { computed } from 'vue'
 import { useRouter } from 'vue-router'
 import { useTheme } from '@packages/hooks'
-import { removeToken } from '@packages/utils'
+import { logoutCleanup } from '@packages/utils'
 import { logout } from '@/api'
-import { useMenuStore } from '@/store/menu'
 import { useUserStore } from '@/store/user'
 
 // ====================== Hooks ======================
 const theme = useTheme()
 const router = useRouter()
 const userStore = useUserStore()
-const menuStore = useMenuStore()
 
 // ====================== Components ======================
 const userinfo = computed(() => userStore.Userinfo)
@@ -51,12 +49,9 @@ const onLogout = async () => {
   if (!res || res.code !== 0) return
   MessagePlugin.success({
     content: '退出登录成功',
-    duration: 1,
+    duration: 1000,
     onClose: () => {
-      removeToken()
-      userStore.cleanup()
-      menuStore.cleanup()
-      router.push('/login').catch(() => {})
+      logoutCleanup()
     }
   })
 }
