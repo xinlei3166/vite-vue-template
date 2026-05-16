@@ -55,4 +55,23 @@ input,
 button {
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0); // 点击后的阴影
   -webkit-appearance: none; // ios下input圆角
+  appearance: none; // ios下input圆角
+}
+
+button {
+  margin: 0;
+  padding: 0;
+  outline: none;
+  border: none;
+}
+
+/* 去除webkit浏览器的点击高亮 */
+* {
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* 针对特定元素 */
+a,
+button {
+  -webkit-tap-highlight-color: transparent;
 }
