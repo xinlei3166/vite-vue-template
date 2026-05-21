@@ -1,10 +1,10 @@
 import presetRemToPx from '@unocss/preset-rem-to-px'
-import { defineConfig, presetAttributify, presetWind3 } from 'unocss'
+import { defineConfig, presetAttributify, presetWind4 } from 'unocss'
 
 // https://unocss.dev/interactive/
 export default defineConfig({
   presets: [
-    presetWind3(),
+    presetWind4(),
     presetAttributify({
       prefix: 'un-',
       prefixedOnly: false
