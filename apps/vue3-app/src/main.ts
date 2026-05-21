@@ -8,7 +8,6 @@ import 'tdesign-vue-next/es/style/index.css'
 import '@packages/styles/index.less'
 import '@packages/styles/reset.less'
 import '@/styles/index.less'
-import 'animate.css'
 import 'virtual:uno.css'
 import './mock'
 

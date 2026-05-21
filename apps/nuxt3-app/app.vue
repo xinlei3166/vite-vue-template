@@ -9,7 +9,6 @@ import { checkExternalWhiteRoute, whiteList } from '@/router'
 import '@packages/styles/index.less'
 import '@packages/styles/reset.less'
 import '@/styles/index.less'
-import 'animate.css'
 import { useUserStore } from '@/store/user'
 import 'dayjs/locale/zh-cn'
 dayjs.locale('zh-cn')
