@@ -1,6 +1,6 @@
 import { fileURLToPath } from 'node:url'
 import path from 'path'
-import { loadEnv } from 'vite'
+import { loadEnv } from 'vite-plus'
 
 // 环境变量配置
 const isBuildCommand = (command: any) => ['build', 'generate'].includes(command)
@@ -22,6 +22,8 @@ Object.assign(process.env, env, {
 console.log('mode', mode)
 console.log('env', env)
 
+const apiUrl = env.VITE_API_URL ?? '/api'
+
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   compatibilityDate: '2024-04-03',
@@ -42,14 +44,17 @@ export default defineNuxtConfig({
     'pinia-plugin-persistedstate/nuxt'
   ],
   nitro: {
-    // @ts-ignore
     devProxy: {
-      [env.VITE_API_URL as any]: {
-        target: env.VITE_PROXY_TARGET,
-        changeOrigin: true,
-        secure: false,
-        rewrite: (path: any) => path.replace(new RegExp(`^${env.VITE_API_URL}`), '')
-      }
+      // apiUrl: {
+      //   target: env.VITE_PROXY_TARGET,
+      //   changeOrigin: true,
+      //   secure: false,
+      // },
+      // routeRules: {
+      //   [`${apiUrl}/**`]: {
+      //     proxy: `${env.VITE_PROXY_TARGET}/api/**`,
+      //   },
+      // },
     }
   },
   vite: {

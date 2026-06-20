@@ -3,8 +3,16 @@ packages:
   - 'apps/**'
 peerDependencyRules:
   ignoreMissing: []
+  allowAny:
+    - vite
+    - vitest
+  allowedVersions:
+    vite: '*'
+    vitest: '*'
 overrides:
   '@material/material-color-utilities': 0.4.0
+  vite: 'catalog:'
+  vitest: 'catalog:'
 allowBuilds:
   '@parcel/watcher': true
   core-js-pure: true
@@ -13,3 +21,7 @@ allowBuilds:
   esbuild: true
   simple-git-hooks: true
   ssh2: true
+catalog:
+  vite: npm:@voidzero-dev/vite-plus-core@latest
+  vitest: 4.1.9
+  vite-plus: latest

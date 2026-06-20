@@ -5,8 +5,8 @@ import path from 'path'
 import UnoCSS from 'unocss/vite'
 import AutoImport from 'unplugin-auto-import/vite'
 import Components from 'unplugin-vue-components/vite'
-import { loadEnv, defineConfig } from 'vite'
 import vueDevTools from 'vite-plugin-vue-devtools'
+import { loadEnv, defineConfig, lazyPlugins } from 'vite-plus'
 
 // @ts-ignore
 export default ({ mode, command }) => {
@@ -47,7 +47,7 @@ export default ({ mode, command }) => {
         }
       }
     },
-    plugins: [
+    plugins: lazyPlugins(() => [
       vue(),
       jsx(),
       vueDevTools(),
@@ -83,7 +83,7 @@ export default ({ mode, command }) => {
       //     }
       //   }
       // }
-    ],
+    ]),
     base: env.VITE_APP_BASE || '/',
     resolve: {
       alias: {
