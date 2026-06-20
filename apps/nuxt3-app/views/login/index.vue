@@ -173,6 +173,7 @@ const onSubmit = async () => {
   }
 
   .login-title-img {
+    display: inline-block;
     height: 44px;
     margin-right: 16px;
     border-style: none;
