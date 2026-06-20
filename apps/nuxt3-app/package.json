@@ -20,7 +20,6 @@
     "generate": "nuxi generate",
     "preview": "nuxi preview",
     "deploy": "zsh scripts/gh-pages.sh",
-    "upload": "node upload",
     "test": "pnpm run build:qa && pnpm run upload"
   },
   "dependencies": {
