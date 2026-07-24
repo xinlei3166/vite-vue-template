@@ -339,4 +339,13 @@ defineExpose({
 })
 </script>
 
-<style lang="less" scoped></style>
+<style lang="less" scoped>
+/* TDesign Card 会用 Loading 包住 body，多一层 t-loading__parent，打断 height:100% 传递 */
+.search-table-wrap {
+  :deep(.search-table-card) {
+    > .t-loading__parent {
+      height: 100%;
+    }
+  }
+}
+</style>
